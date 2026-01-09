@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cy8fq64w8bq40"]
+
+[ext_resource type="Shader" uid="uid://c5h5ae42r8qtn" path="res://resources/shaders/swipe.gdshader" id="1_jf4ie"]
+
+[resource]
+shader = ExtResource("1_jf4ie")
+shader_parameter/progress = 0.0
+shader_parameter/direction = 0
+shader_parameter/color = Color(0, 0, 0, 1)
