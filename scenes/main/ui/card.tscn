@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://c83iru1766q8g"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://assets/icons/icon.svg" id="1_o2ctc"]
+[ext_resource type="Script" uid="uid://b4nacagdcns7e" path="res://scripts/main/ui/card.gd" id="1_y47s3"]
+[ext_resource type="Material" uid="uid://cotdq4cdmntw8" path="res://resources/materials/2d_perspective.tres" id="2_y47s3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y47s3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jw2q5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s20lg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hjpr2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_36shs"]
+
+[node name="Card" type="Button"]
+custom_minimum_size = Vector2(96, 128)
+offset_right = 96.0
+offset_bottom = 128.0
+pivot_offset = Vector2(48, 64)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y47s3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jw2q5")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_s20lg")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hjpr2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_36shs")
+script = ExtResource("1_y47s3")
+angle_x_max = 5.0
+angle_y_max = 5.0
+
+[node name="ShadowTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.14044744, 0.14044744, 0.14044744, 1)
+self_modulate = Color(1, 1, 1, 0.49019608)
+show_behind_parent = true
+texture_filter = 6
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_o2ctc")
+expand_mode = 1
+
+[node name="CardTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+texture_filter = 5
+material = ExtResource("2_y47s3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_o2ctc")
+expand_mode = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
