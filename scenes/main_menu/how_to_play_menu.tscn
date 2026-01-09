@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://2i316e7renfb"]
+
+[ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="1_wp8x0"]
+[ext_resource type="Script" uid="uid://ckcwnyrwfi13e" path="res://scripts/main_menu/how_to_play_menu.gd" id="1_xjxch"]
+
+[node name="HowToPlayMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_xjxch")
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -112.0
+offset_right = 80.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_wp8x0")
+text = "BACK"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

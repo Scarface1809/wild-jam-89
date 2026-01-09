@@ -1,0 +1,210 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp7pspq4knti5"]
+
+[ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="1_7qeq7"]
+[ext_resource type="Script" uid="uid://45kqjepfkw24" path="res://scripts/main_menu/options_menu.gd" id="1_js8hf"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_js8hf")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.0
+offset_top = -258.0
+offset_right = 195.0
+offset_bottom = 258.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7qeq7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -126.0
+offset_right = 95.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="SettingsLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../FullScreenButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../SoundLabel")
+focus_next = NodePath("../SoundLabel")
+focus_previous = NodePath("../FullScreenButton")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gap1" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 31.705)
+layout_mode = 2
+
+[node name="FullScreenButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+text = "FULLSCREEN"
+
+[node name="Gap2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../FullScreenButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../SoundLabel")
+focus_next = NodePath("../SoundLabel")
+focus_previous = NodePath("../FullScreenButton")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+text = "MUSIC"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MusicContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="MinusMusicButton" type="Button" parent="VBoxContainer/MusicContainer"]
+z_index = 1
+custom_minimum_size = Vector2(40, 34)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+text = "-"
+
+[node name="MusicVolumeBar" type="ProgressBar" parent="VBoxContainer/MusicContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 38)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_7qeq7")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="PlusMusicButton" type="Button" parent="VBoxContainer/MusicContainer"]
+custom_minimum_size = Vector2(40, 34)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+theme_type_variation = &"small button"
+text = "+"
+icon_alignment = 1
+
+[node name="Gap3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="SoundLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../MusicLabel")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../BackButton")
+focus_next = NodePath("../BackButton")
+focus_previous = NodePath("../MusicLabel")
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+text = "SFX"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="SoundContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="MinusSoundButton" type="Button" parent="VBoxContainer/SoundContainer"]
+z_index = 1
+custom_minimum_size = Vector2(40, 34)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+theme_type_variation = &"small button"
+text = "-"
+
+[node name="SoundVolumeBar" type="ProgressBar" parent="VBoxContainer/SoundContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 38)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_7qeq7")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="PlusSoundButton" type="Button" parent="VBoxContainer/SoundContainer"]
+custom_minimum_size = Vector2(40, 34)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+theme_type_variation = &"small button"
+text = "+"
+icon_alignment = 1
+
+[node name="Gap4" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_7qeq7")
+text = "BACK"
+
+[connection signal="pressed" from="VBoxContainer/FullScreenButton" to="." method="_on_full_screen_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MusicContainer/MinusMusicButton" to="." method="_on_minus_music_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MusicContainer/PlusMusicButton" to="." method="_on_plus_music_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SoundContainer/MinusSoundButton" to="." method="_on_minus_sound_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SoundContainer/PlusSoundButton" to="." method="_on_plus_sound_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
