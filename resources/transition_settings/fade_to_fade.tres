@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TransitionSettings" load_steps=3 format=3 uid="uid://cvdl4oi86saki"]
+
+[ext_resource type="Script" uid="uid://cofx5dibewx6m" path="res://scripts/game_controller/transition_controller/transition_settings.gd" id="1_2gyxw"]
+[ext_resource type="Material" uid="uid://chektuisvn0ou" path="res://resources/materials/fade.tres" id="1_ws2ro"]
+
+[resource]
+script = ExtResource("1_2gyxw")
+type = 1
+shader_material_out = ExtResource("1_ws2ro")
+shader_material_in = ExtResource("1_ws2ro")
+metadata/_custom_type_script = "uid://cofx5dibewx6m"
