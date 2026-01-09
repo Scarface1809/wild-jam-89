@@ -10,9 +10,24 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="Wild Jam #89"
+run/main_scene="uid://cyangrc80ocx0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://assets/icons/icon.svg"
+
+[autoload]
+
+AudioManager="*res://scenes/audio_manager/audio_manager.tscn"
+Global="*res://scripts/autoloads/global.gd"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "green",
+"res://resources/": "orange",
+"res://scenes/": "pink",
+"res://scripts/": "purple"
+}
 
 [rendering]
 
