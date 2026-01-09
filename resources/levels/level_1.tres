@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=5 format=3 uid="uid://vj884bohqm8j"]
+
+[ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/group_data.gd" id="1_sfdh2"]
+[ext_resource type="Resource" uid="uid://dpqkitltgehrd" path="res://resources/levels/groups/player.tres" id="2_117ja"]
+[ext_resource type="Script" uid="uid://rh015li6y8t" path="res://scripts/main/game/level_data.gd" id="2_yc005"]
+[ext_resource type="Resource" uid="uid://cjnm8oifw4cbf" path="res://resources/levels/groups/enemy_1.tres" id="3_8dpr2"]
+
+[resource]
+script = ExtResource("2_yc005")
+groups = Array[ExtResource("1_sfdh2")]([ExtResource("2_117ja"), ExtResource("3_8dpr2")])
+metadata/_custom_type_script = "uid://rh015li6y8t"
