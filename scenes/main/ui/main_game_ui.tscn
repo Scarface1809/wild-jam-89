@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://c76kj4of14ajq"]
+
+[ext_resource type="Script" uid="uid://8fw6u7jyx1ci" path="res://scripts/main/ui/hand.gd" id="1_a3gx8"]
+[ext_resource type="PackedScene" uid="uid://c83iru1766q8g" path="res://scenes/main/ui/card.tscn" id="1_fhn0j"]
+
+[node name="MainGameUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hand" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(512, 128)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -148.0
+offset_right = 256.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 24
+alignment = 1
+script = ExtResource("1_a3gx8")
+
+[node name="Card" parent="Hand" instance=ExtResource("1_fhn0j")]
+layout_mode = 2
+
+[node name="Card2" parent="Hand" instance=ExtResource("1_fhn0j")]
+layout_mode = 2
+
+[node name="Card3" parent="Hand" instance=ExtResource("1_fhn0j")]
+layout_mode = 2
+
+[node name="Card4" parent="Hand" instance=ExtResource("1_fhn0j")]
+layout_mode = 2
