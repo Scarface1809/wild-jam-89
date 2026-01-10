@@ -34,7 +34,7 @@ func generate_board() -> void:
 	clear()
 	for x in range(BOARD_SIZE):
 		for y in range(BOARD_SIZE):
-			set_cell(Vector2i(x, y), randi_range(1, 4), Vector2i.ZERO)
+			set_cell(Vector2i(x, y), randi_range(1, 3), Vector2i.ZERO)
 
 func get_random_position(exclude_cells: Array[Vector2i] = []) -> Vector2i:
 	var candidates: Array[Vector2i] = []
