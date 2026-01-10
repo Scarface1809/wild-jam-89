@@ -50,6 +50,7 @@ level_data = Array[ExtResource("2_jogxb")]([ExtResource("3_poku7"), ExtResource(
 
 [node name="Board" type="TileMapLayer" parent="."]
 unique_name_in_owner = true
+position = Vector2(585, 0)
 tile_set = SubResource("TileSet_5cicb")
 script = ExtResource("5_wob2k")
 

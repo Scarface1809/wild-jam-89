@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://c83iru1766q8g"]
 
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://assets/icons/icon.svg" id="1_o2ctc"]
 [ext_resource type="Script" uid="uid://b4nacagdcns7e" path="res://scripts/main/ui/card.gd" id="1_y47s3"]
+[ext_resource type="Texture2D" uid="uid://bodful5pisos0" path="res://assets/cards/card_base.png" id="2_jw2q5"]
 [ext_resource type="Material" uid="uid://cotdq4cdmntw8" path="res://resources/materials/2d_perspective.tres" id="2_y47s3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y47s3"]
@@ -16,9 +16,8 @@
 
 [node name="Card" type="Button"]
 custom_minimum_size = Vector2(96, 128)
-offset_right = 96.0
-offset_bottom = 128.0
-pivot_offset = Vector2(48, 64)
+offset_right = 170.0
+offset_bottom = 240.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxEmpty_y47s3")
@@ -40,12 +39,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 10.0
-offset_bottom = 10.0
+offset_top = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_o2ctc")
-expand_mode = 1
+texture = ExtResource("2_jw2q5")
 
 [node name="CardTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -57,8 +55,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_o2ctc")
-expand_mode = 1
+pivot_offset = Vector2(85, 120)
+texture = ExtResource("2_jw2q5")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -25,7 +25,7 @@ offset_right = 256.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 24
+theme_override_constants/separation = 96
 alignment = 1
 script = ExtResource("1_a3gx8")
 

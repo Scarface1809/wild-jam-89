@@ -49,9 +49,10 @@ func get_random_position(exclude_cells: Array[Vector2i] = []) -> Vector2i:
 		push_error("No valid positions left!")
 		return Vector2i.ZERO
 
-	var cell_pos = candidates[randi() % candidates.size()]
+	var cell_pos: Vector2i = candidates[randi() % candidates.size()]
 	# Convert cell coordinates to world position
-	return map_to_local(cell_pos)
+	var pos: Vector2i = to_global(map_to_local(cell_pos))
+	return pos
 
 # Private Methods
 func _is_inside_board(cell: Vector2i) -> bool:
