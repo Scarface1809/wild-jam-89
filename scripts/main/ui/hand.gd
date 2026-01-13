@@ -14,11 +14,11 @@ func set_hand(hand_data: Array[CardData]) -> void:
 
 	for i in range(hand_data.size()):
 		var card: Card = CARD_SCENE.instantiate()
-		card.set_card_data(hand_data[i])
 		card.clicked.connect(func():
 			_on_card_clicked(i)
 		)
 		add_child(card)
+		card.set_card_data(hand_data[i])
 		_cards.append(card)
 
 func set_enabled(enabled: bool) -> void:

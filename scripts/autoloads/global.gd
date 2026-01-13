@@ -17,11 +17,20 @@ const MATERIAL_UIDS = {
 	"FLASH": "uid://c4id7ag22mv0v",
 }
 
+const TEXTURE_UUIDS = {
+	"SUIT_BLUE": "uid://co2yelsyd2oej",
+	"SUIT_YELLOW": "uid://cuj47no0incps",
+	"SUIT_RED": "uid://c7q452thkmxmd",
+	"SUIT_GREEN": "uid://4q335xxs2p",
+	"ACTION_MOVE": "uid://s4qd1e4ir060",
+	"ACTION_ATTACK": "uid://bn4kfjc01k5vy"
+}
+
 # Game Related
 enum SUIT {
 	BLUE,
 	YELLOW,
-	ORANGE,
+	RED,
 	GREEN
 }
 

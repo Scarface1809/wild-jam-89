@@ -7,6 +7,16 @@ signal clicked
 # Constants
 const OUTLINE_MATERIAL: ShaderMaterial = preload(Global.MATERIAL_UIDS.OUTLINE)
 const PERSPECTIVE_MATERIAL: ShaderMaterial = preload(Global.MATERIAL_UIDS.PERSPECTIVE)
+const SUIT_TEXTURES: Dictionary = {
+	Global.SUIT.BLUE: preload(Global.TEXTURE_UUIDS.SUIT_BLUE),
+	Global.SUIT.YELLOW: preload(Global.TEXTURE_UUIDS.SUIT_YELLOW),
+	Global.SUIT.RED: preload(Global.TEXTURE_UUIDS.SUIT_RED),
+	Global.SUIT.GREEN: preload(Global.TEXTURE_UUIDS.SUIT_GREEN)
+}
+const ACTION_TEXTURES: Dictionary = {
+	Global.ACTION_TYPE.MOVE: preload(Global.TEXTURE_UUIDS.ACTION_MOVE),
+	Global.ACTION_TYPE.ATTACK: preload(Global.TEXTURE_UUIDS.ACTION_ATTACK)
+}
 
 # Export Variables
 @export_range(0.0, 30.0) var angle_x_max: float = 15.0
@@ -22,11 +32,15 @@ var _tween_selected: Tween
 # OnReady Variables
 @onready var card_texture: TextureRect = %CardTexture
 @onready var shadow_texture: TextureRect = %ShadowTexture
+@onready var suit_texture: TextureRect = %SuitTexture
+@onready var type_texture: TextureRect = %TypeTexture
 
 # Public Methods
 func set_card_data(data: CardData) -> void:
 	_card_data = data
 	# TODO: Update visuals here (icon, text, cost, etc.)
+	suit_texture.texture = SUIT_TEXTURES[data.suit]
+	type_texture.texture = ACTION_TEXTURES[data.action_type]
 
 func get_card_data() -> CardData:
 	return _card_data

@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c83iru1766q8g"]
+[gd_scene load_steps=11 format=3 uid="uid://c83iru1766q8g"]
 
 [ext_resource type="Script" uid="uid://b4nacagdcns7e" path="res://scripts/main/ui/card.gd" id="1_y47s3"]
 [ext_resource type="Texture2D" uid="uid://bodful5pisos0" path="res://assets/cards/card_base.png" id="2_jw2q5"]
 [ext_resource type="Material" uid="uid://cotdq4cdmntw8" path="res://resources/materials/2d_perspective.tres" id="2_y47s3"]
+[ext_resource type="Texture2D" uid="uid://s4qd1e4ir060" path="res://assets/cards/abilities/move.png" id="4_jw2q5"]
+[ext_resource type="Texture2D" uid="uid://co2yelsyd2oej" path="res://assets/cards/types/blue.png" id="4_s20lg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y47s3"]
 
@@ -57,6 +59,28 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(85, 120)
 texture = ExtResource("2_jw2q5")
+
+[node name="SuitTexture" type="TextureRect" parent="CardTexture"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 0
+offset_left = 58.0
+offset_top = 25.0
+offset_right = 112.0
+offset_bottom = 79.0
+texture = ExtResource("4_s20lg")
+
+[node name="TypeTexture" type="TextureRect" parent="CardTexture"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 160)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 70.0
+offset_right = 155.0
+offset_bottom = 230.0
+texture = ExtResource("4_jw2q5")
+expand_mode = 1
+stretch_mode = 3
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
