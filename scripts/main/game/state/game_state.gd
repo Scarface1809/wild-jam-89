@@ -13,6 +13,9 @@ var active_unit_index: int
 # Cards
 var deck: Array[CardData] = []
 var hand: Array[CardData] = []
+# IDs for generation of groups and units
+var _next_group_id: int = 0
+var _next_unit_id: int = 0
 
 # GameState Queries
 
@@ -155,4 +158,22 @@ func draw_cards(count: int) -> void:
 
 func remove_card(card: CardData) -> void:
 	hand.erase(card)
+#endregion
+
+#region generation
+func get_next_group_id() -> int:
+	var id = _next_group_id
+	_next_group_id += 1
+	return id
+
+func get_next_unit_id() -> int:
+	var id = _next_unit_id
+	_next_unit_id += 1
+	return id
+
+func reset_unit_id_counter() -> void:
+	_next_unit_id = 0
+
+func reset_group_id_counter() -> void:
+	_next_group_id = 0
 #endregion

@@ -1,15 +1,22 @@
 class_name Unit
 extends Node2D
 
+# Onready Variables
+@onready var piece_sprite: Sprite2D = %Sprite2D
+
+# Public variables
+var board: Board
+
 # Private Variables
 var _id: int
 
-func initialize_from_state(unit_state: UnitState, world_pos: Vector2) -> void:
+func sync_with_state(unit_state: UnitState) -> void:
+	# TODO: Make if so it dont alwyas override
+	var world_pos: Vector2 = board.cell_to_world(unit_state.cell_pos)
 	_id = unit_state.id
 	name = unit_state.name
 	position = world_pos
-	print("Unit ", name, " has been created with id ", _id)
+	piece_sprite.texture = unit_state.piece_texture
 
-func sync_with_state(unit_state: UnitState, world_pos: Vector2) -> void:
-	position = world_pos
-	pass
+func get_id() -> int:
+	return _id

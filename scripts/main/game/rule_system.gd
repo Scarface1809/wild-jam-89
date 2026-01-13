@@ -9,8 +9,8 @@ func apply(game_state: GameState, action: Action) -> void:
 	match action.type:
 		Global.ACTION_TYPE.MOVE:
 			_apply_move(game_state, action)
-		Global.ACTION_TYPE.ATTACK:
-			_apply_attack(game_state, action)
+		Global.ACTION_TYPE.KNIFE:
+			_apply_knife(game_state, action)
 		_:
 			push_error("Unknown action type: " + str(action.type))
 
@@ -18,8 +18,8 @@ func can_apply(game_state: GameState, action: Action) -> bool:
 	match action.type:
 		Global.ACTION_TYPE.MOVE:
 			return _can_apply_move(game_state, action)
-		Global.ACTION_TYPE.ATTACK:
-			return _can_apply_attack(game_state, action)
+		Global.ACTION_TYPE.KNIFE:
+			return _can_apply_knife(game_state, action)
 		_:
 			return false
 
@@ -34,7 +34,7 @@ func _apply_move(game_state: GameState, action: Action) -> void:
 	if action.source_card != null:
 		game_state.remove_card(action.source_card)
 
-func _apply_attack(game_state: GameState, action: Action) -> void:
+func _apply_knife(game_state: GameState, action: Action) -> void:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
 	# Attack
@@ -75,7 +75,7 @@ func _can_apply_move(game_state: GameState, action: Action) -> bool:
 
 	return true
 	
-func _can_apply_attack(game_state: GameState, action: Action) -> bool:
+func _can_apply_knife(game_state: GameState, action: Action) -> bool:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
 

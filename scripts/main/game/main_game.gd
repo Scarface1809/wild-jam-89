@@ -31,8 +31,9 @@ func _start_level(level: LevelData) -> void:
 	var state: GameState = _initialize_game_state(level)
 
 	# Setup Visual Layers
+	# TODO: change to emit state changed
 	_board.initialize_from_state(state)
-	_units_container.initialize_from_state(state)
+	_units_container.sync_with_state(state)
 
 	# Pass game state to components. TODO: AI controller & RuleSystem/ActionController
 	_battle_controller.game_state = state
@@ -53,16 +54,8 @@ func _initialize_game_state(level: LevelData) -> GameState:
 			state.tiles[Vector2i(x, y)] = suit as Global.SUIT
 
 	# Create GroupStates
-	var next_unit_id = 0
-	for group_index: int in range(level.groups.size()):
-		var group_data: GroupData = level.groups[group_index]
-		var units: Array[UnitState] = []
-		for unit_data: UnitData in group_data.units:
-			var unit_state = UnitState.new(next_unit_id, group_index, state.get_random_free_tile(), unit_data)
-			next_unit_id += 1
-			units.append(unit_state)
-
-		var group_state = GroupState.new(group_index, group_data.type, units)
+	for group_data in level.groups:
+		var group_state = GroupState.new(state, group_data)
 		state.groups.append(group_state)
 
 	state.active_group_index = 0
@@ -72,7 +65,6 @@ func _initialize_game_state(level: LevelData) -> GameState:
 	state.deck = deck.duplicate()
 	state.deck.shuffle()
 
-	# TODO: Setup Hand
 	state.hand = []
 
 	return state

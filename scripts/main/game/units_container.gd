@@ -2,41 +2,49 @@ class_name UnitsContainer
 extends Node2D
 ## Owns all UnitGroups in the game
 
-# Export variables
 @export var board: Board
 
 # Private
-var _unit_groups: Dictionary[int, UnitGroup] = {}
+var _unit_groups: Array[UnitGroup] = []
 
 func _ready() -> void:
 	assert(board != null, "Board reference is required")
 	Global.game_state_changed.connect(sync_with_state)
 
-## Renders the units based on the game state
-func initialize_from_state(state: GameState) -> void:
-	_clear()
-	for group_state: GroupState in state.groups:
-		_create_group(group_state)
-
 ## Sync units with game state
 func sync_with_state(state: GameState) -> void:
-	for group_state: GroupState in state.groups:
-		var group_id := group_state.id
-
-		if not _unit_groups.has(group_id):
-			_create_group(group_state)
+	# Sync existing groups
+	for unit_group in _unit_groups.duplicate():
+		var group_state = state.get_group(unit_group.get_id())
+		if group_state:
+			unit_group.sync_with_state(group_state)
 		else:
-			_unit_groups[group_id].sync_with_state(group_state.units)
+			_remove_group(unit_group)
+
+	# Create new groups that don't exist yet
+	for group_state in state.groups:
+		if _get_group_by_id(group_state.id) == null:
+			_create_group(group_state)
 
 func _create_group(group_state: GroupState) -> void:
-	var unit_group := UnitGroup.new(group_state.id)
+	var unit_group: UnitGroup = UnitGroup.new(group_state.id)
 	unit_group.board = board
 	add_child(unit_group)
 
-	unit_group.initialize_from_state(group_state.units)
-	_unit_groups[group_state.id] = unit_group
+	unit_group.sync_with_state(group_state)
+	_unit_groups.append(unit_group)
+
+func _remove_group(group: UnitGroup) -> void:
+	group.queue_free()
+	_unit_groups.remove_at(_unit_groups.find(group))
+
+func _get_group_by_id(id: int) -> UnitGroup:
+	for group: UnitGroup in _unit_groups:
+		if group.get_id() == id:
+			return group
+	return null
 
 func _clear() -> void:
-	for group: UnitGroup in _unit_groups.values():
+	for group in _unit_groups:
 		group.queue_free()
 	_unit_groups.clear()
