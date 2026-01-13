@@ -7,6 +7,7 @@ const SCENE_UIDS = {
 	"MAIN_GAME": "uid://c3flgpg55d6cv",
 	"MAIN_UI": "uid://c76kj4of14ajq",
 	"UNIT": "uid://bl3bkx617qrac",
+	"CARD": "uid://c83iru1766q8g"
 }
 
 # Materials
@@ -24,8 +25,27 @@ enum SUIT {
 	GREEN
 }
 
+enum GROUP_TYPE {
+	PLAYER,
+	ENEMY
+}
+
+enum ACTION_TYPE {
+	MOVE,
+	ATTACK
+}
+
 # Game Signals
-signal board_click(pos: Vector2i, suit: SUIT)
+@warning_ignore("unused_signal")
+signal tile_clicked(cell_pos: Vector2, suit: SUIT)
+@warning_ignore("unused_signal")
+signal card_clicked(card_index: int)
+@warning_ignore("unused_signal")
+signal player_turn_started()
+@warning_ignore("unused_signal")
+signal player_turn_ended()
+@warning_ignore("unused_signal")
+signal game_state_changed(game_state: GameState)
 
 # Game Controller
 var game_controller: GameController

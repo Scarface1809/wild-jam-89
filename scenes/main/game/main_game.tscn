@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=4 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=25 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
-[ext_resource type="Script" uid="uid://rh015li6y8t" path="res://scripts/main/game/level_data.gd" id="2_jogxb"]
+[ext_resource type="Script" uid="uid://rh015li6y8t" path="res://scripts/main/game/data/level_data.gd" id="2_jogxb"]
 [ext_resource type="Texture2D" uid="uid://igddfjta5g8u" path="res://assets/tile02.png" id="2_wob2k"]
 [ext_resource type="Resource" uid="uid://vj884bohqm8j" path="res://resources/levels/level_1.tres" id="3_poku7"]
 [ext_resource type="Texture2D" uid="uid://buxoii3icr3vq" path="res://assets/tile03.png" id="3_rddef"]
@@ -10,7 +10,16 @@
 [ext_resource type="Resource" uid="uid://csbnjkgquafmc" path="res://resources/levels/level_3.tres" id="5_af7in"]
 [ext_resource type="Script" uid="uid://wvohcaaka8ar" path="res://scripts/main/game/board.gd" id="5_wob2k"]
 [ext_resource type="Texture2D" uid="uid://cu82rs71pmxfr" path="res://assets/background/background.png" id="6_jogxb"]
+[ext_resource type="Script" uid="uid://c355dfldbic5v" path="res://scripts/main/game/battle_controller.gd" id="6_poku7"]
+[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/card_data.gd" id="6_rt8u8"]
+[ext_resource type="Script" uid="uid://3h6k8wtul62g" path="res://scripts/main/game/player_controller.gd" id="7_af7in"]
+[ext_resource type="Script" uid="uid://bntr6jnlx0wcs" path="res://scripts/main/game/rule_system.gd" id="7_anyif"]
 [ext_resource type="Script" uid="uid://6gej45dq4acj" path="res://scripts/main/game/units_container.gd" id="7_fv4q8"]
+[ext_resource type="Resource" uid="uid://qhvxt01oyf1f" path="res://resources/cards/move_0.tres" id="7_po08d"]
+[ext_resource type="Resource" uid="uid://b5oe3aqx4mift" path="res://resources/cards/move_1.tres" id="8_60pvo"]
+[ext_resource type="Script" uid="uid://b8ndouy5de4n5" path="res://scripts/main/game/ai_controller.gd" id="8_anyif"]
+[ext_resource type="Resource" uid="uid://cgm2gm05hko1u" path="res://resources/cards/move_2.tres" id="9_ypxby"]
+[ext_resource type="Resource" uid="uid://ddhxv2ypw2etp" path="res://resources/cards/move_3.tres" id="10_ymidc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rddef"]
 texture = ExtResource("1_b61y3")
@@ -21,25 +30,38 @@ texture_region_size = Vector2i(140, 140)
 texture = ExtResource("2_wob2k")
 texture_region_size = Vector2i(140, 140)
 0:0/0 = 0
-0:0/0/custom_data_0 = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejuuv"]
 texture = ExtResource("3_rddef")
 texture_region_size = Vector2i(140, 140)
 0:0/0 = 0
-0:0/0/custom_data_0 = 2
 
 [sub_resource type="TileSet" id="TileSet_5cicb"]
 tile_size = Vector2i(140, 140)
-custom_data_layer_0/name = "Suit"
-custom_data_layer_0/type = 2
 sources/1 = SubResource("TileSetAtlasSource_rddef")
 sources/2 = SubResource("TileSetAtlasSource_ef78a")
 sources/3 = SubResource("TileSetAtlasSource_ejuuv")
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_lxwqh")
-level_data = Array[ExtResource("2_jogxb")]([ExtResource("3_poku7"), ExtResource("4_ju0b2"), ExtResource("5_af7in")])
+levels_data = Array[ExtResource("2_jogxb")]([ExtResource("3_poku7"), ExtResource("4_ju0b2"), ExtResource("5_af7in")])
+deck = Array[ExtResource("6_rt8u8")]([ExtResource("7_po08d"), ExtResource("8_60pvo"), ExtResource("9_ypxby"), ExtResource("10_ymidc"), ExtResource("7_po08d"), ExtResource("8_60pvo"), ExtResource("9_ypxby"), ExtResource("10_ymidc")])
+
+[node name="BattleController" type="Node" parent="." node_paths=PackedStringArray("rule_system", "player_controller", "ai_controller")]
+unique_name_in_owner = true
+script = ExtResource("6_poku7")
+rule_system = NodePath("../RuleSystem")
+player_controller = NodePath("../PlayerController")
+ai_controller = NodePath("../AIController")
+
+[node name="RuleSystem" type="Node" parent="."]
+script = ExtResource("7_anyif")
+
+[node name="PlayerController" type="Node" parent="."]
+script = ExtResource("7_af7in")
+
+[node name="AIController" type="Node" parent="."]
+script = ExtResource("8_anyif")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
@@ -48,10 +70,10 @@ texture = ExtResource("6_jogxb")
 [node name="Board" type="TileMapLayer" parent="."]
 unique_name_in_owner = true
 position = Vector2(608, 74)
-tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAADAAEAAQAAAAAAAAACAAEAAQAAAAAAAAABAAEAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAIAAQAAAAAAAAACAAIAAQAAAAAAAAADAAIAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAADAAMAAQAAAAAAAAACAAMAAQAAAAAAAAABAAMAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAQAAQAAAAAAAAACAAQAAQAAAAAAAAADAAQAAQAAAAAAAAAEAAQAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_5cicb")
 script = ExtResource("5_wob2k")
 
-[node name="UnitsContainer" type="Node2D" parent="."]
+[node name="UnitsContainer" type="Node2D" parent="." node_paths=PackedStringArray("board")]
 unique_name_in_owner = true
 script = ExtResource("7_fv4q8")
+board = NodePath("../Board")

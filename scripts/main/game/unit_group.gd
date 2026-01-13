@@ -1,55 +1,44 @@
 class_name UnitGroup
 extends Node2D
-# Docstring
-
-# Signals
-signal request_spawn_position(unit: Unit, callback: Callable)
-signal turn_complete
 
 # Constants
 const UNIT_SCENE: PackedScene = preload(Global.SCENE_UIDS.UNIT)
 
-# Private Variables
-var _group_data: GroupData
-var _current_unit_index: int = 0
+# Public
+var board: Board
 
-# OnReady Variables
+# Private
+var _id: int
+var _units: Dictionary[int, Unit] = {}
 
-# Public Methods
-func take_turn() -> void:
-	for unit in _get_active_units():
-		unit.take_turn()
-	turn_complete.emit()
+# --- Setup ---
+func _init(id: int) -> void:
+	_id = id
 
-# Private Methods
-func _init(group_data: GroupData) -> void:
-	_group_data = group_data
-	name = group_data.name
+func initialize_from_state(units: Array[UnitState]) -> void:
+	# Parent already clears so this is pointless but safety
+	_clear()
+	for unit_state: UnitState in units:
+		_create_unit(unit_state)
 
-func _ready() -> void:
-	_spawn_units()
+func sync_with_state(units: Array[UnitState]) -> void:
+	for unit_state: UnitState in units:
+		if not _units.has(unit_state.id):
+			_create_unit(unit_state)
+		else:
+			# TODO: Dont like this fecthing board position here
+			var world_pos: Vector2 = board.cell_to_world(unit_state.cell_pos)
+			_units[unit_state.id].sync_with_state(unit_state, world_pos)
 
-func _spawn_units() -> void:
-	for unit_data in _group_data.units:
-		var unit: Unit = UNIT_SCENE.instantiate()
-		unit.init(unit_data)
-		unit.defeated.connect(_on_unit_defeated)
-		add_child(unit)
-		request_spawn_position.emit(unit, _spawn_unit)
+func _create_unit(unit_state: UnitState) -> void:
+	var unit: Unit = UNIT_SCENE.instantiate()
+	add_child(unit)
+	# TODO: Dont like this fecthing board position here
+	var world_pos: Vector2 = board.cell_to_world(unit_state.cell_pos)
+	unit.initialize_from_state(unit_state, world_pos)
+	_units[unit_state.id] = unit
 
-func _spawn_unit(unit: Unit, pos: Vector2i) -> void:
-	unit.position = pos
-
-func _get_active_units() -> Array[Unit]:
-	var units: Array[Unit] = []
-	for child in get_children():
-		if child is Unit:
-			units.append(child)
-
-	return units
-
-func _is_player() -> bool:
-	return _group_data.type == GroupData.Type.PLAYER
-
-func _on_unit_defeated(unit: Unit) -> void:
-	print("Unit ", unit.name, " has been defeated")
+func _clear() -> void:
+	for unit: Unit in _units.values():
+		unit.queue_free()
+	_units.clear()
