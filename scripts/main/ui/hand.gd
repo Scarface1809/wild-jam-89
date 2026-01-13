@@ -1,65 +1,68 @@
 class_name Hand
 extends HBoxContainer
-# Docstring
-
-# Signals
-
-# Enums
+## This class is responsible for managing the player's hand of cards.
 
 # Constants
-
-# Export Variables
-
-# Public Variables
+const CARD_SCENE: PackedScene = preload(Global.SCENE_UIDS.CARD)
 
 # Private Variables
 var _cards: Array[Card] = []
-var _selected_card: Card = null
+var _highlighted_index: int = -1
 
-# OnReady Variables
+func set_hand(hand_data: Array[CardData]) -> void:
+	_clear()
 
+	for i in range(hand_data.size()):
+		var card: Card = CARD_SCENE.instantiate()
+		card.set_card_data(hand_data[i])
+		card.clicked.connect(func():
+			_on_card_clicked(i)
+		)
+		add_child(card)
+		_cards.append(card)
+
+func set_enabled(enabled: bool) -> void:
+	for card in _cards:
+		card.disabled = not enabled
+
+	if not enabled:
+		_clear_highlight()
+
+# Private methods
 func _ready() -> void:
-	Global.board_click.connect(_on_board_click)
-	for child in get_children():
-		if child is Card:
-			_cards.append(child)
-			child.selected.connect(_on_card_selected)
+	Global.game_state_changed.connect(sync_with_state)
+	Global.player_turn_started.connect(_on_player_turn_started)
+	Global.player_turn_ended.connect(_on_player_turn_ended)
 
-func _process(_delta: float) -> void:
-	pass
+func sync_with_state(game_state: GameState) -> void:
+	var hand: Array[CardData] = game_state.hand
+	set_hand(hand)
 
-# Public Methods
-func play_card() -> void:
-	if _selected_card:
-		_selected_card.play()
-		remove_card(_selected_card)
-		_selected_card = null
+func _on_player_turn_started() -> void:
+	set_enabled(true)
 
-func add_card(card: Card) -> void:
-	_cards.append(card)
-	card.selected.connect(_on_card_selected)
+func _on_player_turn_ended() -> void:
+	set_enabled(false)
 
-func remove_card(card: Card) -> void:
-	_cards.erase(card)
-	card.selected.disconnect(_on_card_selected)
-	card.queue_free()
-
-# Private Methods
-func _on_card_selected(card: Card) -> void:
-	if _selected_card == card:
-		card.deselect()
-		_selected_card = null
+func _on_card_clicked(index: int) -> void:
+	if _highlighted_index == index:
+		_clear_highlight()
+		Global.card_clicked.emit(-1)
 		return
 
-	if _selected_card:
-		_selected_card.deselect()
+	_clear_highlight()
+	_highlighted_index = index
+	_cards[index].select()
 
-	_selected_card = card
-	_selected_card.select()
+	Global.card_clicked.emit(index)
 
-func _on_board_click(_pos: Vector2i, suit: Global.SUIT) -> void:
-	if _selected_card == null or _selected_card.suit != suit:
-		return
-	play_card()
-	
-# Sub-classes
+func _clear_highlight() -> void:
+	if _highlighted_index != -1:
+		_cards[_highlighted_index].deselect()
+		_highlighted_index = -1
+
+func _clear() -> void:
+	for c in _cards:
+		c.queue_free()
+	_cards.clear()
+	_highlighted_index = -1
