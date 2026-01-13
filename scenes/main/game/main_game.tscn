@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=34 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -24,6 +24,7 @@
 [ext_resource type="Resource" uid="uid://bq71kb2ioybji" path="res://resources/cards/attack_3.tres" id="10_pou5w"]
 [ext_resource type="Resource" uid="uid://ddhxv2ypw2etp" path="res://resources/cards/move_3.tres" id="10_ymidc"]
 [ext_resource type="Texture2D" uid="uid://0lnaacyey3qn" path="res://assets/background/radio-couch.png" id="18_ymidc"]
+[ext_resource type="Script" uid="uid://disy5ukbxn6e2" path="res://scripts/main/game/seats.gd" id="19_0xo6k"]
 [ext_resource type="Texture2D" uid="uid://dv2lqkexyroi6" path="res://assets/background/radio.png" id="19_k6ejo"]
 [ext_resource type="Texture2D" uid="uid://cv2dov7i0ttoh" path="res://assets/background/floor.png" id="20_60pvo"]
 [ext_resource type="Texture2D" uid="uid://fggsbj8jgmx7" path="res://assets/background/table.png" id="21_ypxby"]
@@ -92,6 +93,39 @@ texture = ExtResource("18_ymidc")
 [node name="Radio" type="Sprite2D" parent="Background"]
 position = Vector2(1699, 868)
 texture = ExtResource("19_k6ejo")
+
+[node name="Seats" type="Node2D" parent="Background"]
+unique_name_in_owner = true
+script = ExtResource("19_0xo6k")
+
+[node name="LeftSeat1" type="Marker2D" parent="Background/Seats"]
+unique_name_in_owner = true
+position = Vector2(440, 140)
+
+[node name="LeftSeat2" type="Marker2D" parent="Background/Seats"]
+unique_name_in_owner = true
+position = Vector2(440, 400)
+
+[node name="LeftSeat3" type="Marker2D" parent="Background/Seats"]
+unique_name_in_owner = true
+position = Vector2(440, 650)
+
+[node name="RightSeat1" type="Marker2D" parent="Background/Seats"]
+unique_name_in_owner = true
+position = Vector2(1480, 140)
+
+[node name="RightSeat2" type="Marker2D" parent="Background/Seats"]
+unique_name_in_owner = true
+position = Vector2(1480, 400)
+
+[node name="RightSeat3" type="Marker2D" parent="Background/Seats"]
+unique_name_in_owner = true
+position = Vector2(1480, 600)
+
+[node name="PlayerSeat" type="Marker2D" parent="Background/Seats"]
+unique_name_in_owner = true
+position = Vector2(1200, 824)
+rotation = -1.5707964
 
 [node name="Board" type="TileMapLayer" parent="."]
 unique_name_in_owner = true

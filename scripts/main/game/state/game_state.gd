@@ -131,6 +131,11 @@ func has_group(group_id: int) -> bool:
 		if group.id == group_id:
 			return true
 	return false
+
+func get_num_groups(group_type: Global.GROUP_TYPE) -> int:
+	return groups.filter(func(group: GroupState) -> bool:
+		return group.type == group_type
+	).size()
 #endregion
 
 #region Units
@@ -146,6 +151,13 @@ func get_unit_by_id(unit_id: int) -> UnitState:
 		if group.has_unit(unit_id):
 			return group.get_unit_by_id(unit_id)
 	return null
+
+func get_num_units(group_type: Global.GROUP_TYPE) -> int:
+	var count: int = 0
+	for group in groups:
+		if group.type == group_type:
+			count += group.get_unit_count()
+	return count
 #endregion
 
 #region Cards

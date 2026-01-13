@@ -17,6 +17,7 @@ func _input(event: InputEvent) -> void:
 
 # Public Methods
 ## Renders the board based on the game state
+# TODO: MAKE SYNC INSTEAD
 func initialize_from_state(state: GameState) -> void:
 	clear()
 	for tile: Vector2i in state.tiles:

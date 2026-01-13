@@ -13,6 +13,7 @@ var _current_level: int = 0
 
 # OnReady Variables
 @onready var _board: Board = %Board
+@onready var _seats: Seats = %Seats
 @onready var _units_container: UnitsContainer = %UnitsContainer
 @onready var _battle_controller: BattleController = %BattleController
 
@@ -23,21 +24,21 @@ func _ready() -> void:
 	# Randomize
 	randomize()
 
-	# Generate level
-	_start_level(levels_data[_current_level])
-
-# Private Methods
-func _start_level(level: LevelData) -> void:
-	var state: GameState = _initialize_game_state(level)
+	var state: GameState = _initialize_game_state(levels_data[_current_level])
 
 	# Setup Visual Layers
 	# TODO: change to emit state changed
+	_seats.initialize_from_state(state)
 	_board.initialize_from_state(state)
 	_units_container.sync_with_state(state)
+	
+	# Generate level
+	_start_game(state)
 
+# Private Methods
+func _start_game(state: GameState) -> void:
 	# Pass game state to components. TODO: AI controller & RuleSystem/ActionController
 	_battle_controller.game_state = state
-
 	# Start Game
 	_battle_controller.start_battle()
 
@@ -67,4 +68,12 @@ func _initialize_game_state(level: LevelData) -> GameState:
 
 	state.hand = []
 
+	_validate_state(state)
+
 	return state
+
+func _validate_state(state: GameState) -> void:
+	assert(state.get_num_groups(Global.GROUP_TYPE.PLAYER) == 1, "Only one player group is allowed")
+	var player_group = state.get_groups().filter(func(g): return g.type == Global.GROUP_TYPE.PLAYER)[0]
+	assert(player_group.get_unit_count() == 1, "Player group must have exactly one unit")
+	assert(state.get_num_units(Global.GROUP_TYPE.ENEMY) <= 7, "Only 7 enemy units are allowed")
