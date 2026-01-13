@@ -21,7 +21,7 @@ const TEXTURE_UUIDS = {
 	"SUIT_BLUE": "uid://co2yelsyd2oej",
 	"SUIT_YELLOW": "uid://cuj47no0incps",
 	"SUIT_RED": "uid://c7q452thkmxmd",
-	"SUIT_GREEN": "uid://4q335xxs2p",
+	"SUIT_GREEN": "uid://dd2chgu8lyw3h",
 	"ACTION_MOVE": "uid://s4qd1e4ir060",
 	"ACTION_ATTACK": "uid://bn4kfjc01k5vy"
 }

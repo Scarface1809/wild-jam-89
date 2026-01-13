@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=29 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -9,7 +9,6 @@
 [ext_resource type="Resource" uid="uid://bvtnm71otouds" path="res://resources/levels/level_2.tres" id="4_ju0b2"]
 [ext_resource type="Resource" uid="uid://csbnjkgquafmc" path="res://resources/levels/level_3.tres" id="5_af7in"]
 [ext_resource type="Script" uid="uid://wvohcaaka8ar" path="res://scripts/main/game/board.gd" id="5_wob2k"]
-[ext_resource type="Texture2D" uid="uid://cu82rs71pmxfr" path="res://assets/background/background.png" id="6_jogxb"]
 [ext_resource type="Script" uid="uid://c355dfldbic5v" path="res://scripts/main/game/battle_controller.gd" id="6_poku7"]
 [ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/card_data.gd" id="6_rt8u8"]
 [ext_resource type="Script" uid="uid://3h6k8wtul62g" path="res://scripts/main/game/player_controller.gd" id="7_af7in"]
@@ -20,24 +19,29 @@
 [ext_resource type="Script" uid="uid://b8ndouy5de4n5" path="res://scripts/main/game/ai_controller.gd" id="8_anyif"]
 [ext_resource type="Resource" uid="uid://cgm2gm05hko1u" path="res://resources/cards/move_2.tres" id="9_ypxby"]
 [ext_resource type="Resource" uid="uid://ddhxv2ypw2etp" path="res://resources/cards/move_3.tres" id="10_ymidc"]
+[ext_resource type="Texture2D" uid="uid://0lnaacyey3qn" path="res://assets/background/radio-couch.png" id="18_ymidc"]
+[ext_resource type="Texture2D" uid="uid://dv2lqkexyroi6" path="res://assets/background/radio.png" id="19_k6ejo"]
+[ext_resource type="Texture2D" uid="uid://cv2dov7i0ttoh" path="res://assets/background/floor.png" id="20_60pvo"]
+[ext_resource type="Texture2D" uid="uid://fggsbj8jgmx7" path="res://assets/background/table.png" id="21_ypxby"]
+[ext_resource type="Texture2D" uid="uid://df5ecw10uebmc" path="res://assets/background/grid.png" id="22_ymidc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rddef"]
 texture = ExtResource("1_b61y3")
-texture_region_size = Vector2i(140, 140)
+texture_region_size = Vector2i(130, 130)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ef78a"]
 texture = ExtResource("2_wob2k")
-texture_region_size = Vector2i(140, 140)
+texture_region_size = Vector2i(130, 130)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejuuv"]
 texture = ExtResource("3_rddef")
-texture_region_size = Vector2i(140, 140)
+texture_region_size = Vector2i(130, 130)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_5cicb"]
-tile_size = Vector2i(140, 140)
+tile_size = Vector2i(130, 130)
 sources/1 = SubResource("TileSetAtlasSource_rddef")
 sources/2 = SubResource("TileSetAtlasSource_ef78a")
 sources/3 = SubResource("TileSetAtlasSource_ejuuv")
@@ -63,13 +67,31 @@ script = ExtResource("7_af7in")
 [node name="AIController" type="Node" parent="."]
 script = ExtResource("8_anyif")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite2D" parent="Background"]
 position = Vector2(960, 540)
-texture = ExtResource("6_jogxb")
+texture = ExtResource("20_60pvo")
+
+[node name="Table" type="Sprite2D" parent="Background"]
+position = Vector2(960, 412)
+texture = ExtResource("21_ypxby")
+
+[node name="Grid" type="Sprite2D" parent="Background"]
+position = Vector2(965, 362)
+texture = ExtResource("22_ymidc")
+
+[node name="RadioCouch" type="Sprite2D" parent="Background"]
+position = Vector2(1699, 868)
+texture = ExtResource("18_ymidc")
+
+[node name="Radio" type="Sprite2D" parent="Background"]
+position = Vector2(1699, 868)
+texture = ExtResource("19_k6ejo")
 
 [node name="Board" type="TileMapLayer" parent="."]
 unique_name_in_owner = true
-position = Vector2(608, 74)
+position = Vector2(641, 38)
 tile_set = SubResource("TileSet_5cicb")
 script = ExtResource("5_wob2k")
 
