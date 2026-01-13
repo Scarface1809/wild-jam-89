@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://ddhxv2ypw2etp"]
+
+[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/card_data.gd" id="1_bwtgq"]
+[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/action.gd" id="1_us428"]
+
+[sub_resource type="Resource" id="Resource_fx1i0"]
+script = ExtResource("1_us428")
+metadata/_custom_type_script = "uid://c4bahbia5oiu3"
+
+[resource]
+script = ExtResource("1_bwtgq")
+suit = 3
+action = SubResource("Resource_fx1i0")
+metadata/_custom_type_script = "uid://c2cdsdeye0y3t"
