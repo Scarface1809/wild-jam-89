@@ -23,7 +23,12 @@ const TEXTURE_UUIDS = {
 	"SUIT_RED": "uid://c7q452thkmxmd",
 	"SUIT_GREEN": "uid://dd2chgu8lyw3h",
 	"ACTION_MOVE": "uid://s4qd1e4ir060",
-	"ACTION_ATTACK": "uid://bn4kfjc01k5vy"
+	"ACTION_KNIFE": "uid://bn4kfjc01k5vy",
+	"ACTION_GUN": "uid://da526bg7o763y",
+	"ACTION_TELEPORT": "uid://cmicwqsjksohk",
+	"ACTION_PUSH": "uid://dtma80hhc1ix4",
+	"ACTION_TRAP": "uid://dm0fgdvp3c5g6",
+	"ACTION_SHIELD": "uid://csy5kh80csek0"
 }
 
 # Game Enums
@@ -41,7 +46,12 @@ enum GROUP_TYPE {
 
 enum ACTION_TYPE {
 	MOVE,
-	ATTACK
+	GUN,
+	KNIFE,
+	TELEPORT,
+	PUSH,
+	TRAP,
+	SHIELD
 }
 
 # Game Signals

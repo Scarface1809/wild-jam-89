@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/group_data.gd" id="1_q7lrr"]
 [ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="2_o1l5r"]
-[ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/enemy.tres" id="4_lj8bb"]
+[ext_resource type="Resource" uid="uid://dipngc8176wck" path="res://resources/levels/units/tuna.tres" id="3_po8y8"]
 
 [resource]
 script = ExtResource("1_q7lrr")
 name = "EnemyGroup1"
 type = 1
-units = Array[ExtResource("2_o1l5r")]([ExtResource("4_lj8bb")])
+units = Array[ExtResource("2_o1l5r")]([ExtResource("3_po8y8")])
 metadata/_custom_type_script = "uid://pm72qu6bk70b"

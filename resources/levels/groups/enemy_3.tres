@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/group_data.gd" id="1_lnuwo"]
 [ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="2_i30bu"]
-[ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/enemy.tres" id="3_ds4gl"]
+[ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/boar.tres" id="3_ds4gl"]
 
 [resource]
 script = ExtResource("1_lnuwo")

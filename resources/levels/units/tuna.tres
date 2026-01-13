@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitData" load_steps=4 format=3 uid="uid://dipngc8176wck"]
+
+[ext_resource type="Texture2D" uid="uid://i5toctpe6e5k" path="res://assets/characters/humans/tuna.png" id="1_r8k0r"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_v7f4f"]
+[ext_resource type="Texture2D" uid="uid://y4hgq41j0tln" path="res://assets/characters/pieces/tuna.png" id="2_k1iq6"]
+
+[resource]
+script = ExtResource("1_v7f4f")
+name = "Tuna"
+piece_texture = ExtResource("2_k1iq6")
+human_texture = ExtResource("1_r8k0r")
+actions = Array[int]([0, 2])
+metadata/_custom_type_script = "uid://dqu8eenc8tm4x"
