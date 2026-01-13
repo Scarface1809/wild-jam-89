@@ -14,7 +14,7 @@ config/name="Wild Jam #89"
 config/tags=PackedStringArray("wildjam89")
 run/main_scene="uid://cyangrc80ocx0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://assets/icons/icon.png"
+config/icon="res://assets/icons/game.png"
 
 [autoload]
 
