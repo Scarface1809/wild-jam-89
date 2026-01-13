@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=33 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -15,9 +15,13 @@
 [ext_resource type="Script" uid="uid://bntr6jnlx0wcs" path="res://scripts/main/game/rule_system.gd" id="7_anyif"]
 [ext_resource type="Script" uid="uid://6gej45dq4acj" path="res://scripts/main/game/units_container.gd" id="7_fv4q8"]
 [ext_resource type="Resource" uid="uid://qhvxt01oyf1f" path="res://resources/cards/move_0.tres" id="7_po08d"]
+[ext_resource type="Resource" uid="uid://ctysgdmmhrp48" path="res://resources/cards/attack_0.tres" id="7_ymidc"]
 [ext_resource type="Resource" uid="uid://b5oe3aqx4mift" path="res://resources/cards/move_1.tres" id="8_60pvo"]
 [ext_resource type="Script" uid="uid://b8ndouy5de4n5" path="res://scripts/main/game/ai_controller.gd" id="8_anyif"]
+[ext_resource type="Resource" uid="uid://dek2gvnkgciq5" path="res://resources/cards/attack_1.tres" id="8_k6ejo"]
+[ext_resource type="Resource" uid="uid://b7tvpwmr3y2p0" path="res://resources/cards/attack_2.tres" id="9_1chpw"]
 [ext_resource type="Resource" uid="uid://cgm2gm05hko1u" path="res://resources/cards/move_2.tres" id="9_ypxby"]
+[ext_resource type="Resource" uid="uid://bq71kb2ioybji" path="res://resources/cards/attack_3.tres" id="10_pou5w"]
 [ext_resource type="Resource" uid="uid://ddhxv2ypw2etp" path="res://resources/cards/move_3.tres" id="10_ymidc"]
 [ext_resource type="Texture2D" uid="uid://0lnaacyey3qn" path="res://assets/background/radio-couch.png" id="18_ymidc"]
 [ext_resource type="Texture2D" uid="uid://dv2lqkexyroi6" path="res://assets/background/radio.png" id="19_k6ejo"]
@@ -49,7 +53,7 @@ sources/3 = SubResource("TileSetAtlasSource_ejuuv")
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_lxwqh")
 levels_data = Array[ExtResource("2_jogxb")]([ExtResource("3_poku7"), ExtResource("4_ju0b2"), ExtResource("5_af7in")])
-deck = Array[ExtResource("6_rt8u8")]([ExtResource("7_po08d"), ExtResource("8_60pvo"), ExtResource("9_ypxby"), ExtResource("10_ymidc"), ExtResource("7_po08d"), ExtResource("8_60pvo"), ExtResource("9_ypxby"), ExtResource("10_ymidc")])
+deck = Array[ExtResource("6_rt8u8")]([ExtResource("7_ymidc"), ExtResource("8_k6ejo"), ExtResource("9_1chpw"), ExtResource("10_pou5w"), ExtResource("7_po08d"), ExtResource("8_60pvo"), ExtResource("9_ypxby"), ExtResource("10_ymidc")])
 
 [node name="BattleController" type="Node" parent="." node_paths=PackedStringArray("rule_system", "player_controller", "ai_controller")]
 unique_name_in_owner = true

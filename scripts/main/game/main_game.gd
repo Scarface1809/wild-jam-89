@@ -70,6 +70,7 @@ func _initialize_game_state(level: LevelData) -> GameState:
 
 	# Setup Deck
 	state.deck = deck.duplicate()
+	state.deck.shuffle()
 
 	# TODO: Setup Hand
 	state.hand = []

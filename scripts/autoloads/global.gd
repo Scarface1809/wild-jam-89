@@ -26,7 +26,7 @@ const TEXTURE_UUIDS = {
 	"ACTION_ATTACK": "uid://bn4kfjc01k5vy"
 }
 
-# Game Related
+# Game Enums
 enum SUIT {
 	BLUE,
 	YELLOW,

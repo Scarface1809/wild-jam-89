@@ -11,7 +11,6 @@ func _init(_id: int, _type: Global.GROUP_TYPE, _units: Array[UnitState]) -> void
 	self.type = _type
 	self.units = _units
 
-# Queries
 func get_units() -> Array[UnitState]:
 	return units
 
@@ -23,6 +22,9 @@ func get_unit_by_id(unit_id: int) -> UnitState:
 
 func get_unit_count() -> int:
 	return units.size()
+
+func remove_unit(unit: UnitState) -> void:
+	units.erase(unit)
 
 func has_unit(unit_id: int) -> bool:
 	for unit: UnitState in units:

@@ -103,6 +103,11 @@ func is_tile_occupied(cell: Vector2i) -> bool:
 func get_groups() -> Array[GroupState]:
 	return groups
 
+func get_groups_with_units() -> Array[GroupState]:
+	return groups.filter(func(group: GroupState) -> bool:
+		return group.get_unit_count() > 0
+	)
+
 func get_group(group_id: int) -> GroupState:
 	for group: GroupState in groups:
 		if group.id == group_id:
@@ -112,6 +117,12 @@ func get_group(group_id: int) -> GroupState:
 func get_group_count() -> int:
 	return groups.size()
 
+func has_units(group_type: Global.GROUP_TYPE) -> bool:
+	for group: GroupState in groups:
+		if group.type == group_type and group.get_unit_count() > 0:
+			return true
+	return false
+
 func has_group(group_id: int) -> bool:
 	for group: GroupState in groups:
 		if group.id == group_id:
@@ -120,6 +131,13 @@ func has_group(group_id: int) -> bool:
 #endregion
 
 #region Units
+func get_unit_by_position(pos: Vector2i) -> UnitState:
+	for group: GroupState in groups:
+		for unit: UnitState in group.units:
+			if unit.cell_pos == pos:
+				return unit
+	return null
+
 func get_unit_by_id(unit_id: int) -> UnitState:
 	for group: GroupState in groups:
 		if group.has_unit(unit_id):

@@ -1,6 +1,12 @@
 class_name BattleController
 extends Node
 ## Owns game logic, rules, and state of selection. Also controls turn order.
+## This also reads the game state and writes but for the turn order.
+## Additonally connects emits signals for when the game state changes.
+
+# Signals
+signal battle_won()
+signal battle_lost()
 
 # Export Variables
 @export var rule_system: RuleSystem
@@ -55,6 +61,9 @@ func _end_turn():
 
 	print("◀ TURN END | Group ", group.id, " | Unit ", unit.id)
 
+	if _check_victory_conditions():
+		return
+
 	if group.type == Global.GROUP_TYPE.PLAYER:
 		Global.player_turn_ended.emit()
 
@@ -82,6 +91,23 @@ func _start_player_turn() -> void:
 func _start_ai_turn() -> void:
 	print("▶ AI TURN | Group ", game_state.get_active_group().id, " | Unit ", game_state.get_active_unit().id)
 	ai_controller.begin_turn(game_state)
+
+func _check_victory_conditions() -> bool:
+	var player_alive := game_state.has_units(Global.GROUP_TYPE.PLAYER)
+	var enemy_alive := game_state.has_units(Global.GROUP_TYPE.ENEMY)
+
+	if not player_alive:
+		print("❌ Player defeated")
+		battle_lost.emit()
+		return true
+
+	if not enemy_alive:
+		print("🏆 Player victorious")
+		battle_won.emit()
+		return true
+
+	return false
+
 
 # Utils
 func _debug_print_action(action: Action) -> void:
