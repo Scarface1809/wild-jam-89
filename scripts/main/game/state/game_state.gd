@@ -16,7 +16,7 @@ var hand: Array[CardData] = []
 
 # GameState Queries
 
-# Turn
+#region Turn
 func get_active_group() -> GroupState:
 	return groups[active_group_index]
 
@@ -45,8 +45,12 @@ func reset_unit() -> void:
 func reset_turn() -> void:
 	reset_group()
 	reset_unit()
+#endregion
 
-# Board
+#region Board
+func get_suit_at(cell: Vector2i) -> Global.SUIT:
+	return tiles.get(cell)
+
 func get_random_free_tile() -> Vector2i:
 	var all_cells: Array[Vector2i] = []
 
@@ -93,8 +97,9 @@ func is_tile_occupied(cell: Vector2i) -> bool:
 			if unit.cell_pos == cell:
 				return true
 	return false
+#endregion
 
-# Groups
+#region Groups
 func get_groups() -> Array[GroupState]:
 	return groups
 
@@ -112,15 +117,17 @@ func has_group(group_id: int) -> bool:
 		if group.id == group_id:
 			return true
 	return false
+#endregion
 
-# Units
+#region Units
 func get_unit_by_id(unit_id: int) -> UnitState:
 	for group: GroupState in groups:
 		if group.has_unit(unit_id):
 			return group.get_unit_by_id(unit_id)
 	return null
+#endregion
 
-# Cards
+#region Cards
 func draw_cards(count: int) -> void:
 	for _i: int in range(count):
 		if deck.is_empty():
@@ -130,3 +137,4 @@ func draw_cards(count: int) -> void:
 
 func remove_card(card: CardData) -> void:
 	hand.erase(card)
+#endregion

@@ -20,8 +20,6 @@ func can_apply(game_state: GameState, action: Action) -> bool:
 			return _can_apply_move(game_state, action)
 		Global.ACTION_TYPE.ATTACK:
 			return _can_apply_attack(game_state, action)
-		#Global.ACTION_TYPE.CARD:
-		#	return _can_apply_card(game_state, action)
 		_:
 			return false
 
@@ -37,15 +35,25 @@ func _apply_attack(game_state: GameState, action: Action) -> void:
 	# TODO: resolve damage, remove units, etc.
 	pass
 
-func _apply_card(game_state: GameState, action: Action) -> void:
-	# TODO: apply card effects
-	pass
-
 # Validation
 func _can_apply_move(game_state: GameState, action: Action) -> bool:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
-	# TODO: Implement move validation logic
+
+	if game_state.is_tile_occupied(action.target_pos):
+		push_warning("Target tile is occupied")
+		return false
+	
+	if not game_state.get_adjacent_tiles(unit.cell_pos).has(action.target_pos):
+		push_warning("Target tile is not adjacent")
+		return false
+	
+	if action.source_card != null:
+		var card_suit: Global.SUIT = action.source_card.suit
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
+			push_warning("Card suit does not match unit suit")
+			return false
+
 	return true
 	
 func _can_apply_attack(game_state: GameState, action: Action) -> bool:

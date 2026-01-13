@@ -37,7 +37,7 @@ func _next_turn():
 # Every Action ends the turn. If different behaviour change here 
 func _on_action_chosen(action: Action):
 	if not rule_system.can_apply(game_state, action):
-		print("Action rejected by RuleSystem")
+		push_error("Action rejected by RuleSystem")
 		return
 
 	rule_system.apply(game_state, action)
