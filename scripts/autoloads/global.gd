@@ -28,7 +28,8 @@ const TEXTURE_UUIDS = {
 	"ACTION_TELEPORT": "uid://cmicwqsjksohk",
 	"ACTION_PUSH": "uid://dtma80hhc1ix4",
 	"ACTION_TRAP": "uid://dm0fgdvp3c5g6",
-	"ACTION_SHIELD": "uid://csy5kh80csek0"
+	"ACTION_SHIELD": "uid://csy5kh80csek0",
+	"ACTION_SEVEN": "uid://d2g4qwmi1tn6w"
 }
 
 # Game Enums
@@ -51,7 +52,8 @@ enum ACTION_TYPE {
 	TELEPORT,
 	PUSH,
 	TRAP,
-	SHIELD
+	SHIELD,
+	SEVEN,
 }
 
 # Game Signals

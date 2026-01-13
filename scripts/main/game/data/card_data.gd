@@ -1,3 +1,4 @@
+@icon("uid://csbdw36qg7vta")
 class_name CardData
 extends Resource
 
