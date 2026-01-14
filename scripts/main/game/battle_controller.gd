@@ -76,8 +76,14 @@ func _end_turn():
 func _start_player_turn() -> void:
 	# Turn-based state mutation belongs here
 	if game_state.hand.is_empty():
+		# TODO: Pass the check victory conditions instead of having it here... getting messy clean it up
 		print("Drawing cards...")
-		game_state.draw_cards(4)
+		var drawn := game_state.draw_up_to(4)
+		if drawn == 0:
+			print("❌ Player defeated: no cards left")
+			battle_lost.emit()
+			return
+		print("Drew ", drawn, " card(s)")
 		Global.game_state_changed.emit(game_state)
 
 	# Announce turn start (UI reacts)

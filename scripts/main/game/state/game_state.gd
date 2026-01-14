@@ -161,12 +161,22 @@ func get_num_units(group_type: Global.GROUP_TYPE) -> int:
 #endregion
 
 #region Cards
-func draw_cards(count: int) -> void:
-	for _i: int in range(count):
+func can_draw(count: int) -> bool:
+	return deck.size() >= count
+
+func is_deck_empty() -> bool:
+	return deck.is_empty()
+
+func draw_up_to(count: int) -> int:
+	var drawn := 0
+
+	for _i in range(count):
 		if deck.is_empty():
 			break
-		var card = deck.pop_front()
-		hand.append(card)
+		hand.append(deck.pop_front())
+		drawn += 1
+
+	return drawn
 
 func remove_card(card: CardData) -> void:
 	hand.erase(card)
