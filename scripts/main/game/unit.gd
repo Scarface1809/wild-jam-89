@@ -44,8 +44,7 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 				animate_death()
 
 		Global.ACTION_TYPE.TELEPORT:
-			if action.unit_id == _id or action.target_pos == unit_state.cell_pos:
-				animate_teleport_swap(target_pos)
+			animate_teleport_swap(target_pos)
 
 		Global.ACTION_TYPE.PUSH:
 			if action.target_pos == unit_state.cell_pos:
@@ -112,11 +111,10 @@ func animate_teleport_swap(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
-	modulate.a = 0.0
-	position = target_pos
-
 	create_tween() \
-		.tween_property(self, "modulate:a", 1.0, 0.15) \
+		.tween_property(self, "position", target_pos, 0.25) \
+		.set_trans(Tween.TRANS_SINE) \
+		.set_ease(Tween.EASE_OUT) \
 		.finished.connect(_end_animation)
 
 func animate_shield_raise() -> void:

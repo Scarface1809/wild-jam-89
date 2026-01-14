@@ -14,7 +14,6 @@ func _init() -> void:
     target_pos = Vector2i(-1, -1)
     source_card = null
 
-
 func _to_string() -> String:
     var action_name := _action_type_to_string(type)
     var s := "──────── ACTION ────────\n"
