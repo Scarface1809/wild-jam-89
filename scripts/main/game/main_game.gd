@@ -48,11 +48,28 @@ func _initialize_game_state(level: LevelData) -> GameState:
 	state.groups = []
 	state.tiles = {}
 	
-	# Generate Board
+	# Generate Board (balanced suits)
+	var allowed_suits: Array[Global.SUIT] = [
+		Global.SUIT.RED,
+		Global.SUIT.BLUE,
+		Global.SUIT.YELLOW
+	]
+	var total_tiles := state.board_size.x * state.board_size.y
+	var suit_bag: Array[Global.SUIT] = []
+	var base := floori(total_tiles / float(allowed_suits.size()))
+	var remainder := total_tiles % allowed_suits.size()
+	for suit in allowed_suits:
+		for i in range(base):
+			suit_bag.append(suit)
+	allowed_suits.shuffle()
+	for i in range(remainder):
+		suit_bag.append(allowed_suits[i])
+	suit_bag.shuffle()
+	var index := 0
 	for x in range(state.board_size.x):
 		for y in range(state.board_size.y):
-			var suit := randi_range(0, 2)
-			state.tiles[Vector2i(x, y)] = suit as Global.SUIT
+			state.tiles[Vector2i(x, y)] = suit_bag[index]
+			index += 1
 
 	# Create GroupStates
 	for group_data in level.groups:
