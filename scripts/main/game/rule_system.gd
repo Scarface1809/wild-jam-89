@@ -283,8 +283,26 @@ func _can_apply_trap(game_state: GameState, action: Action) -> bool:
 	return true
 
 func _can_apply_shield(game_state: GameState, action: Action) -> bool:
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+
+	if action.source_card != null:
+		var card_suit: Global.SUIT = action.source_card.suit
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
+			push_warning("Card suit does not match unit suit")
+			return false
+	
 	return true
 
 func _can_apply_seven(game_state: GameState, action: Action) -> bool:
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+
+	if action.source_card != null:
+		var card_suit: Global.SUIT = action.source_card.suit
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
+			push_warning("Card suit does not match unit suit")
+			return false
+	
 	return true
 #endregion
