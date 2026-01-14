@@ -47,8 +47,7 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 			animate_teleport_swap(target_pos)
 
 		Global.ACTION_TYPE.PUSH:
-			if action.target_pos == unit_state.cell_pos:
-				animate_forced_push(target_pos)
+			animate_push(target_pos)
 
 		Global.ACTION_TYPE.SHIELD:
 			if action.unit_id == _id:
@@ -97,13 +96,13 @@ func animate_death() -> void:
 			queue_free()
 			_end_animation())
 
-func animate_forced_push(target_pos: Vector2) -> void:
+func animate_push(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
 	create_tween() \
-		.tween_property(self, "position", target_pos, 0.15) \
-		.set_trans(Tween.TRANS_QUAD) \
+		.tween_property(self, "position", target_pos, 0.25) \
+		.set_trans(Tween.TRANS_SINE) \
 		.set_ease(Tween.EASE_OUT) \
 		.finished.connect(_end_animation)
 
