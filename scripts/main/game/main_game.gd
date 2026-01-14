@@ -21,19 +21,14 @@ func _ready() -> void:
 	# Setup
 	assert(levels_data.size() > 0, "At least one level is required")
 
+	# Signals
+	_battle_controller.battle_won.connect(_on_battle_won)
+	_battle_controller.battle_lost.connect(_on_battle_lost)
+
 	# Randomize
 	randomize()
 
-	var state: GameState = _initialize_game_state(levels_data[_current_level])
-
-	# Setup Visual Layers
-	# TODO: change to emit state changed
-	_seats.initialize_from_state(state)
-	_board.initialize_from_state(state)
-	_units_container.sync_with_state(state, null)
-	
-	# Generate level
-	_start_game(state)
+	_load_current_level()
 
 # Private Methods
 func _start_game(state: GameState) -> void:
@@ -41,6 +36,18 @@ func _start_game(state: GameState) -> void:
 	_battle_controller.game_state = state
 	# Start Game
 	_battle_controller.start_battle()
+
+func _load_current_level() -> void:
+	var state: GameState = _initialize_game_state(levels_data[_current_level])
+
+	# Setup Visual Layers
+	# TODO: change to emit state changed
+	_seats.initialize_from_state(state)
+	_board.initialize_from_state(state)
+	_units_container.sync_with_state(state, null)
+
+	# Generate level
+	_start_game(state)
 
 func _initialize_game_state(level: LevelData) -> GameState:
 	var state: GameState = GameState.new()
@@ -94,3 +101,18 @@ func _validate_state(state: GameState) -> void:
 	var player_group = state.get_groups().filter(func(g): return g.type == Global.GROUP_TYPE.PLAYER)[0]
 	assert(player_group.get_unit_count() == 1, "Player group must have exactly one unit")
 	assert(state.get_num_units(Global.GROUP_TYPE.ENEMY) <= 7, "Only 7 enemy units are allowed")
+
+func _on_battle_won() -> void:
+	print("Level ", _current_level + 1, " won!")
+	_current_level += 1
+
+	if _current_level >= levels_data.size():
+		print("🎉 All levels completed! You win the game!")
+		#_show_game_win_screen()
+	else:
+		print("➡ Loading next level...")
+		_load_current_level()
+
+func _on_battle_lost() -> void:
+	print("❌ Player defeated. Returning to main menu.")
+	#_show_main_menu()
