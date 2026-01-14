@@ -61,7 +61,7 @@ func _apply_move(game_state: GameState, action: Action) -> void:
 func _apply_gun(game_state: GameState, action: Action) -> void:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
-	# Attack
+
 	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
 	assert(target_unit != null, "Target unit not found")
 	
@@ -78,7 +78,7 @@ func _apply_gun(game_state: GameState, action: Action) -> void:
 func _apply_knife(game_state: GameState, action: Action) -> void:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
-	# Attack
+
 	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
 	assert(target_unit != null, "Target unit not found")
 	
@@ -96,7 +96,22 @@ func _apply_knife(game_state: GameState, action: Action) -> void:
 		game_state.remove_card(action.source_card)
 
 func _apply_teleport(game_state: GameState, action: Action) -> void:
-	return
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+
+	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
+	assert(target_unit != null, "Target unit not found")
+	
+	var target_group: GroupState = game_state.get_group(target_unit.group_id)
+	assert(target_group != null, "Unit's target group not found")
+
+	# Swap positions
+	unit.cell_pos = target_unit.cell_pos
+	target_unit.cell_pos = unit.cell_pos
+
+	# Remove card
+	if action.source_card != null:
+		game_state.remove_card(action.source_card)
 
 func _apply_push(game_state: GameState, action: Action) -> void:
 	return
@@ -173,7 +188,20 @@ func _can_apply_knife(game_state: GameState, action: Action) -> bool:
 	return true
 
 func _can_apply_teleport(game_state: GameState, action: Action) -> bool:
-	return false
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+	
+	if not game_state.is_tile_occupied(action.target_pos):
+		push_warning("Target tile is not occupied")
+		return false
+
+	if action.source_card != null:
+		var card_suit: Global.SUIT = action.source_card.suit
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
+			push_warning("Card suit does not match unit suit")
+			return false
+
+	return true
 
 func _can_apply_push(game_state: GameState, action: Action) -> bool:
 	return false
