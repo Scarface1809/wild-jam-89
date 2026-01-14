@@ -6,6 +6,7 @@ class_name UnitState
 var id: int
 var group_id: int
 var cell_pos: Vector2i
+var shielded: bool = false
 
 var name: String
 var piece_texture: Texture2D

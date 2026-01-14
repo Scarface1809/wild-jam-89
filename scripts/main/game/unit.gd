@@ -51,7 +51,7 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 
 		Global.ACTION_TYPE.SHIELD:
 			if action.unit_id == _id:
-				animate_shield_raise()
+				animate_shield(action.forced)
 
 		Global.ACTION_TYPE.SEVEN:
 			if action.unit_id == _id:
@@ -91,6 +91,7 @@ func animate_death() -> void:
 		return
 
 	create_tween() \
+		.tween_property(self, "scale", Vector2.ZERO, 0.2) \
 		.tween_property(self, "modulate:a", 0.0, 0.2) \
 		.finished.connect(func():
 			queue_free()
@@ -116,9 +117,17 @@ func animate_teleport_swap(target_pos: Vector2) -> void:
 		.set_ease(Tween.EASE_OUT) \
 		.finished.connect(_end_animation)
 
-func animate_shield_raise() -> void:
+func animate_shield(forced: bool) -> void:
 	if not _start_animation():
 		return
+
+	if forced:
+		# Forced = remove shield
+		piece_sprite.modulate = Color(1, 1, 1, 1) # reset to normal
+	else:
+		# Normal shield action = raise shield
+		piece_sprite.modulate = Color(0.4, 0.6, 1.0, 1.0) # light blue
+
 	_end_animation()
 
 func animate_special_seven() -> void:

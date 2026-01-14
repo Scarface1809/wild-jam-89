@@ -46,6 +46,9 @@ func _next_turn():
 	var active_group: GroupState = game_state.get_active_group()
 	var active_unit: UnitState = game_state.get_active_unit()
 
+	# AUTOMATIC ACTION: Clear shield
+	_handle_auto_deshield(active_unit)
+
 	turn_started.emit(active_group, active_unit)
 
 	# Player Group
@@ -88,11 +91,23 @@ func _end_turn():
 	_next_turn()
 
 func _process_player_turn(group: GroupState, unit: UnitState) -> void:
-	# Auto-draw rule
+	# AUTOMATIC ACTION: Draw 4 cards
 	_handle_auto_draw()
 
 	print("▶ Player TURN | Group ", group.id, " | Unit ", unit.id)
 	player_controller.begin_turn(game_state)
+
+func _handle_auto_deshield(active_unit: UnitState):
+	if active_unit:
+		var shield_action: Action = Action.new()
+		shield_action.type = Global.ACTION_TYPE.SHIELD
+		shield_action.unit_id = active_unit.id
+		shield_action.forced = true
+		if rule_system.can_apply(game_state, shield_action):
+			rule_system.apply(game_state, shield_action)
+			Global.game_state_changed.emit(game_state, shield_action)
+		else:
+			push_error("Auto deshield failed")
 
 func _handle_auto_draw():
 	if game_state.hand.is_empty():

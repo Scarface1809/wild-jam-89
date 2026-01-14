@@ -73,6 +73,10 @@ func _apply_gun(game_state: GameState, action: Action) -> void:
 	var target_group: GroupState = game_state.get_group(target_unit.group_id)
 	assert(target_group != null, "Unit's target group not found")
 
+	if target_unit.shielded:
+		target_unit.shielded = false
+		return
+
 	# Remove target unit from group
 	target_group.remove_unit(target_unit)
 
@@ -90,6 +94,10 @@ func _apply_knife(game_state: GameState, action: Action) -> void:
 	var target_group: GroupState = game_state.get_group(target_unit.group_id)
 	assert(target_group != null, "Unit's target group not found")
 	
+	if target_unit.shielded:
+		target_unit.shielded = false
+		return
+
 	# Remove target unit from group
 	target_group.remove_unit(target_unit)
 	
@@ -156,6 +164,15 @@ func _apply_trap(game_state: GameState, action: Action) -> void:
 		game_state.remove_card(action.source_card)
 
 func _apply_shield(game_state: GameState, action: Action) -> void:
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+
+	if action.forced:
+		# Forced = remove shield instead of adding
+		unit.shielded = false
+	else:
+		unit.shielded = true
+
 	# Remove card
 	if action.source_card != null:
 		game_state.remove_card(action.source_card)
@@ -172,6 +189,7 @@ func _apply_reshuffle(game_state: GameState, action: Action) -> void:
 	game_state.clear_hand()
 	game_state.draw_up_to(action.num_cards)
 #endregion
+
 #region Validation
 func _can_apply_move(game_state: GameState, action: Action) -> bool:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
@@ -288,6 +306,15 @@ func _can_apply_trap(game_state: GameState, action: Action) -> bool:
 func _can_apply_shield(game_state: GameState, action: Action) -> bool:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
+
+	if action.forced:
+		return true
+
+	# Normal shield logic
+	if unit.shielded:
+		# TODO: Allow or not allow to waste card to put another shield (useless)
+		push_warning("Unit already shielded")
+		return false
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
