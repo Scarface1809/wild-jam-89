@@ -1,6 +1,10 @@
 class_name UnitGroup
 extends Node2D
 
+# Signals
+signal unit_animation_started
+signal unit_animation_finished
+
 # Constants
 const UNIT_SCENE: PackedScene = preload(Global.SCENE_UIDS.UNIT)
 
@@ -41,6 +45,12 @@ func _create_unit(unit_state: UnitState) -> void:
 	var unit: Unit = UNIT_SCENE.instantiate()
 	unit.board = board
 	add_child(unit)
+	unit.animation_started.connect(func():
+		unit_animation_started.emit()
+	)
+	unit.animation_finished.connect(func():
+		unit_animation_finished.emit()
+	)
 	unit.sync_with_state(unit_state)
 	_units.append(unit)
 

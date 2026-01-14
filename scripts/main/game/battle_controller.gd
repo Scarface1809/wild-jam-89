@@ -12,6 +12,7 @@ signal turn_ended(group: GroupState, unit: UnitState)
 
 # Export Variables
 @export var rule_system: RuleSystem
+@export var units_container: UnitsContainer
 @export var player_controller: PlayerController
 @export var ai_controller: AIController
 
@@ -22,6 +23,7 @@ func _ready():
 	assert(rule_system != null, "Rule system reference is required")
 	assert(player_controller != null, "Player controller reference is required")
 	assert(ai_controller != null, "AI controller reference is required")
+	assert(units_container != null, "Units container reference is required")
 	# Connect signals
 	player_controller.action_chosen.connect(_on_action_chosen)
 	ai_controller.action_chosen.connect(_on_action_chosen)
@@ -59,10 +61,11 @@ func _on_action_chosen(action: Action):
 		return
 
 	rule_system.apply(game_state, action)
-
 	_debug_print_action(action)
-
 	Global.game_state_changed.emit(game_state)
+
+	await units_container.animations_finished
+
 	_end_turn()
 
 func _end_turn():
