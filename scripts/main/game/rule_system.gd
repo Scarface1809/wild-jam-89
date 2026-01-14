@@ -159,10 +159,14 @@ func _apply_trap(game_state: GameState, action: Action) -> void:
 		game_state.remove_card(action.source_card)
 
 func _apply_shield(game_state: GameState, action: Action) -> void:
-	return
+	# Remove card
+	if action.source_card != null:
+		game_state.remove_card(action.source_card)
 
 func _apply_seven(game_state: GameState, action: Action) -> void:
-	return
+	# Remove card
+	if action.source_card != null:
+		game_state.remove_card(action.source_card)
 #endregion
 
 #region Validation
@@ -279,8 +283,8 @@ func _can_apply_trap(game_state: GameState, action: Action) -> bool:
 	return true
 
 func _can_apply_shield(game_state: GameState, action: Action) -> bool:
-	return false
+	return true
 
 func _can_apply_seven(game_state: GameState, action: Action) -> bool:
-	return false
+	return true
 #endregion
