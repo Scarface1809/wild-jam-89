@@ -108,8 +108,9 @@ func _apply_teleport(game_state: GameState, action: Action) -> void:
 	assert(target_unit != null, "Target unit not found")
 
 	# Swap positions
+	var temp := unit.cell_pos
 	unit.cell_pos = target_unit.cell_pos
-	target_unit.cell_pos = unit.cell_pos
+	target_unit.cell_pos = temp
 
 	# Remove card
 	if action.source_card != null:
