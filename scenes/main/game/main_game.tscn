@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=70 format=4 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -78,8 +78,45 @@ sources/1 = SubResource("TileSetAtlasSource_rddef")
 sources/2 = SubResource("TileSetAtlasSource_ef78a")
 sources/3 = SubResource("TileSetAtlasSource_ejuuv")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v7aw0"]
+light_mode = 1
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7aw0"]
+load_path = "res://.godot/imported/tile01.png-38dbc89c26057457b8d0c0028180c68a.ctex"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y02lv"]
+resource_name = "tile01"
+texture = SubResource("CompressedTexture2D_v7aw0")
+texture_region_size = Vector2i(130, 130)
+0:0/0 = 0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lhfh8"]
+load_path = "res://.godot/imported/tile02.png-f3609dfebf2658dcc5409e6cb1e92a4c.ctex"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkk4j"]
+resource_name = "tile02"
+texture = SubResource("CompressedTexture2D_lhfh8")
+texture_region_size = Vector2i(130, 130)
+0:0/0 = 0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a4e6n"]
+load_path = "res://.godot/imported/tile03.png-221e871d36e6329581635af39231df73.ctex"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6rm54"]
+resource_name = "tile03"
+texture = SubResource("CompressedTexture2D_a4e6n")
+texture_region_size = Vector2i(130, 130)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_8dr6f"]
+tile_size = Vector2i(130, 130)
+sources/1 = SubResource("TileSetAtlasSource_y02lv")
+sources/2 = SubResource("TileSetAtlasSource_vkk4j")
+sources/3 = SubResource("TileSetAtlasSource_6rm54")
+
 [sub_resource type="Environment" id="Environment_v7aw0"]
 background_mode = 3
+glow_enabled = true
 adjustment_enabled = true
 adjustment_brightness = 1.2
 adjustment_contrast = 1.01
@@ -167,6 +204,15 @@ unique_name_in_owner = true
 position = Vector2(641, 38)
 tile_set = SubResource("TileSet_5cicb")
 script = ExtResource("5_wob2k")
+
+[node name="Highlights" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+material = SubResource("CanvasItemMaterial_v7aw0")
+position = Vector2(641, 38)
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAAAAgAAAAAAAAABAAEAAgAAAAAAAAABAAIAAgAAAAAAAAABAAMAAgAAAAAAAAABAAQAAgAAAAAAAAADAAAAAgAAAAAAAAADAAEAAgAAAAAAAAADAAIAAgAAAAAAAAADAAMAAgAAAAAAAAADAAQAAgAAAAAAAAACAAEAAwAAAAAAAAACAAIAAwAAAAAAAAACAAMAAwAAAAAAAAACAAQAAwAAAAAAAAACAAAAAwAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAAEAAQAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_8dr6f")
 
 [node name="UnitsContainer" type="Node2D" parent="." node_paths=PackedStringArray("board")]
 unique_name_in_owner = true
