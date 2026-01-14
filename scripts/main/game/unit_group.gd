@@ -19,7 +19,7 @@ var _units: Array[Unit] = []
 func _init(id: int) -> void:
 	_id = id
 
-func sync_with_state(group_state: GroupState) -> void:
+func sync_with_state(group_state: GroupState, action: Action) -> void:
 	var units: Array[UnitState] = group_state.units
 
 	# Remove or sync existing units
@@ -27,7 +27,7 @@ func sync_with_state(group_state: GroupState) -> void:
 		var found: bool = false
 		for unit_state in units:
 			if unit_state.id == unit.get_id():
-				unit.sync_with_state(unit_state)
+				unit.sync_with_state(unit_state, action)
 				found = true
 				break
 		if not found:
@@ -36,12 +36,12 @@ func sync_with_state(group_state: GroupState) -> void:
 	# Create missing units
 	for unit_state in units:
 		if _get_unit_by_id(unit_state.id) == null:
-			_create_unit(unit_state)
+			_create_unit(unit_state, action)
 
 func get_id() -> int:
 	return _id
 
-func _create_unit(unit_state: UnitState) -> void:
+func _create_unit(unit_state: UnitState, action: Action) -> void:
 	var unit: Unit = UNIT_SCENE.instantiate()
 	unit.board = board
 	add_child(unit)
@@ -51,7 +51,7 @@ func _create_unit(unit_state: UnitState) -> void:
 	unit.animation_finished.connect(func():
 		unit_animation_finished.emit()
 	)
-	unit.sync_with_state(unit_state)
+	unit.sync_with_state(unit_state, action)
 	_units.append(unit)
 
 func _remove_unit(unit: Unit) -> void:

@@ -62,9 +62,10 @@ func _on_action_chosen(action: Action):
 
 	rule_system.apply(game_state, action)
 	_debug_print_action(action)
-	Global.game_state_changed.emit(game_state)
-
-	await units_container.animations_finished
+	Global.game_state_changed.emit(game_state, action)
+	
+	if units_container.has_pending_animations():
+		await units_container.animations_finished
 
 	_end_turn()
 
@@ -102,7 +103,7 @@ func _handle_auto_draw():
 
 		if rule_system.can_apply(game_state, draw_action):
 			rule_system.apply(game_state, draw_action)
-			Global.game_state_changed.emit(game_state)
+			Global.game_state_changed.emit(game_state, draw_action)
 		else:
 			# No cards left = loss
 			battle_lost.emit()

@@ -30,7 +30,7 @@ func _ready() -> void:
 	# TODO: change to emit state changed
 	_seats.initialize_from_state(state)
 	_board.initialize_from_state(state)
-	_units_container.sync_with_state(state)
+	_units_container.sync_with_state(state, null)
 	
 	# Generate level
 	_start_game(state)

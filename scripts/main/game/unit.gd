@@ -15,38 +15,131 @@ var board: Board
 var _id: int
 var _is_animating: bool = false
 
-func sync_with_state(unit_state: UnitState) -> void:
+func sync_with_state(unit_state: UnitState, action: Action) -> void:
 	_id = unit_state.id
 	name = unit_state.name
 	piece_sprite.texture = unit_state.piece_texture
 
-	var target_world_pos := board.cell_to_world(unit_state.cell_pos)
+	var target_pos: Vector2 = board.cell_to_world(unit_state.cell_pos)
 
-	if position == Vector2.ZERO:
-		position = target_world_pos
+	if action == null:
+		position = target_pos
 		return
 
-	# If position changed → animate
-	if position != target_world_pos:
-		_animate_move_to(target_world_pos)
+	match action.type:
+		Global.ACTION_TYPE.MOVE:
+			if action.unit_id == _id:
+				animate_walk_to(target_pos)
 
-func _animate_move_to(target_pos: Vector2) -> void:
-	if _is_animating:
+		Global.ACTION_TYPE.KNIFE:
+			if action.unit_id == _id:
+				animate_melee_strike(target_pos)
+			elif action.target_pos == unit_state.cell_pos:
+				animate_death()
+
+		Global.ACTION_TYPE.GUN:
+			if action.target_pos == unit_state.cell_pos:
+				animate_ranged_hit()
+				animate_death()
+
+		Global.ACTION_TYPE.TELEPORT:
+			if action.unit_id == _id or action.target_pos == unit_state.cell_pos:
+				animate_teleport_swap(target_pos)
+
+		Global.ACTION_TYPE.PUSH:
+			if action.target_pos == unit_state.cell_pos:
+				animate_forced_push(target_pos)
+
+		Global.ACTION_TYPE.SHIELD:
+			if action.unit_id == _id:
+				animate_shield_raise()
+
+		Global.ACTION_TYPE.SEVEN:
+			if action.unit_id == _id:
+				animate_special_seven()
+
+func animate_walk_to(target_pos: Vector2) -> void:
+	if not _start_animation():
 		return
 
-	_is_animating = true
-	animation_started.emit()
+	create_tween() \
+		.tween_property(self, "position", target_pos, 0.25) \
+		.set_trans(Tween.TRANS_SINE) \
+		.set_ease(Tween.EASE_OUT) \
+		.finished.connect(_end_animation)
+
+func animate_melee_strike(target_pos: Vector2) -> void:
+	if not _start_animation():
+		return
+
+	var dir := (target_pos - position).normalized()
+	var lunge_pos := position + dir * 16
 
 	var tween := create_tween()
-	tween.tween_property(self, "position", target_pos, 0.25) \
-		.set_trans(Tween.TRANS_SINE) \
-		.set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "position", lunge_pos, 0.1)
+	tween.tween_property(self, "position", position, 0.1)
+	tween.finished.connect(_end_animation)
 
-	tween.finished.connect(func():
-		_is_animating = false
-		animation_finished.emit()
-	)
+func animate_ranged_hit() -> void:
+	if not _start_animation():
+		return
 
+	var tween := create_tween()
+	tween.tween_property(self, "scale", Vector2.ONE * 1.1, 0.05)
+	tween.tween_property(self, "scale", Vector2.ONE, 0.05)
+	tween.finished.connect(_end_animation)
+
+func animate_death() -> void:
+	if not _start_animation():
+		return
+
+	create_tween() \
+		.tween_property(self, "modulate:a", 0.0, 0.2) \
+		.finished.connect(func():
+			queue_free()
+			_end_animation())
+
+func animate_forced_push(target_pos: Vector2) -> void:
+	if not _start_animation():
+		return
+
+	create_tween() \
+		.tween_property(self, "position", target_pos, 0.15) \
+		.set_trans(Tween.TRANS_QUAD) \
+		.set_ease(Tween.EASE_OUT) \
+		.finished.connect(_end_animation)
+
+func animate_teleport_swap(target_pos: Vector2) -> void:
+	if not _start_animation():
+		return
+
+	modulate.a = 0.0
+	position = target_pos
+
+	create_tween() \
+		.tween_property(self, "modulate:a", 1.0, 0.15) \
+		.finished.connect(_end_animation)
+
+func animate_shield_raise() -> void:
+	if not _start_animation():
+		return
+	_end_animation()
+
+func animate_special_seven() -> void:
+	if not _start_animation():
+		return
+	_end_animation()
+
+func _start_animation() -> bool:
+	if _is_animating:
+		return false
+	_is_animating = true
+	animation_started.emit()
+	return true
+
+func _end_animation() -> void:
+	_is_animating = false
+	animation_finished.emit()
 
 func get_id() -> int:
 	return _id

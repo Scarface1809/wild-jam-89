@@ -71,7 +71,7 @@ signal player_turn_started()
 @warning_ignore("unused_signal")
 signal player_turn_ended()
 @warning_ignore("unused_signal")
-signal game_state_changed(game_state: GameState)
+signal game_state_changed(game_state: GameState, action: Action)
 
 
 # Game Controller

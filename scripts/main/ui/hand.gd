@@ -34,7 +34,7 @@ func _ready() -> void:
 	Global.player_turn_started.connect(_on_player_turn_started)
 	Global.player_turn_ended.connect(_on_player_turn_ended)
 
-func sync_with_state(game_state: GameState) -> void:
+func sync_with_state(game_state: GameState, _action: Action) -> void:
 	var hand: Array[CardData] = game_state.hand
 	set_hand(hand)
 

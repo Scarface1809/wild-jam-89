@@ -15,7 +15,7 @@ func _ready() -> void:
 	Global.game_state_changed.connect(sync_with_state)
 
 ## Sync hazards with game state
-func sync_with_state(state: GameState) -> void:
+func sync_with_state(state: GameState, _action: Action) -> void:
 	# 1. Remove hazards that no longer exist in state
 	for hazard in _hazards.duplicate():
 		if not state.is_tile_hazard(hazard.cell_pos):

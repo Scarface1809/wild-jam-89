@@ -16,27 +16,32 @@ func _ready() -> void:
 	Global.game_state_changed.connect(sync_with_state)
 
 ## Sync units with game state
-func sync_with_state(state: GameState) -> void:
+func sync_with_state(state: GameState, action: Action) -> void:
+	var animations_before := _pending_animations
+
 	# Sync existing groups
 	for unit_group in _unit_groups.duplicate():
 		var group_state = state.get_group(unit_group.get_id())
 		if group_state:
-			unit_group.sync_with_state(group_state)
+			unit_group.sync_with_state(group_state, action)
 		else:
 			_remove_group(unit_group)
 
 	# Create new groups that don't exist yet
 	for group_state in state.groups:
 		if _get_group_by_id(group_state.id) == null:
-			_create_group(group_state)
+			_create_group(group_state, action)
+	
+	if _pending_animations == animations_before:
+		animations_finished.emit()
 
-func _create_group(group_state: GroupState) -> void:
+func _create_group(group_state: GroupState, action: Action) -> void:
 	var unit_group: UnitGroup = UnitGroup.new(group_state.id)
 	unit_group.board = board
 	add_child(unit_group)
 	unit_group.unit_animation_started.connect(_on_unit_anim_started)
 	unit_group.unit_animation_finished.connect(_on_unit_anim_finished)
-	unit_group.sync_with_state(group_state)
+	unit_group.sync_with_state(group_state, action)
 	_unit_groups.append(unit_group)
 
 func _remove_group(group: UnitGroup) -> void:
@@ -57,8 +62,13 @@ func _clear() -> void:
 
 func _on_unit_anim_started():
 	_pending_animations += 1
+	print("ANIM START →", _pending_animations)
 
 func _on_unit_anim_finished():
 	_pending_animations -= 1
+	print("ANIM END ←", _pending_animations)
 	if _pending_animations == 0:
 		animations_finished.emit()
+
+func has_pending_animations() -> bool:
+	return _pending_animations > 0
