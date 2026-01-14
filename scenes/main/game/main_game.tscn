@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=62 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -77,6 +77,13 @@ tile_size = Vector2i(130, 130)
 sources/1 = SubResource("TileSetAtlasSource_rddef")
 sources/2 = SubResource("TileSetAtlasSource_ef78a")
 sources/3 = SubResource("TileSetAtlasSource_ejuuv")
+
+[sub_resource type="Environment" id="Environment_v7aw0"]
+background_mode = 3
+adjustment_enabled = true
+adjustment_brightness = 1.2
+adjustment_contrast = 1.01
+adjustment_saturation = 1.1
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_lxwqh")
@@ -168,3 +175,6 @@ board = NodePath("../Board")
 [node name="HazardsContainer" type="Node2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("56_v7aw0")
 board = NodePath("../Board")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v7aw0")
