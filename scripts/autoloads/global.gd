@@ -7,7 +7,8 @@ const SCENE_UIDS = {
 	"MAIN_GAME": "uid://c3flgpg55d6cv",
 	"MAIN_UI": "uid://c76kj4of14ajq",
 	"UNIT": "uid://bl3bkx617qrac",
-	"CARD": "uid://c83iru1766q8g"
+	"CARD": "uid://c83iru1766q8g",
+	"HAZARD": "uid://bjgtss2iyo7hj"
 }
 
 # Materials
@@ -29,7 +30,7 @@ const TEXTURE_UUIDS = {
 	"ACTION_PUSH": "uid://dtma80hhc1ix4",
 	"ACTION_TRAP": "uid://dm0fgdvp3c5g6",
 	"ACTION_SHIELD": "uid://csy5kh80csek0",
-	"ACTION_SEVEN": "uid://d2g4qwmi1tn6w"
+	"ACTION_SEVEN": "uid://d2g4qwmi1tn6w",
 }
 
 # Game Enums

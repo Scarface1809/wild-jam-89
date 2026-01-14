@@ -6,6 +6,7 @@ extends Resource
 # Board
 var board_size: Vector2i
 var tiles: Dictionary[Vector2i, Global.SUIT] = {}
+var hazards: Array[Vector2i] = [] # Currently being used for traps
 # group_id -> Array[UnitState]
 var groups: Array[GroupState] = []
 # Turn State
@@ -100,7 +101,21 @@ func is_tile_occupied(cell: Vector2i) -> bool:
 		for unit: UnitState in group.units:
 			if unit.cell_pos == cell:
 				return true
+	if is_tile_hazard(cell):
+		return true
 	return false
+
+func get_hazards() -> Array[Vector2i]:
+	return hazards
+
+func set_hazard(cell: Vector2i) -> void:
+	hazards.append(cell)
+
+func remove_hazard(cell: Vector2i) -> void:
+	hazards.erase(cell)
+
+func is_tile_hazard(cell: Vector2i) -> bool:
+	return hazards.has(cell)
 #endregion
 
 #region Groups

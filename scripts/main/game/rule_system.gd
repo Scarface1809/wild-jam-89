@@ -148,7 +148,15 @@ func _apply_push(game_state: GameState, action: Action) -> void:
 		game_state.remove_card(action.source_card)
 
 func _apply_trap(game_state: GameState, action: Action) -> void:
-	return
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+	
+	# place trap
+	game_state.set_hazard(action.target_pos)
+
+	# Remove card
+	if action.source_card != null:
+		game_state.remove_card(action.source_card)
 
 func _apply_shield(game_state: GameState, action: Action) -> void:
 	return
@@ -212,7 +220,7 @@ func _can_apply_knife(game_state: GameState, action: Action) -> bool:
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
-		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
 			push_warning("Card suit does not match unit suit")
 			return false
 
@@ -255,7 +263,20 @@ func _can_apply_push(game_state: GameState, action: Action) -> bool:
 	return true
 
 func _can_apply_trap(game_state: GameState, action: Action) -> bool:
-	return false
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+	
+	if not game_state.get_adjacent_tiles(unit.cell_pos).has(action.target_pos):
+		push_warning("Target tile is not adjacent")
+		return false
+
+	if action.source_card != null:
+		var card_suit: Global.SUIT = action.source_card.suit
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
+			push_warning("Card suit does not match unit suit")
+			return false
+
+	return true
 
 func _can_apply_shield(game_state: GameState, action: Action) -> bool:
 	return false

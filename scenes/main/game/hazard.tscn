@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjgtss2iyo7hj"]
+
+[ext_resource type="Script" uid="uid://br8rnphrrpg0n" path="res://scripts/main/game/hazard.gd" id="1_hu64h"]
+[ext_resource type="Texture2D" uid="uid://bx7w57j3ygr22" path="res://assets/icons/game.png" id="1_q3war"]
+
+[node name="Hazard" type="Node2D"]
+script = ExtResource("1_hu64h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_q3war")
