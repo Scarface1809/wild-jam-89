@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=3 format=3 uid="uid://of4l13ci5r8q"]
+
+[ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/group_data.gd" id="1_hrksf"]
+[ext_resource type="Script" uid="uid://rh015li6y8t" path="res://scripts/main/game/data/level_data.gd" id="2_7xi47"]
+
+[resource]
+script = ExtResource("2_7xi47")
+metadata/_custom_type_script = "uid://rh015li6y8t"

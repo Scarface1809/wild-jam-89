@@ -1,3 +1,4 @@
+@icon("uid://mjcjlr2vgpl0")
 extends Resource
 class_name GroupState
 ## Represents the state of a group in the game (Mutable)

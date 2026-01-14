@@ -1,3 +1,4 @@
+@icon("uid://mjcjlr2vgpl0")
 class_name GameState
 extends Resource
 ## Game State

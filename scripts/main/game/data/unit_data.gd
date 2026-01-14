@@ -1,3 +1,4 @@
+@icon("uid://di0gf686v4bf2")
 extends Resource
 class_name UnitData
 ## Represents the data of a unit in the game (Immutable)

@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="GroupData" load_steps=4 format=3 uid="uid://cjnm8oifw4cbf"]
+[gd_resource type="Resource" script_class="GroupData" load_steps=5 format=3 uid="uid://cjnm8oifw4cbf"]
 
 [ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/group_data.gd" id="1_q7lrr"]
 [ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="2_o1l5r"]
 [ext_resource type="Resource" uid="uid://dipngc8176wck" path="res://resources/levels/units/tuna.tres" id="3_po8y8"]
+[ext_resource type="Resource" uid="uid://bobtdgmhamkae" path="res://resources/levels/units/rat.tres" id="4_c0x50"]
 
 [resource]
 script = ExtResource("1_q7lrr")
 name = "EnemyGroup1"
 type = 1
-units = Array[ExtResource("2_o1l5r")]([ExtResource("3_po8y8")])
+units = Array[ExtResource("2_o1l5r")]([ExtResource("3_po8y8"), ExtResource("4_c0x50")])
 metadata/_custom_type_script = "uid://pm72qu6bk70b"
