@@ -200,7 +200,7 @@ func _can_apply_gun(game_state: GameState, action: Action) -> bool:
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
-		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
 			push_warning("Card suit does not match unit suit")
 			return false
 
@@ -220,7 +220,7 @@ func _can_apply_knife(game_state: GameState, action: Action) -> bool:
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
-		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
 			push_warning("Card suit does not match unit suit")
 			return false
 
@@ -236,7 +236,7 @@ func _can_apply_teleport(game_state: GameState, action: Action) -> bool:
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
-		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
 			push_warning("Card suit does not match unit suit")
 			return false
 
@@ -256,7 +256,7 @@ func _can_apply_push(game_state: GameState, action: Action) -> bool:
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
-		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
 			push_warning("Card suit does not match unit suit")
 			return false
 
@@ -272,7 +272,7 @@ func _can_apply_trap(game_state: GameState, action: Action) -> bool:
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
-		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
 			push_warning("Card suit does not match unit suit")
 			return false
 
