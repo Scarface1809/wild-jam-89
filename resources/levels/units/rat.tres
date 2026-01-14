@@ -9,4 +9,5 @@ script = ExtResource("1_puh5e")
 name = "Rat"
 piece_texture = ExtResource("2_hbrwq")
 human_texture = ExtResource("1_3ddma")
+actions = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

@@ -29,17 +29,18 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 	match action.type:
 		Global.ACTION_TYPE.MOVE:
 			if action.unit_id == _id:
-				animate_walk_to(target_pos)
+				animate_move(target_pos)
 
 		Global.ACTION_TYPE.KNIFE:
 			if action.unit_id == _id:
-				animate_melee_strike(target_pos)
+				animate_knife(target_pos)
 			elif action.target_pos == unit_state.cell_pos:
 				animate_death()
 
 		Global.ACTION_TYPE.GUN:
-			if action.target_pos == unit_state.cell_pos:
-				animate_ranged_hit()
+			if action.unit_id == _id:
+				animate_gun()
+			elif action.target_pos == unit_state.cell_pos:
 				animate_death()
 
 		Global.ACTION_TYPE.TELEPORT:
@@ -58,7 +59,7 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 			if action.unit_id == _id:
 				animate_special_seven()
 
-func animate_walk_to(target_pos: Vector2) -> void:
+func animate_move(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
@@ -68,19 +69,17 @@ func animate_walk_to(target_pos: Vector2) -> void:
 		.set_ease(Tween.EASE_OUT) \
 		.finished.connect(_end_animation)
 
-func animate_melee_strike(target_pos: Vector2) -> void:
+func animate_knife(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
-	var dir := (target_pos - position).normalized()
-	var lunge_pos := position + dir * 16
+	create_tween() \
+		.tween_property(self, "position", target_pos, 0.25) \
+		.set_trans(Tween.TRANS_SINE) \
+		.set_ease(Tween.EASE_OUT) \
+		.finished.connect(_end_animation)
 
-	var tween := create_tween()
-	tween.tween_property(self, "position", lunge_pos, 0.1)
-	tween.tween_property(self, "position", position, 0.1)
-	tween.finished.connect(_end_animation)
-
-func animate_ranged_hit() -> void:
+func animate_gun() -> void:
 	if not _start_animation():
 		return
 

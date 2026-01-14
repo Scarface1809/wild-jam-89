@@ -131,19 +131,6 @@ func _check_victory_conditions() -> bool:
 
 # Utils
 func _debug_print_action(action: Action) -> void:
-	var group := game_state.get_active_group()
-	var unit := game_state.get_unit_by_id(action.unit_id)
-
-	print("──────── ACTION ────────")
-	print("Group ID: ", group.id)
-	print("Unit ID: ", str(unit.id) if unit != null else "NULL")
-	print("Action Type: ", action.type)
-	print("Target Pos: ", action.target_pos)
-
-	if action.source_card != null:
-		print("Source Card Type: ", action.source_card.action_type, " | Suit: ", action.source_card.suit)
-	else:
-		print("Source Card: NONE")
-
+	print(action)
 	print("Hand size now: ", game_state.hand.size())
 	print("────────────────────────")

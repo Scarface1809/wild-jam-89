@@ -174,6 +174,13 @@ func get_num_units(group_type: Global.GROUP_TYPE) -> int:
 		if group.type == group_type:
 			count += group.get_unit_count()
 	return count
+
+func get_units(group_type: Global.GROUP_TYPE) -> Array[UnitState]:
+	var units: Array[UnitState] = []
+	for group in groups:
+		if group.type == group_type:
+			units += group.units
+	return units
 #endregion
 
 #region Cards
