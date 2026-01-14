@@ -55,6 +55,8 @@ enum ACTION_TYPE {
 	TRAP,
 	SHIELD,
 	SEVEN,
+	DRAW,
+	RESHUFFLE
 }
 
 # Game Signals
@@ -63,11 +65,14 @@ signal tile_clicked(cell_pos: Vector2, suit: SUIT)
 @warning_ignore("unused_signal")
 signal card_clicked(card_index: int)
 @warning_ignore("unused_signal")
+signal shuffle_request()
+@warning_ignore("unused_signal")
 signal player_turn_started()
 @warning_ignore("unused_signal")
 signal player_turn_ended()
 @warning_ignore("unused_signal")
 signal game_state_changed(game_state: GameState)
+
 
 # Game Controller
 var game_controller: GameController

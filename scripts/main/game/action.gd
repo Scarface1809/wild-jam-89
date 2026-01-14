@@ -5,6 +5,8 @@ var type: Global.ACTION_TYPE
 var unit_id: int
 var target_pos: Vector2i # cell coordinates
 var source_card: CardData
+var num_cards: int
+var forced: bool = false # Forced action by the rules of the game
 
 func _init() -> void:
     type = Global.ACTION_TYPE.MOVE

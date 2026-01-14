@@ -23,6 +23,10 @@ func apply(game_state: GameState, action: Action) -> void:
 			_apply_shield(game_state, action)
 		Global.ACTION_TYPE.SEVEN:
 			_apply_seven(game_state, action)
+		Global.ACTION_TYPE.DRAW:
+			_apply_draw(game_state, action)
+		Global.ACTION_TYPE.RESHUFFLE:
+			_apply_reshuffle(game_state, action)
 		_:
 			push_error("Unknown action type: " + str(action.type))
 
@@ -44,6 +48,10 @@ func can_apply(game_state: GameState, action: Action) -> bool:
 			return _can_apply_shield(game_state, action)
 		Global.ACTION_TYPE.SEVEN:
 			return _can_apply_seven(game_state, action)
+		Global.ACTION_TYPE.DRAW:
+			return _can_apply_draw(game_state, action)
+		Global.ACTION_TYPE.RESHUFFLE:
+			return _can_apply_reshuffle(game_state, action)
 		_:
 			return false
 
@@ -59,9 +67,6 @@ func _apply_move(game_state: GameState, action: Action) -> void:
 		game_state.remove_card(action.source_card)
 
 func _apply_gun(game_state: GameState, action: Action) -> void:
-	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
-	assert(unit != null, "Unit not found")
-
 	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
 	assert(target_unit != null, "Target unit not found")
 	
@@ -101,9 +106,6 @@ func _apply_teleport(game_state: GameState, action: Action) -> void:
 
 	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
 	assert(target_unit != null, "Target unit not found")
-	
-	var target_group: GroupState = game_state.get_group(target_unit.group_id)
-	assert(target_group != null, "Unit's target group not found")
 
 	# Swap positions
 	unit.cell_pos = target_unit.cell_pos
@@ -120,9 +122,6 @@ func _apply_push(game_state: GameState, action: Action) -> void:
 	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
 	assert(target_unit != null, "Target unit not found")
 	
-	var target_group: GroupState = game_state.get_group(target_unit.group_id)
-	assert(target_group != null, "Unit's target group not found")
-
 	# Push
 	var from := unit.cell_pos
 	var to := target_unit.cell_pos
@@ -148,9 +147,6 @@ func _apply_push(game_state: GameState, action: Action) -> void:
 		game_state.remove_card(action.source_card)
 
 func _apply_trap(game_state: GameState, action: Action) -> void:
-	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
-	assert(unit != null, "Unit not found")
-	
 	# place trap
 	game_state.set_hazard(action.target_pos)
 
@@ -167,8 +163,14 @@ func _apply_seven(game_state: GameState, action: Action) -> void:
 	# Remove card
 	if action.source_card != null:
 		game_state.remove_card(action.source_card)
-#endregion
 
+func _apply_draw(game_state: GameState, action: Action) -> void:
+	game_state.draw_up_to(action.num_cards)
+
+func _apply_reshuffle(game_state: GameState, action: Action) -> void:
+	game_state.clear_hand()
+	game_state.draw_up_to(action.num_cards)
+#endregion
 #region Validation
 func _can_apply_move(game_state: GameState, action: Action) -> bool:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
@@ -305,4 +307,14 @@ func _can_apply_seven(game_state: GameState, action: Action) -> bool:
 			return false
 	
 	return true
+
+func _can_apply_draw(game_state: GameState, _action: Action) -> bool:
+	return not game_state.is_deck_empty()
+
+func _can_apply_reshuffle(game_state: GameState, _action: Action) -> bool:
+	return not game_state.is_deck_empty()
 #endregion
+
+#TODO: REMOVE ENEMY IF MOVING TO TRAP AND THE TRAP IS REMOVED
+#TODO: SHIELD
+#TODO: SEVEN

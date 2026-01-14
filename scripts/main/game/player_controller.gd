@@ -10,6 +10,7 @@ var _selected_card_index: int = -1
 func _ready() -> void:
 	Global.tile_clicked.connect(_on_tile_clicked)
 	Global.card_clicked.connect(_on_card_clicked)
+	Global.shuffle_request.connect(_on_shuffle_request)
 
 func begin_turn(state: GameState):
 	_state = state
@@ -33,6 +34,13 @@ func _on_tile_clicked(cell_pos: Vector2i):
 	action.unit_id = unit_state.id
 	action.target_pos = cell_pos
 	action.source_card = card
+
+	action_chosen.emit(action)
+
+func _on_shuffle_request() -> void:
+	var action: Action = Action.new()
+	action.type = Global.ACTION_TYPE.RESHUFFLE
+	action.num_cards = 4
 
 	action_chosen.emit(action)
 

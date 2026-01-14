@@ -183,6 +183,9 @@ func can_draw(count: int) -> bool:
 func is_deck_empty() -> bool:
 	return deck.is_empty()
 
+func clear_hand() -> void:
+	hand.clear()
+
 func draw_up_to(count: int) -> int:
 	var drawn := 0
 

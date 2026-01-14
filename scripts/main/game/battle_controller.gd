@@ -7,6 +7,8 @@ extends Node
 # Signals
 signal battle_won()
 signal battle_lost()
+signal turn_started(group: GroupState, unit: UnitState)
+signal turn_ended(group: GroupState, unit: UnitState)
 
 # Export Variables
 @export var rule_system: RuleSystem
@@ -23,27 +25,37 @@ func _ready():
 	# Connect signals
 	player_controller.action_chosen.connect(_on_action_chosen)
 	ai_controller.action_chosen.connect(_on_action_chosen)
+	turn_started.connect(func(group: GroupState, _unit: UnitState):
+		if group.type == Global.GROUP_TYPE.PLAYER:
+			Global.player_turn_started.emit())
+	turn_ended.connect(func(group: GroupState, _unit: UnitState):
+		if group.type == Global.GROUP_TYPE.PLAYER:
+			Global.player_turn_ended.emit())
 
 func start_battle():
 	game_state.reset_turn()
 	_next_turn()
 
 func _next_turn():
+	# Check if there are any units left
+	if !(game_state.get_group_count() > 0 and game_state.get_active_group().get_unit_count() > 0):
+		return
+
 	var active_group: GroupState = game_state.get_active_group()
 	var active_unit: UnitState = game_state.get_active_unit()
-	assert(active_group != null, "No active group")
-	assert(active_unit != null, "No active unit")
+
+	turn_started.emit(active_group, active_unit)
 
 	# Player Group
 	if active_group.type == Global.GROUP_TYPE.PLAYER:
-		_start_player_turn()
+		_process_player_turn(active_group, active_unit)
 	else:
-		_start_ai_turn()
+		_process_ai_turn(active_group, active_unit)
 
 # Every Action ends the turn. If different behaviour change here 
 func _on_action_chosen(action: Action):
 	if not rule_system.can_apply(game_state, action):
-		push_error("Action rejected by RuleSystem")
+		push_error("Action rejected by RuleSystem: " + str(action.type))
 		return
 
 	rule_system.apply(game_state, action)
@@ -60,12 +72,10 @@ func _end_turn():
 	assert(unit != null, "No active unit")
 
 	print("◀ TURN END | Group ", group.id, " | Unit ", unit.id)
+	turn_ended.emit(group, unit)
 
 	if _check_victory_conditions():
 		return
-
-	if group.type == Global.GROUP_TYPE.PLAYER:
-		Global.player_turn_ended.emit()
 
 	if game_state.has_next_unit():
 		game_state.next_unit()
@@ -73,29 +83,30 @@ func _end_turn():
 		game_state.next_group()
 	_next_turn()
 
-func _start_player_turn() -> void:
-	# Turn-based state mutation belongs here
-	if game_state.hand.is_empty():
-		# TODO: Pass the check victory conditions instead of having it here... getting messy clean it up
-		print("Drawing cards...")
-		var drawn := game_state.draw_up_to(4)
-		if drawn == 0:
-			print("❌ Player defeated: no cards left")
-			battle_lost.emit()
-			return
-		print("Drew ", drawn, " card(s)")
-		Global.game_state_changed.emit(game_state)
+func _process_player_turn(group: GroupState, unit: UnitState) -> void:
+	# Auto-draw rule
+	_handle_auto_draw()
 
-	# Announce turn start (UI reacts)
-	Global.player_turn_started.emit()
-
-	print("▶ Player TURN | Group ", game_state.get_active_group().id, " | Unit ", game_state.get_active_unit().id)
-
-	# Activate controller
+	print("▶ Player TURN | Group ", group.id, " | Unit ", unit.id)
 	player_controller.begin_turn(game_state)
 
-func _start_ai_turn() -> void:
-	print("▶ AI TURN | Group ", game_state.get_active_group().id, " | Unit ", game_state.get_active_unit().id)
+func _handle_auto_draw():
+	if game_state.hand.is_empty():
+		var draw_action = Action.new()
+		draw_action.type = Global.ACTION_TYPE.DRAW
+		draw_action.num_cards = 4 # Draw 4 cards
+		draw_action.forced = true
+
+		if rule_system.can_apply(game_state, draw_action):
+			rule_system.apply(game_state, draw_action)
+			Global.game_state_changed.emit(game_state)
+		else:
+			# No cards left = loss
+			battle_lost.emit()
+			return
+
+func _process_ai_turn(group: GroupState, unit: UnitState) -> void:
+	print("▶ AI TURN | Group ", group.id, " | Unit ", unit.id)
 	ai_controller.begin_turn(game_state)
 
 func _check_victory_conditions() -> bool:
@@ -113,7 +124,6 @@ func _check_victory_conditions() -> bool:
 		return true
 
 	return false
-
 
 # Utils
 func _debug_print_action(action: Action) -> void:
