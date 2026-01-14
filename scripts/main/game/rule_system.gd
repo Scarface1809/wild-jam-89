@@ -9,8 +9,20 @@ func apply(game_state: GameState, action: Action) -> void:
 	match action.type:
 		Global.ACTION_TYPE.MOVE:
 			_apply_move(game_state, action)
+		Global.ACTION_TYPE.GUN:
+			_apply_gun(game_state, action)
 		Global.ACTION_TYPE.KNIFE:
 			_apply_knife(game_state, action)
+		Global.ACTION_TYPE.TELEPORT:
+			_apply_teleport(game_state, action)
+		Global.ACTION_TYPE.PUSH:
+			_apply_push(game_state, action)
+		Global.ACTION_TYPE.TRAP:
+			_apply_trap(game_state, action)
+		Global.ACTION_TYPE.SHIELD:
+			_apply_shield(game_state, action)
+		Global.ACTION_TYPE.SEVEN:
+			_apply_seven(game_state, action)
 		_:
 			push_error("Unknown action type: " + str(action.type))
 
@@ -18,18 +30,47 @@ func can_apply(game_state: GameState, action: Action) -> bool:
 	match action.type:
 		Global.ACTION_TYPE.MOVE:
 			return _can_apply_move(game_state, action)
+		Global.ACTION_TYPE.GUN:
+			return _can_apply_gun(game_state, action)
 		Global.ACTION_TYPE.KNIFE:
 			return _can_apply_knife(game_state, action)
+		Global.ACTION_TYPE.TELEPORT:
+			return _can_apply_teleport(game_state, action)
+		Global.ACTION_TYPE.PUSH:
+			return _can_apply_push(game_state, action)
+		Global.ACTION_TYPE.TRAP:
+			return _can_apply_trap(game_state, action)
+		Global.ACTION_TYPE.SHIELD:
+			return _can_apply_shield(game_state, action)
+		Global.ACTION_TYPE.SEVEN:
+			return _can_apply_seven(game_state, action)
 		_:
 			return false
 
 # Private Methods
-# Applies
+#region Applies
 func _apply_move(game_state: GameState, action: Action) -> void:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
 	# Move
 	unit.cell_pos = action.target_pos
+	# Remove card
+	if action.source_card != null:
+		game_state.remove_card(action.source_card)
+
+func _apply_gun(game_state: GameState, action: Action) -> void:
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+	# Attack
+	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
+	assert(target_unit != null, "Target unit not found")
+	
+	var target_group: GroupState = game_state.get_group(target_unit.group_id)
+	assert(target_group != null, "Unit's target group not found")
+
+	# Remove target unit from group
+	target_group.remove_unit(target_unit)
+
 	# Remove card
 	if action.source_card != null:
 		game_state.remove_card(action.source_card)
@@ -54,7 +95,23 @@ func _apply_knife(game_state: GameState, action: Action) -> void:
 	if action.source_card != null:
 		game_state.remove_card(action.source_card)
 
-# Validation
+func _apply_teleport(game_state: GameState, action: Action) -> void:
+	return
+
+func _apply_push(game_state: GameState, action: Action) -> void:
+	return
+
+func _apply_trap(game_state: GameState, action: Action) -> void:
+	return
+
+func _apply_shield(game_state: GameState, action: Action) -> void:
+	return
+
+func _apply_seven(game_state: GameState, action: Action) -> void:
+	return
+#endregion
+
+#region Validation
 func _can_apply_move(game_state: GameState, action: Action) -> bool:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
@@ -75,6 +132,26 @@ func _can_apply_move(game_state: GameState, action: Action) -> bool:
 
 	return true
 	
+func _can_apply_gun(game_state: GameState, action: Action) -> bool:
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(unit != null, "Unit not found")
+
+	if unit.cell_pos.x != action.target_pos.x and unit.cell_pos.y != action.target_pos.y:
+		push_warning("Unit is not aligned with target. Unit: " + str(unit.cell_pos) + " Target: " + str(action.target_pos))
+		return false
+	
+	if not game_state.is_tile_occupied(action.target_pos):
+		push_warning("Target tile is not occupied")
+		return false
+
+	if action.source_card != null:
+		var card_suit: Global.SUIT = action.source_card.suit
+		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(unit.cell_pos):
+			push_warning("Card suit does not match unit suit")
+			return false
+
+	return true
+
 func _can_apply_knife(game_state: GameState, action: Action) -> bool:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
@@ -95,19 +172,18 @@ func _can_apply_knife(game_state: GameState, action: Action) -> bool:
 
 	return true
 
-func _can_apply_card(state: GameState, card: CardData, target: Vector2i) -> bool:
-	if card == null:
-		push_warning("No card provided to check if can apply on tile")
-		return false
+func _can_apply_teleport(game_state: GameState, action: Action) -> bool:
+	return false
 
-	var hand = state.hand
-	if not hand.has(card):
-		push_warning("Card not in hand")
-		return false
+func _can_apply_push(game_state: GameState, action: Action) -> bool:
+	return false
 
-	var tile_suit: Global.SUIT = state.tiles.get(target)
-	if tile_suit == null:
-		push_warning("No valid tile found at cell " + str(target))
-		return false
-	
-	return card.suit == tile_suit
+func _can_apply_trap(game_state: GameState, action: Action) -> bool:
+	return false
+
+func _can_apply_shield(game_state: GameState, action: Action) -> bool:
+	return false
+
+func _can_apply_seven(game_state: GameState, action: Action) -> bool:
+	return false
+#endregion
