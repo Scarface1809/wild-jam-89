@@ -56,14 +56,14 @@ func select() -> void:
 
 	card_texture.material = OUTLINE_MATERIAL.duplicate(true)
 	_tween_selected = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_selected.tween_property(self, "position:y", -30.0, 0.55)
+	_tween_selected.tween_property(card_texture, "position:y", -30.0, 0.55)
 
 func deselect() -> void:
 	_kill_tween(_tween_selected)
 
 	card_texture.material = PERSPECTIVE_MATERIAL.duplicate(true)
 	_tween_selected = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_selected.tween_property(self, "position:y", 0.0, 0.55)
+	_tween_selected.tween_property(card_texture, "position:y", 0.0, 0.55)
 
 # Private Methods
 func _ready() -> void:
