@@ -89,12 +89,14 @@ func _initialize_game_state(level: LevelData) -> GameState:
 	player_group_data.type = Global.GROUP_TYPE.PLAYER
 	player_group_data.units = [player_unit_data]
 	
-	var player_group_state = GroupState.new(state, player_group_data)
+	var board_center := Vector2i(floori(state.board_size.x / 2.0), floori(state.board_size.y / 2.0))
+
+	var player_group_state = GroupState.new(state, player_group_data, [board_center])
 	state.groups.append(player_group_state)
 
 	# Then, add the **enemy groups** from level data
 	for group_data in level.groups:
-		var group_state = GroupState.new(state, group_data)
+		var group_state = GroupState.new(state, group_data, [])
 		state.groups.append(group_state)
 
 	state.active_group_index = 0

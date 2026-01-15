@@ -8,7 +8,7 @@ var name: String
 var type: Global.GROUP_TYPE
 var units: Array[UnitState]
 
-func _init(state: GameState, data: GroupData) -> void:
+func _init(state: GameState, data: GroupData, start_positions: Array[Vector2i]) -> void:
 	id = state.get_next_group_id()
 	name = data.name
 	type = data.type
@@ -19,17 +19,23 @@ func _init(state: GameState, data: GroupData) -> void:
 	# Track tiles used for this group to avoid intra-group overlap
 	var occupied_tiles: Array[Vector2i] = []
 
-	for unit_data: UnitData in data.units:
+	for i in range(data.units.size()):
+		var unit_data: UnitData = data.units[i]
 		var pos: Vector2i
-		# Filter out tiles already taken by this group's previous units
-		var available_tiles = free_tiles.filter(func(cell: Vector2i) -> bool:
-			return not occupied_tiles.has(cell)
-		)
-		if available_tiles.size() == 0:
-			push_warning("No free tiles left to spawn unit in group '%s'. Using fallback (0,0)." % name)
-			pos = Vector2i(0, 0)
+		
+		if i < start_positions.size():
+			pos = start_positions[i]
 		else:
-			pos = available_tiles.pick_random()
+			# Filter out tiles already taken by this group's previous units
+			var available_tiles = free_tiles.filter(func(cell: Vector2i) -> bool:
+				return not occupied_tiles.has(cell)
+			)
+			if available_tiles.size() == 0:
+				push_warning("No free tiles left to spawn unit in group '%s'. Using fallback (0,0)." % name)
+				pos = Vector2i(0, 0)
+			else:
+				pos = available_tiles.pick_random()
+			
 		occupied_tiles.append(pos)
 		var unit_id: int = state.get_next_unit_id()
 		var unit_state: UnitState = UnitState.new(unit_id, id, pos, unit_data)
