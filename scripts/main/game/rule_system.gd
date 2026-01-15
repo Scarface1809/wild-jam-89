@@ -223,6 +223,11 @@ func _can_apply_gun(game_state: GameState, action: Action) -> bool:
 		push_warning("Target tile is not occupied")
 		return false
 
+	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
+	if target_unit != null and target_unit.group_id == unit.group_id:
+		push_warning("Cannot shoot own unit")
+		return false
+
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
 		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
@@ -242,6 +247,11 @@ func _can_apply_knife(game_state: GameState, action: Action) -> bool:
 	if not game_state.is_tile_occupied(action.target_pos):
 		push_warning("Target tile is not occupied")
 		return false
+	
+	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
+	if target_unit != null and target_unit.group_id == unit.group_id:
+		push_warning("Cannot stab own unit")
+		return false
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
@@ -257,6 +267,11 @@ func _can_apply_teleport(game_state: GameState, action: Action) -> bool:
 	
 	if not game_state.is_tile_occupied(action.target_pos):
 		push_warning("Target tile is not occupied")
+		return false
+	
+	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
+	if target_unit != null and target_unit.group_id == unit.group_id:
+		push_warning("Cannot teleport to own unit")
 		return false
 
 	if action.source_card != null:
@@ -278,6 +293,11 @@ func _can_apply_push(game_state: GameState, action: Action) -> bool:
 	if not game_state.get_adjacent_tiles(unit.cell_pos).has(action.target_pos):
 		push_warning("Target tile is not adjacent")
 		return false
+	
+	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
+	if target_unit != null and target_unit.group_id == unit.group_id:
+		push_warning("Cannot push own unit")
+		return false
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
@@ -293,6 +313,11 @@ func _can_apply_trap(game_state: GameState, action: Action) -> bool:
 	
 	if not game_state.get_adjacent_tiles(unit.cell_pos).has(action.target_pos):
 		push_warning("Target tile is not adjacent")
+		return false
+	
+	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
+	if target_unit != null and target_unit.group_id == unit.group_id:
+		push_warning("Cannot place trap on own unit")
 		return false
 
 	if action.source_card != null:
