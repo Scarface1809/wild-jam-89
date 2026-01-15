@@ -28,6 +28,7 @@ func _place_enemies(group: GroupState) -> void:
 	var seats: Array[Marker2D] = []
 	seats.append_array(_left_seats)
 	seats.append_array(_right_seats)
+	seats.shuffle()
 
 	for unit in group.units:
 		var seat: Marker2D = _get_first_free_seat(seats)
