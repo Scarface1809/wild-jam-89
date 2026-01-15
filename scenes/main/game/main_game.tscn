@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=66 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -55,6 +55,7 @@
 [ext_resource type="Resource" uid="uid://pfgbnrb2k3ni" path="res://resources/cards/trap_1.tres" id="36_c5ty6"]
 [ext_resource type="Resource" uid="uid://cc4b8bt8u16wf" path="res://resources/cards/trap_2.tres" id="37_m12gr"]
 [ext_resource type="Resource" uid="uid://b2fqu1kt2bbvq" path="res://resources/cards/trap_3.tres" id="38_jshmr"]
+[ext_resource type="Texture2D" uid="uid://dqcip3sgbw515" path="res://assets/tiles/highlight.png" id="55_lhfh8"]
 [ext_resource type="Script" uid="uid://vpgmrtsqjc8f" path="res://scripts/main/game/board_highlights.gd" id="55_y02lv"]
 [ext_resource type="Script" uid="uid://c7ueqoraj5y50" path="res://scripts/main/game/hazards_container.gd" id="56_v7aw0"]
 
@@ -79,46 +80,17 @@ sources/1 = SubResource("TileSetAtlasSource_rddef")
 sources/2 = SubResource("TileSetAtlasSource_ef78a")
 sources/3 = SubResource("TileSetAtlasSource_ejuuv")
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v7aw0"]
-blend_mode = 1
-light_mode = 1
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7aw0"]
-load_path = "res://.godot/imported/tile01.png-38dbc89c26057457b8d0c0028180c68a.ctex"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y02lv"]
-resource_name = "tile01"
-texture = SubResource("CompressedTexture2D_v7aw0")
-texture_region_size = Vector2i(130, 130)
-0:0/0 = 0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lhfh8"]
-load_path = "res://.godot/imported/tile02.png-f3609dfebf2658dcc5409e6cb1e92a4c.ctex"
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkk4j"]
-resource_name = "tile02"
-texture = SubResource("CompressedTexture2D_lhfh8")
-texture_region_size = Vector2i(130, 130)
-0:0/0 = 0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a4e6n"]
-load_path = "res://.godot/imported/tile03.png-221e871d36e6329581635af39231df73.ctex"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6rm54"]
-resource_name = "tile03"
-texture = SubResource("CompressedTexture2D_a4e6n")
+texture = ExtResource("55_lhfh8")
 texture_region_size = Vector2i(130, 130)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_8dr6f"]
 tile_size = Vector2i(130, 130)
-sources/1 = SubResource("TileSetAtlasSource_y02lv")
-sources/2 = SubResource("TileSetAtlasSource_vkk4j")
-sources/3 = SubResource("TileSetAtlasSource_6rm54")
+sources/0 = SubResource("TileSetAtlasSource_vkk4j")
 
 [sub_resource type="Environment" id="Environment_v7aw0"]
 background_mode = 3
-glow_enabled = true
 glow_hdr_scale = 0.0
 adjustment_enabled = true
 adjustment_brightness = 1.2
@@ -210,8 +182,6 @@ script = ExtResource("5_wob2k")
 
 [node name="Highlights" type="TileMapLayer" parent="." node_paths=PackedStringArray("rule_system")]
 unique_name_in_owner = true
-modulate = Color(1.353256, 1.353256, 1.353256, 1)
-material = SubResource("CanvasItemMaterial_v7aw0")
 position = Vector2(641, 38)
 tile_set = SubResource("TileSet_8dr6f")
 script = ExtResource("55_y02lv")

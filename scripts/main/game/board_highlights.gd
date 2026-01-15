@@ -36,8 +36,22 @@ func _update_highlights(card: CardData) -> void:
 			action.unit_id = active_unit.id
 			action.target_pos = cell
 			action.source_card = card
+			
+			#TODO: Fix can_apply debugger spam calls
 
 			# Check if the action can be applied
 			if rule_system.can_apply(_state, action):
 				var suit = _state.get_suit_at(cell)
-				set_cell(cell, suit + 1, Vector2i.ZERO)
+				set_cell(cell, 0, Vector2i.ZERO) # default
+				if _state.get_unit_by_position(cell):
+					match suit:
+						Global.SUIT.BLUE:
+							get_cell_tile_data(cell).modulate = Color(57.0 / 255.0, 115.0 / 255.0, 115.0 / 255.0, 1.0)
+						Global.SUIT.YELLOW:
+							get_cell_tile_data(cell).modulate = Color(255.0 / 255.0, 218.0 / 255.0, 108.0 / 255.0, 1.0)
+						Global.SUIT.RED:
+							get_cell_tile_data(cell).modulate = Color(182.0 / 255.0, 88.0 / 255.0, 76.0 / 255.0, 1.0)
+						_:
+							get_cell_tile_data(cell).modulate = Color(1.0, 1.0, 1.0, 1.0)
+				else:
+					get_cell_tile_data(cell).modulate = Color(1.0, 1.0, 1.0, 1.0)
