@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=4 format=3 uid="uid://bpnmbopn825e"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://bpnmbopn825e"]
 
 [ext_resource type="Texture2D" uid="uid://coqkv678svh1f" path="res://assets/characters/humans/monkey.png" id="1_3jsqm"]
 [ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_uavc4"]
 [ext_resource type="Texture2D" uid="uid://cr0x1u31ochh0" path="res://assets/characters/pieces/monkey.png" id="2_demku"]
+[ext_resource type="Texture2D" uid="uid://cysnqhthbfcke" path="res://assets/characters/portraits/monkey.png" id="3_cwvm4"]
 
 [resource]
 script = ExtResource("1_uavc4")
 name = "Monkey"
 piece_texture = ExtResource("2_demku")
+portrait_texture = ExtResource("3_cwvm4")
 human_texture = ExtResource("1_3jsqm")
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

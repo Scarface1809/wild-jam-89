@@ -18,6 +18,7 @@ const MATERIAL_UIDS = {
 	"FLASH": "uid://c4id7ag22mv0v",
 }
 
+# Textures
 const TEXTURE_UUIDS = {
 	"SUIT_BLUE": "uid://co2yelsyd2oej",
 	"SUIT_YELLOW": "uid://cuj47no0incps",
@@ -31,6 +32,11 @@ const TEXTURE_UUIDS = {
 	"ACTION_TRAP": "uid://dm0fgdvp3c5g6",
 	"ACTION_SHIELD": "uid://csy5kh80csek0",
 	"ACTION_SEVEN": "uid://d2g4qwmi1tn6w",
+}
+
+# Theme
+const THEME_UIDS = {
+	"MAIN": "uid://2ek7eagjo7f0",
 }
 
 # Game Enums
@@ -73,6 +79,8 @@ signal player_turn_ended()
 @warning_ignore("unused_signal")
 signal game_state_changed(game_state: GameState, action: Action)
 
+# Game variables
+var selected_unit: UnitData # The unit selected by the player
 
 # Game Controller
 var game_controller: GameController

@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=71 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -55,6 +55,7 @@
 [ext_resource type="Resource" uid="uid://pfgbnrb2k3ni" path="res://resources/cards/trap_1.tres" id="36_c5ty6"]
 [ext_resource type="Resource" uid="uid://cc4b8bt8u16wf" path="res://resources/cards/trap_2.tres" id="37_m12gr"]
 [ext_resource type="Resource" uid="uid://b2fqu1kt2bbvq" path="res://resources/cards/trap_3.tres" id="38_jshmr"]
+[ext_resource type="Script" uid="uid://vpgmrtsqjc8f" path="res://scripts/main/game/board_highlights.gd" id="55_y02lv"]
 [ext_resource type="Script" uid="uid://c7ueqoraj5y50" path="res://scripts/main/game/hazards_container.gd" id="56_v7aw0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rddef"]
@@ -205,14 +206,14 @@ position = Vector2(641, 38)
 tile_set = SubResource("TileSet_5cicb")
 script = ExtResource("5_wob2k")
 
-[node name="Highlights" type="TileMapLayer" parent="."]
+[node name="Highlights" type="TileMapLayer" parent="." node_paths=PackedStringArray("rule_system")]
 unique_name_in_owner = true
-visible = false
 modulate = Color(1.353256, 1.353256, 1.353256, 1)
 material = SubResource("CanvasItemMaterial_v7aw0")
 position = Vector2(641, 38)
-tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAAAAgAAAAAAAAABAAEAAgAAAAAAAAABAAIAAgAAAAAAAAABAAMAAgAAAAAAAAABAAQAAgAAAAAAAAADAAAAAgAAAAAAAAADAAEAAgAAAAAAAAADAAIAAgAAAAAAAAADAAMAAgAAAAAAAAADAAQAAgAAAAAAAAACAAEAAwAAAAAAAAACAAIAAwAAAAAAAAACAAMAAwAAAAAAAAACAAQAAwAAAAAAAAACAAAAAwAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAAEAAQAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_8dr6f")
+script = ExtResource("55_y02lv")
+rule_system = NodePath("../RuleSystem")
 
 [node name="UnitsContainer" type="Node2D" parent="." node_paths=PackedStringArray("board")]
 unique_name_in_owner = true

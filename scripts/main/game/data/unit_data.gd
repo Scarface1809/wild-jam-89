@@ -5,5 +5,6 @@ class_name UnitData
 
 @export var name: String
 @export var piece_texture: Texture2D
+@export var portrait_texture: Texture2D
 @export var human_texture: Texture2D
 @export var actions: Array[Global.ACTION_TYPE]

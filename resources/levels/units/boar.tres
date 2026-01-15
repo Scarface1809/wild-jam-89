@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=4 format=3 uid="uid://ded7cqshxclrx"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://ded7cqshxclrx"]
 
 [ext_resource type="Texture2D" uid="uid://da158i4bg3m00" path="res://assets/characters/humans/boar.png" id="1_hg2ev"]
 [ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_q8we1"]
 [ext_resource type="Texture2D" uid="uid://p6cerhhekey7" path="res://assets/characters/pieces/boar.png" id="2_q5hv0"]
+[ext_resource type="Texture2D" uid="uid://dv3rinfu2h78e" path="res://assets/characters/portraits/boar.png" id="3_moohm"]
 
 [resource]
 script = ExtResource("1_q8we1")
 name = "Boar"
 piece_texture = ExtResource("2_q5hv0")
+portrait_texture = ExtResource("3_moohm")
 human_texture = ExtResource("1_hg2ev")
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"
