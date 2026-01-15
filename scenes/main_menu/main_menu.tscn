@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://dolritqgtceml"]
+[gd_scene load_steps=14 format=3 uid="uid://dolritqgtceml"]
 
 [ext_resource type="Script" uid="uid://crp24nu04jd44" path="res://scripts/main_menu/main_menu.gd" id="1_4v5wy"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="2_tj3dw"]
 [ext_resource type="PackedScene" uid="uid://bp7pspq4knti5" path="res://scenes/main_menu/options_menu.tscn" id="4_eum3g"]
 [ext_resource type="PackedScene" uid="uid://2i316e7renfb" path="res://scenes/main_menu/how_to_play_menu.tscn" id="5_gu1vn"]
+[ext_resource type="Texture2D" uid="uid://cm08ivepe8uda" path="res://assets/characters/portraits/flamingo.png" id="5_qel0l"]
+[ext_resource type="Script" uid="uid://bojvemddgli0m" path="res://scripts/main_menu/character_selector.gd" id="5_rrgl4"]
+[ext_resource type="Texture2D" uid="uid://y4hgq41j0tln" path="res://assets/characters/pieces/tuna.png" id="6_rrgl4"]
+[ext_resource type="Texture2D" uid="uid://cr0x1u31ochh0" path="res://assets/characters/pieces/monkey.png" id="7_dn3lk"]
+[ext_resource type="Texture2D" uid="uid://7ttgvblqbnj7" path="res://assets/characters/pieces/rat.png" id="8_4ujhu"]
+[ext_resource type="Texture2D" uid="uid://dokjo161vemhn" path="res://assets/characters/pieces/flamingo.png" id="9_vnpsp"]
+[ext_resource type="Texture2D" uid="uid://c8dpqp0wajpy0" path="res://assets/characters/pieces/iguana.png" id="10_a1gy5"]
+[ext_resource type="Texture2D" uid="uid://dj7rhw0mwcbbe" path="res://assets/characters/pieces/rabbit.png" id="11_bq5lc"]
+[ext_resource type="Texture2D" uid="uid://p6cerhhekey7" path="res://assets/characters/pieces/boar.png" id="12_xac7c"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -85,7 +94,136 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
+[node name="CharacterSelector" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_rrgl4")
+
+[node name="ColorRect" type="ColorRect" parent="CharacterSelector"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.101960786, 0.047058824, 0.043137256, 1)
+
+[node name="PortraitTexture" type="TextureRect" parent="CharacterSelector"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -442.0
+offset_right = 234.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(230, 280)
+texture = ExtResource("5_qel0l")
+
+[node name="CharactersContainer" type="HBoxContainer" parent="CharacterSelector"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -662.0
+offset_top = -311.0
+offset_right = 662.0
+offset_bottom = -181.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 69
+
+[node name="tuna" type="Button" parent="CharacterSelector/CharactersContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_tj3dw")
+icon = ExtResource("6_rrgl4")
+icon_alignment = 1
+
+[node name="monkey" type="Button" parent="CharacterSelector/CharactersContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_tj3dw")
+icon = ExtResource("7_dn3lk")
+icon_alignment = 1
+
+[node name="rat" type="Button" parent="CharacterSelector/CharactersContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_tj3dw")
+icon = ExtResource("8_4ujhu")
+icon_alignment = 1
+
+[node name="flamingo" type="Button" parent="CharacterSelector/CharactersContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_tj3dw")
+icon = ExtResource("9_vnpsp")
+icon_alignment = 1
+
+[node name="iguana" type="Button" parent="CharacterSelector/CharactersContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_tj3dw")
+icon = ExtResource("10_a1gy5")
+icon_alignment = 1
+
+[node name="rabbit" type="Button" parent="CharacterSelector/CharactersContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_tj3dw")
+icon = ExtResource("11_bq5lc")
+icon_alignment = 1
+
+[node name="boar" type="Button" parent="CharacterSelector/CharactersContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_tj3dw")
+icon = ExtResource("12_xac7c")
+icon_alignment = 1
+
+[node name="back_button" type="Button" parent="CharacterSelector"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -97.0
+offset_right = 75.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_tj3dw")
+text = "BACK"
+
 [connection signal="pressed" from="ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ButtonContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="ButtonContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="ButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CharacterSelector/back_button" to="CharacterSelector" method="_on_back_button_pressed"]
