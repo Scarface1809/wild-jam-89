@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c76kj4of14ajq"]
+[gd_scene load_steps=5 format=3 uid="uid://c76kj4of14ajq"]
 
 [ext_resource type="Script" uid="uid://8fw6u7jyx1ci" path="res://scripts/main/ui/hand.gd" id="1_a3gx8"]
 [ext_resource type="Texture2D" uid="uid://bodful5pisos0" path="res://assets/cards/card_base.png" id="2_8v443"]
 [ext_resource type="Script" uid="uid://cftkl3orxrkw4" path="res://scripts/main/game/shuffle.gd" id="2_a3gx8"]
+[ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="4_vrub2"]
 
 [node name="MainGameUi" type="Control"]
 layout_mode = 3
@@ -44,5 +45,24 @@ grow_vertical = 0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_8v443")
 script = ExtResource("2_a3gx8")
+
+[node name="Label" type="Label" parent="Shuffle"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_vrub2")
+text = "56"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Shuffle" to="Shuffle" method="_on_pressed"]
