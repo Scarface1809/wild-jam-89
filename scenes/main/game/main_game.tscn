@@ -196,7 +196,7 @@ position = Vector2(1480, 600)
 
 [node name="PlayerSeat" type="Marker2D" parent="Background/Seats"]
 unique_name_in_owner = true
-position = Vector2(1200, 824)
+position = Vector2(1245, 824)
 rotation = -1.5707964
 
 [node name="Board" type="TileMapLayer" parent="."]
