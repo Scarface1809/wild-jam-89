@@ -46,7 +46,7 @@ func _load_current_level() -> void:
 	# TODO: change to emit state changed
 	_seats.initialize_from_state(state)
 	_board.initialize_from_state(state)
-	_highlights.sync_with_state(state)
+	_highlights.sync_with_state(state, null)
 	_units_container.sync_with_state(state, null)
 
 	# Generate level

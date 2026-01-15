@@ -10,12 +10,13 @@ func _ready() -> void:
 	Global.card_clicked.connect(_on_card_clicked)
 	Global.game_state_changed.connect(sync_with_state)
 
-func sync_with_state(state: GameState) -> void:
+func sync_with_state(state: GameState, action: Action) -> void:
 	_state = state
-	clear()
+	if action != null and action.source_card != null:
+		clear() # clear highlights after using a card
 
 func _on_card_clicked(index: int) -> void:
-	if index != -1:
+	if index >= 0 and index < _state.hand.size():
 		var card: CardData = _state.hand[index]
 		_update_highlights(card)
 	else:
@@ -31,6 +32,7 @@ func _update_highlights(card: CardData) -> void:
 			var cell = Vector2i(x, y)
 
 			var action = Action.new()
+			action.type = card.action_type
 			action.unit_id = active_unit.id
 			action.target_pos = cell
 			action.source_card = card
