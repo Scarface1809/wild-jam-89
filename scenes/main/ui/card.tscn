@@ -63,9 +63,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(85, 120)
+mouse_filter = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
 size = Vector2i(170, 240)
+render_target_update_mode = 4
 
 [node name="CardTexture" type="TextureRect" parent="SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
