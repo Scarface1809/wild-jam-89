@@ -13,12 +13,14 @@ var _current_level: int = 0
 
 # OnReady Variables
 @onready var _board: Board = %Board
+@onready var _highlights: BoardHighlights = %Highlights
 @onready var _seats: Seats = %Seats
 @onready var _units_container: UnitsContainer = %UnitsContainer
 @onready var _battle_controller: BattleController = %BattleController
 
 func _ready() -> void:
 	# Setup
+	assert(Global.selected_unit != null, "A player unit must be selected")
 	assert(levels_data.size() > 0, "At least one level is required")
 
 	# Signals
@@ -44,6 +46,7 @@ func _load_current_level() -> void:
 	# TODO: change to emit state changed
 	_seats.initialize_from_state(state)
 	_board.initialize_from_state(state)
+	_highlights.sync_with_state(state)
 	_units_container.sync_with_state(state, null)
 
 	# Generate level
@@ -79,6 +82,17 @@ func _initialize_game_state(level: LevelData) -> GameState:
 			index += 1
 
 	# Create GroupStates
+	# First, add the **player group** using the selected unit
+	var player_unit_data: UnitData = Global.selected_unit
+	var player_group_data := GroupData.new()
+	player_group_data.name = "Player"
+	player_group_data.type = Global.GROUP_TYPE.PLAYER
+	player_group_data.units = [player_unit_data]
+	
+	var player_group_state = GroupState.new(state, player_group_data)
+	state.groups.append(player_group_state)
+
+	# Then, add the **enemy groups** from level data
 	for group_data in level.groups:
 		var group_state = GroupState.new(state, group_data)
 		state.groups.append(group_state)
