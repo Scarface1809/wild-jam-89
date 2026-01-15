@@ -16,7 +16,6 @@ uniform float x_rot : hint_range(-180, 180) = 0.0;
 // At 1, the image is resized so that it can do a full
 // rotation without clipping inside its rect.
 uniform float inset : hint_range(0, 1) = 0.0;
-uniform vec2 rect_size;
 // Consider changing this to a uniform and changing it from code
 
 varying flat vec2 o;
@@ -49,7 +48,7 @@ void vertex(){
 	p.xy *= v * inv_rot_mat[2].z;
 	o = v * inv_rot_mat[2].xy;
 
-	VERTEX += (UV - 0.5) * rect_size * t * (1.0 - inset);
+	VERTEX += (UV - 0.5) / TEXTURE_PIXEL_SIZE * t * (1.0 - inset);
 }
 
 void fragment(){
@@ -67,4 +66,3 @@ shader_parameter/cull_back = true
 shader_parameter/y_rot = 0.0
 shader_parameter/x_rot = 0.0
 shader_parameter/inset = 0.0
-shader_parameter/rect_size = Vector2(170, 240)

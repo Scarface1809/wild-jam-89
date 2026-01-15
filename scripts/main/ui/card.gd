@@ -36,7 +36,7 @@ var _tween_hover: Tween
 var _tween_selected: Tween
 
 # OnReady Variables
-@onready var card_texture: TextureRect = %CardTexture
+@onready var sub_viewport_container: SubViewportContainer = %SubViewportContainer
 @onready var shadow_texture: TextureRect = %ShadowTexture
 @onready var suit_texture: TextureRect = %SuitTexture
 @onready var type_texture: TextureRect = %TypeTexture
@@ -54,16 +54,16 @@ func get_card_data() -> CardData:
 func select() -> void:
 	_kill_tween(_tween_selected)
 
-	card_texture.material = OUTLINE_MATERIAL.duplicate(true)
+	sub_viewport_container.material = OUTLINE_MATERIAL.duplicate(true)
 	_tween_selected = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_selected.tween_property(card_texture, "position:y", -30.0, 0.55)
+	_tween_selected.tween_property(sub_viewport_container, "position:y", -30.0, 0.55)
 
 func deselect() -> void:
 	_kill_tween(_tween_selected)
 
-	card_texture.material = PERSPECTIVE_MATERIAL.duplicate(true)
+	sub_viewport_container.material = PERSPECTIVE_MATERIAL.duplicate(true)
 	_tween_selected = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_selected.tween_property(card_texture, "position:y", 0.0, 0.55)
+	_tween_selected.tween_property(sub_viewport_container, "position:y", 0.0, 0.55)
 
 # Private Methods
 func _ready() -> void:
@@ -84,25 +84,25 @@ func _on_gui_input(event: InputEvent) -> void:
 	var rot_x := rad_to_deg(lerp_angle(-angle_x_max, angle_x_max, lerp_x))
 	var rot_y := rad_to_deg(lerp_angle(angle_y_max, -angle_y_max, lerp_y))
 
-	card_texture.material.set_shader_parameter("x_rot", rot_y)
-	card_texture.material.set_shader_parameter("y_rot", rot_x)
+	sub_viewport_container.material.set_shader_parameter("x_rot", rot_y)
+	sub_viewport_container.material.set_shader_parameter("y_rot", rot_x)
 
 func _on_mouse_entered() -> void:
 	_kill_tween(_tween_hover)
 	_tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_hover.tween_property(card_texture, "scale", Vector2(1.1, 1.1), 0.5)
+	_tween_hover.tween_property(sub_viewport_container, "scale", Vector2(1.1, 1.1), 0.5)
 
 func _on_mouse_exited() -> void:
 	_reset_rotation()
 	_kill_tween(_tween_hover)
 	_tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_hover.tween_property(card_texture, "scale", Vector2.ONE, 0.55)
+	_tween_hover.tween_property(sub_viewport_container, "scale", Vector2.ONE, 0.55)
 
 func _reset_rotation() -> void:
 	_kill_tween(_tween_rot)
 	_tween_rot = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(true)
-	_tween_rot.tween_property(card_texture.material, "shader_parameter/x_rot", 0.0, 0.5)
-	_tween_rot.tween_property(card_texture.material, "shader_parameter/y_rot", 0.0, 0.5)
+	_tween_rot.tween_property(sub_viewport_container.material, "shader_parameter/x_rot", 0.0, 0.5)
+	_tween_rot.tween_property(sub_viewport_container.material, "shader_parameter/y_rot", 0.0, 0.5)
 
 func _kill_tween(tween: Tween) -> void:
 	if tween and tween.is_running():

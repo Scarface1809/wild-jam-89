@@ -53,9 +53,8 @@ pivot_offset = Vector2(85, 120)
 mouse_filter = 2
 texture = ExtResource("2_jw2q5")
 
-[node name="CardTexture" type="TextureRect" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 unique_name_in_owner = true
-texture_filter = 5
 material = ExtResource("2_y47s3")
 layout_mode = 1
 anchors_preset = 15
@@ -64,10 +63,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(85, 120)
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+size = Vector2i(170, 240)
+
+[node name="CardTexture" type="TextureRect" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+texture_filter = 5
+offset_right = 170.0
+offset_bottom = 240.0
 mouse_filter = 2
 texture = ExtResource("2_jw2q5")
 
-[node name="SuitTexture" type="TextureRect" parent="CardTexture"]
+[node name="SuitTexture" type="TextureRect" parent="SubViewportContainer/SubViewport/CardTexture"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(54, 54)
 layout_mode = 0
@@ -78,7 +86,7 @@ offset_bottom = 79.0
 mouse_filter = 2
 texture = ExtResource("4_s20lg")
 
-[node name="TypeTexture" type="TextureRect" parent="CardTexture"]
+[node name="TypeTexture" type="TextureRect" parent="SubViewportContainer/SubViewport/CardTexture"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 160)
 layout_mode = 0
