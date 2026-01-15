@@ -129,10 +129,6 @@ texture = ExtResource("20_60pvo")
 position = Vector2(960, 412)
 texture = ExtResource("21_ypxby")
 
-[node name="Grid" type="Sprite2D" parent="Background"]
-position = Vector2(965, 362)
-texture = ExtResource("22_ymidc")
-
 [node name="RadioCouch" type="Sprite2D" parent="Background"]
 position = Vector2(1699, 868)
 texture = ExtResource("18_ymidc")
@@ -186,6 +182,10 @@ position = Vector2(641, 38)
 tile_set = SubResource("TileSet_8dr6f")
 script = ExtResource("55_y02lv")
 rule_system = NodePath("../RuleSystem")
+
+[node name="Grid" type="Sprite2D" parent="."]
+position = Vector2(965, 362)
+texture = ExtResource("22_ymidc")
 
 [node name="UnitsContainer" type="Node2D" parent="." node_paths=PackedStringArray("board")]
 unique_name_in_owner = true
