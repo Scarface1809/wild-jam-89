@@ -80,6 +80,7 @@ sources/2 = SubResource("TileSetAtlasSource_ef78a")
 sources/3 = SubResource("TileSetAtlasSource_ejuuv")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v7aw0"]
+blend_mode = 1
 light_mode = 1
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7aw0"]
@@ -118,6 +119,7 @@ sources/3 = SubResource("TileSetAtlasSource_6rm54")
 [sub_resource type="Environment" id="Environment_v7aw0"]
 background_mode = 3
 glow_enabled = true
+glow_hdr_scale = 0.0
 adjustment_enabled = true
 adjustment_brightness = 1.2
 adjustment_contrast = 1.01
