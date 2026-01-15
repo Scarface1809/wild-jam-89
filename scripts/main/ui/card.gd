@@ -90,13 +90,13 @@ func _on_gui_input(event: InputEvent) -> void:
 func _on_mouse_entered() -> void:
 	_kill_tween(_tween_hover)
 	_tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_hover.tween_property(self, "scale", Vector2(1.1, 1.1), 0.5)
+	_tween_hover.tween_property(card_texture, "scale", Vector2(1.1, 1.1), 0.5)
 
 func _on_mouse_exited() -> void:
 	_reset_rotation()
 	_kill_tween(_tween_hover)
 	_tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	_tween_hover.tween_property(self, "scale", Vector2.ONE, 0.55)
+	_tween_hover.tween_property(card_texture, "scale", Vector2.ONE, 0.55)
 
 func _reset_rotation() -> void:
 	_kill_tween(_tween_rot)

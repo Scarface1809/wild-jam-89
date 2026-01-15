@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c76kj4of14ajq"]
 
 [ext_resource type="Script" uid="uid://8fw6u7jyx1ci" path="res://scripts/main/ui/hand.gd" id="1_a3gx8"]
-[ext_resource type="Texture2D" uid="uid://bx7w57j3ygr22" path="res://assets/icons/game.png" id="2_8v443"]
+[ext_resource type="Texture2D" uid="uid://bodful5pisos0" path="res://assets/cards/card_base.png" id="2_8v443"]
 [ext_resource type="Script" uid="uid://cftkl3orxrkw4" path="res://scripts/main/game/shuffle.gd" id="2_a3gx8"]
 
 [node name="MainGameUi" type="Control"]
@@ -21,12 +21,12 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -500.0
-offset_top = -241.0
+offset_top = -222.0
 offset_right = 12.0
-offset_bottom = -113.0
+offset_bottom = -94.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 90
+theme_override_constants/separation = 16
 alignment = 1
 script = ExtResource("1_a3gx8")
 
@@ -36,9 +36,12 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -140.0
-offset_right = 140.0
+offset_left = 18.0
+offset_top = -257.0
+offset_right = 188.0
+offset_bottom = -17.0
 grow_vertical = 0
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_8v443")
 script = ExtResource("2_a3gx8")
 
