@@ -12,6 +12,7 @@ func _ready() -> void:
 
 func sync_with_state(state: GameState) -> void:
 	_state = state
+	clear()
 
 func _on_card_clicked(index: int) -> void:
 	if index != -1:
