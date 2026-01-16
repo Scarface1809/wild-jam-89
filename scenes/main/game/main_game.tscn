@@ -163,7 +163,7 @@ position = Vector2(1480, 400)
 
 [node name="RightSeat3" type="Marker2D" parent="Background/Seats"]
 unique_name_in_owner = true
-position = Vector2(1480, 600)
+position = Vector2(1480, 650)
 
 [node name="PlayerSeat" type="Marker2D" parent="Background/Seats"]
 unique_name_in_owner = true
