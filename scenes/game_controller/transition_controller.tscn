@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbimrathn2fh0"]
+[gd_scene load_steps=4 format=3 uid="uid://dbimrathn2fh0"]
 
 [ext_resource type="Script" uid="uid://75pf8pgvrwk7" path="res://scripts/game_controller/transition_controller/transition_controller.gd" id="1_qxqk5"]
+[ext_resource type="Script" uid="uid://cofx5dibewx6m" path="res://scripts/game_controller/transition_controller/transition_settings.gd" id="2_j5jwx"]
+[ext_resource type="Resource" uid="uid://cvdl4oi86saki" path="res://resources/transition_settings/fade_to_fade.tres" id="3_dfwql"]
 
 [node name="TransitionController" type="Control"]
 layout_mode = 3
@@ -11,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_qxqk5")
+transition_settings = Array[ExtResource("2_j5jwx")]([ExtResource("3_dfwql")])
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
