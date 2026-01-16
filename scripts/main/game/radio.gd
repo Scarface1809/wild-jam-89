@@ -1,5 +1,5 @@
 class_name Radio
-extends Area2D
+extends Button
 
 @export var musics: Array[SoundEffectSettings.SOUND_EFFECT_TYPE] = []
 
@@ -13,17 +13,17 @@ func _ready() -> void:
 	_last_music = first_song
 	AudioManager.create_audio(first_song)
 
-func _on_input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		for music_type in musics:
-			AudioManager.stop_audio(music_type)
+func _pressed() -> void:
 
-		if musics.is_empty():
-			return
+	for music_type in musics:
+		AudioManager.stop_audio(music_type)
 
-		var next_music := _pick_new_music()
-		_last_music = next_music
-		AudioManager.create_audio(next_music)
+	if musics.is_empty():
+		return
+
+	var next_music := _pick_new_music()
+	_last_music = next_music
+	AudioManager.create_audio(next_music)
 
 func _pick_new_music() -> SoundEffectSettings.SOUND_EFFECT_TYPE:
 	if musics.size() == 1:
