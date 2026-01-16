@@ -5,7 +5,7 @@ extends Area2D
 
 var _last_music = null
 
-func _ready() -> void
+func _ready() -> void:
 	if musics.is_empty():
 		return
 
