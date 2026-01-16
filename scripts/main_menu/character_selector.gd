@@ -30,6 +30,7 @@ func _on_button_mouse_entered(_button: Button, unit: UnitData) -> void:
 func _on_button_pressed(_button: Button, unit: UnitData) -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	Global.selected_unit = unit
+	AudioManager.fade_out_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.MENU_MUSIC, 0.8)
 	await Global.game_controller.change_scene(Global.SCENE_UIDS.MAIN_UI, Global.SCENE_UIDS.MAIN_GAME, TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 
 func _on_back_button_pressed() -> void:

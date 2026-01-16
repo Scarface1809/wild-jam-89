@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SoundEffectSettings" load_steps=3 format=3 uid="uid://dhpqeto3t7gmr"]
+
+[ext_resource type="Script" uid="uid://dw2bqkenv2kn5" path="res://scripts/audio_manager/sound_effect_settings.gd" id="1_byqrj"]
+[ext_resource type="AudioStream" uid="uid://d0o36kpk74ku6" path="res://assets/sounds/Bossa.mp3" id="2_l4451"]
+
+[resource]
+script = ExtResource("1_byqrj")
+limit = 1
+type = 4
+sound_effect = ExtResource("2_l4451")
+volume = -15
+bus_name = &"Music"
+metadata/_custom_type_script = "uid://dw2bqkenv2kn5"

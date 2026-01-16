@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEffectSettings" load_steps=3 format=3 uid="uid://c3hco4fqduiny"]
+
+[ext_resource type="Script" uid="uid://dw2bqkenv2kn5" path="res://scripts/audio_manager/sound_effect_settings.gd" id="1_36shl"]
+[ext_resource type="AudioStream" uid="uid://d0bwf6o7mesg5" path="res://assets/sounds/button_click.wav" id="2_j4gua"]
+
+[resource]
+script = ExtResource("1_36shl")
+sound_effect = ExtResource("2_j4gua")
+volume = -20
+bus_name = &"SFX"
+metadata/_custom_type_script = "uid://dw2bqkenv2kn5"

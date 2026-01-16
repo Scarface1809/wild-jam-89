@@ -4,11 +4,12 @@ extends Control
 @onready var options_menu: Control = %OptionsMenu
 @onready var character_selector: Control = %CharacterSelector
 
+func _ready() -> void:
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.MENU_MUSIC)
 
 func _on_start_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	character_selector.show()
-	
 
 func _on_options_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)

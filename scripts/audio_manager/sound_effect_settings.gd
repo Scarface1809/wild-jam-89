@@ -4,6 +4,10 @@ extends Resource
 
 enum SOUND_EFFECT_TYPE {
 	BUTTON_CLICK,
+	MENU_MUSIC,
+	GAME_MUSIC_1,
+	GAME_MUSIC_2,
+	GAME_MUSIC_3
 }
 
 ## Maximum amount of this sound that can play at the same time.

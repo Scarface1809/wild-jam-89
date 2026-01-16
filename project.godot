@@ -16,6 +16,10 @@ run/main_scene="uid://cyangrc80ocx0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://assets/icons/game.png"
 
+[audio]
+
+buses/default_bus_layout="uid://dd861fsnjvt51"
+
 [autoload]
 
 AudioManager="*res://scenes/audio_manager/audio_manager.tscn"
