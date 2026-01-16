@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_wumv4")
+action_type = 6
 metadata/_custom_type_script = "uid://c2cdsdeye0y3t"
