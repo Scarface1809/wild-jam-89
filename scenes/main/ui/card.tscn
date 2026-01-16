@@ -20,6 +20,7 @@
 custom_minimum_size = Vector2(170, 240)
 offset_right = 170.0
 offset_bottom = 240.0
+pivot_offset = Vector2(85, 120)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
@@ -35,6 +36,7 @@ angle_y_max = 5.0
 
 [node name="ShadowTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
+visible = false
 modulate = Color(0.034746442, 0.034746442, 0.03474642, 1)
 self_modulate = Color(1, 1, 1, 0.5254902)
 show_behind_parent = true

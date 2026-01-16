@@ -88,11 +88,15 @@ func _on_gui_input(event: InputEvent) -> void:
 	sub_viewport_container.material.set_shader_parameter("y_rot", rot_x)
 
 func _on_mouse_entered() -> void:
+	z_index = 1
+	shadow_texture.visible = true
 	_kill_tween(_tween_hover)
 	_tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	_tween_hover.tween_property(sub_viewport_container, "scale", Vector2(1.1, 1.1), 0.5)
 
 func _on_mouse_exited() -> void:
+	z_index = 0
+	shadow_texture.visible = false
 	_reset_rotation()
 	_kill_tween(_tween_hover)
 	_tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)

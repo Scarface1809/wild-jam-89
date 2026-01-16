@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://c76kj4of14ajq"]
+[gd_scene load_steps=7 format=3 uid="uid://c76kj4of14ajq"]
 
 [ext_resource type="Script" uid="uid://8fw6u7jyx1ci" path="res://scripts/main/ui/hand.gd" id="1_a3gx8"]
 [ext_resource type="Texture2D" uid="uid://bodful5pisos0" path="res://assets/cards/card_base.png" id="2_8v443"]
 [ext_resource type="Script" uid="uid://cftkl3orxrkw4" path="res://scripts/main/game/shuffle.gd" id="2_a3gx8"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="4_vrub2"]
+
+[sub_resource type="Curve" id="Curve_vrub2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4966555, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_f45jh"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="MainGameUi" type="Control"]
 layout_mode = 3
@@ -13,23 +22,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Hand" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(512, 128)
+[node name="Hand" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -500.0
-offset_top = -222.0
-offset_right = 12.0
-offset_bottom = -94.0
+offset_left = -240.0
+offset_top = -294.0
+offset_right = -240.0
+offset_bottom = -294.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 16
-alignment = 1
 script = ExtResource("1_a3gx8")
+height_curve = SubResource("Curve_vrub2")
+rotation_curve = SubResource("Curve_f45jh")
+max_rotation_degrees = 10.0
+card_spacing = 115.0
 
 [node name="Shuffle" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(150, 150)
