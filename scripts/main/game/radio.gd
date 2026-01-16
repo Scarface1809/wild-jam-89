@@ -5,7 +5,7 @@ extends Area2D
 
 var _last_music = null
 
-func _ready() -> void:
+func _ready() -> void: \
 	if musics.is_empty():
 		return
 
@@ -14,7 +14,6 @@ func _ready() -> void:
 	AudioManager.create_audio(first_song)
 
 func _on_input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
-	print("Radio clicked")
 	if event is InputEventMouseButton and event.pressed:
 		for music_type in musics:
 			AudioManager.stop_audio(music_type)
