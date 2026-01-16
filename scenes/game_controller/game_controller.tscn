@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyangrc80ocx0"]
+[gd_scene load_steps=4 format=3 uid="uid://cyangrc80ocx0"]
 
 [ext_resource type="Script" uid="uid://hgrwesfvigyw" path="res://scripts/game_controller/game_controller.gd" id="1_7gr0a"]
 [ext_resource type="PackedScene" uid="uid://dbimrathn2fh0" path="res://scenes/game_controller/transition_controller.tscn" id="2_7jkri"]
 [ext_resource type="PackedScene" uid="uid://dolritqgtceml" path="res://scenes/main_menu/main_menu.tscn" id="2_c3f1a"]
-[ext_resource type="Script" uid="uid://cofx5dibewx6m" path="res://scripts/game_controller/transition_controller/transition_settings.gd" id="4_s8vvr"]
-[ext_resource type="Resource" uid="uid://cvdl4oi86saki" path="res://resources/transition_settings/fade_to_fade.tres" id="5_giy5l"]
 
 [node name="GameController" type="Node"]
 script = ExtResource("1_7gr0a")
@@ -29,4 +27,3 @@ layout_mode = 1
 [node name="TransitionController" parent="." instance=ExtResource("2_7jkri")]
 unique_name_in_owner = true
 z_index = 10
-transition_settings = Array[ExtResource("4_s8vvr")]([ExtResource("5_giy5l")])

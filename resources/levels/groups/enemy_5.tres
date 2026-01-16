@@ -1,11 +1,15 @@
-[gd_resource type="Resource" script_class="GroupData" load_steps=5 format=3 uid="uid://1ead2i8mb5td"]
+[gd_resource type="Resource" script_class="GroupData" load_steps=9 format=3 uid="uid://1ead2i8mb5td"]
 
 [ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/group_data.gd" id="1_pj7u6"]
 [ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="2_rttpe"]
 [ext_resource type="Resource" uid="uid://dipngc8176wck" path="res://resources/levels/units/tuna.tres" id="3_ftl6x"]
 [ext_resource type="Resource" uid="uid://bobtdgmhamkae" path="res://resources/levels/units/rat.tres" id="4_e3b60"]
+[ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/boar.tres" id="5_nyqjp"]
+[ext_resource type="Resource" uid="uid://crn35uu5i3vee" path="res://resources/levels/units/rabbit.tres" id="6_30qdm"]
+[ext_resource type="Resource" uid="uid://nu11fdj7qldy" path="res://resources/levels/units/flamingo.tres" id="7_m1wqy"]
+[ext_resource type="Resource" uid="uid://dg3537igj5um1" path="res://resources/levels/units/iguana.tres" id="8_vyosv"]
 
 [resource]
 script = ExtResource("1_pj7u6")
-units = Array[ExtResource("2_rttpe")]([ExtResource("3_ftl6x"), ExtResource("4_e3b60")])
+units = Array[ExtResource("2_rttpe")]([ExtResource("3_ftl6x"), ExtResource("4_e3b60"), ExtResource("5_nyqjp"), ExtResource("6_30qdm"), ExtResource("7_m1wqy"), ExtResource("8_vyosv")])
 metadata/_custom_type_script = "uid://pm72qu6bk70b"

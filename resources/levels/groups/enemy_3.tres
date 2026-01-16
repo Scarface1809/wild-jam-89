@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="GroupData" load_steps=5 format=3 uid="uid://b7uc2ra26mkyx"]
+[gd_resource type="Resource" script_class="GroupData" load_steps=7 format=3 uid="uid://b7uc2ra26mkyx"]
 
 [ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/group_data.gd" id="1_lnuwo"]
 [ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="2_i30bu"]
 [ext_resource type="Resource" uid="uid://dipngc8176wck" path="res://resources/levels/units/tuna.tres" id="3_e8gs2"]
 [ext_resource type="Resource" uid="uid://bobtdgmhamkae" path="res://resources/levels/units/rat.tres" id="4_360l0"]
+[ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/boar.tres" id="5_446nv"]
+[ext_resource type="Resource" uid="uid://crn35uu5i3vee" path="res://resources/levels/units/rabbit.tres" id="6_ti3mh"]
 
 [resource]
 script = ExtResource("1_lnuwo")
 name = "EnemyGroup3"
 type = 1
-units = Array[ExtResource("2_i30bu")]([ExtResource("3_e8gs2"), ExtResource("4_360l0")])
+units = Array[ExtResource("2_i30bu")]([ExtResource("3_e8gs2"), ExtResource("4_360l0"), ExtResource("5_446nv"), ExtResource("6_ti3mh")])
 metadata/_custom_type_script = "uid://pm72qu6bk70b"
