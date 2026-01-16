@@ -23,7 +23,16 @@ const ACTION_TEXTURES: Dictionary = {
 	Global.ACTION_TYPE.SHIELD: preload(Global.TEXTURE_UUIDS.ACTION_SHIELD),
 	Global.ACTION_TYPE.SEVEN: preload(Global.TEXTURE_UUIDS.ACTION_SEVEN)
 }
-
+const ACTION_NAMES: Dictionary = {
+	Global.ACTION_TYPE.MOVE: "MOVE",
+	Global.ACTION_TYPE.GUN: "SHOOT",
+	Global.ACTION_TYPE.KNIFE: "SLASH",
+	Global.ACTION_TYPE.TELEPORT: "SWITCH",
+	Global.ACTION_TYPE.PUSH: "PUSH",
+	Global.ACTION_TYPE.TRAP: "TRAP",
+	Global.ACTION_TYPE.SHIELD: "SHIELD",
+	Global.ACTION_TYPE.SEVEN: "SEVEN",
+}
 # Export Variables
 @export_range(0.0, 30.0) var angle_x_max: float = 15.0
 @export_range(0.0, 30.0) var angle_y_max: float = 15.0
@@ -40,6 +49,7 @@ var _tween_selected: Tween
 @onready var shadow_texture: TextureRect = %ShadowTexture
 @onready var suit_texture: TextureRect = %SuitTexture
 @onready var type_texture: TextureRect = %TypeTexture
+@onready var type_name: Label = %TypeName
 
 # Public Methods
 func set_card_data(data: CardData) -> void:
@@ -47,6 +57,7 @@ func set_card_data(data: CardData) -> void:
 	# TODO: Update visuals here (icon, text, cost, etc.)
 	suit_texture.texture = SUIT_TEXTURES[data.suit]
 	type_texture.texture = ACTION_TEXTURES[data.action_type]
+	type_name.text = ACTION_NAMES[data.action_type]
 
 func get_card_data() -> CardData:
 	return _card_data
