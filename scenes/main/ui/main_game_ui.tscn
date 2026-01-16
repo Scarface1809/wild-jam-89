@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c76kj4of14ajq"]
+[gd_scene load_steps=8 format=3 uid="uid://c76kj4of14ajq"]
 
 [ext_resource type="Script" uid="uid://8fw6u7jyx1ci" path="res://scripts/main/ui/hand.gd" id="1_a3gx8"]
 [ext_resource type="Texture2D" uid="uid://bodful5pisos0" path="res://assets/cards/card_base.png" id="2_8v443"]
 [ext_resource type="Script" uid="uid://cftkl3orxrkw4" path="res://scripts/main/game/shuffle.gd" id="2_a3gx8"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="4_vrub2"]
+[ext_resource type="PackedScene" uid="uid://boaytsxvldcf8" path="res://scenes/main/ui/pause.tscn" id="5_f45jh"]
 
 [sub_resource type="Curve" id="Curve_vrub2"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4966555, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -75,5 +76,9 @@ theme = ExtResource("4_vrub2")
 text = "56"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Pause" parent="." instance=ExtResource("5_f45jh")]
+visible = false
+layout_mode = 0
 
 [connection signal="pressed" from="Shuffle" to="Shuffle" method="_on_pressed"]

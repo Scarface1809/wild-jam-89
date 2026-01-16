@@ -8,7 +8,8 @@ const SCENE_UIDS = {
 	"MAIN_UI": "uid://c76kj4of14ajq",
 	"UNIT": "uid://bl3bkx617qrac",
 	"CARD": "uid://c83iru1766q8g",
-	"HAZARD": "uid://bjgtss2iyo7hj"
+	"HAZARD": "uid://bjgtss2iyo7hj",
+	"MAIN_MENU": "uid://dolritqgtceml"
 }
 
 # Materials
@@ -88,3 +89,13 @@ var game_controller: GameController
 # Settings
 var music_step: int = 9
 var sound_step: int = 9
+
+# Input
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("fullscreen"):
+		var mode := DisplayServer.window_get_mode()
+	
+		if mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
