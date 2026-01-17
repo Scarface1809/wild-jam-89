@@ -5,7 +5,6 @@
 [ext_resource type="Shader" uid="uid://bxs1uj6vo7aix" path="res://resources/shaders/background_menu.gdshader" id="2_vnpsp"]
 [ext_resource type="PackedScene" uid="uid://bp7pspq4knti5" path="res://scenes/main_menu/options_menu.tscn" id="4_eum3g"]
 [ext_resource type="PackedScene" uid="uid://2i316e7renfb" path="res://scenes/main_menu/how_to_play_menu.tscn" id="5_gu1vn"]
-[ext_resource type="Texture2D" uid="uid://cm08ivepe8uda" path="res://assets/characters/portraits/flamingo.png" id="5_qel0l"]
 [ext_resource type="Script" uid="uid://bojvemddgli0m" path="res://scripts/main_menu/character_selector.gd" id="5_rrgl4"]
 [ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="6_dn3lk"]
 [ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/boar.tres" id="7_4ujhu"]
@@ -17,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://dsh63vyqephpo" path="res://assets/fonts/Casino Madrid.otf" id="15_4ujhu"]
 [ext_resource type="AudioStream" uid="uid://djapf2gxny0ap" path="res://assets/sounds/cards/card-shove-2.ogg" id="16_0m3cs"]
 [ext_resource type="AudioStream" uid="uid://dmmmw0afwicmu" path="res://assets/sounds/cards/card-shove-3.ogg" id="17_i7nm7"]
+[ext_resource type="Texture2D" uid="uid://ccwcq0wcclay1" path="res://assets/characters/portraits/rat.png" id="18_bq5lc"]
 [ext_resource type="AudioStream" uid="uid://cwqnnv5g1thfi" path="res://assets/sounds/cards/card-shove-4.ogg" id="18_tfctf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bq5lc"]
@@ -245,7 +245,7 @@ offset_bottom = 122.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(230, 280)
-texture = ExtResource("5_qel0l")
+texture = ExtResource("18_bq5lc")
 
 [node name="FrontCard" type="TextureRect" parent="CharacterSelector"]
 unique_name_in_owner = true
@@ -262,7 +262,7 @@ offset_bottom = 122.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(230, 280)
-texture = ExtResource("5_qel0l")
+texture = ExtResource("18_bq5lc")
 
 [node name="CharactersContainer" type="HBoxContainer" parent="CharacterSelector"]
 unique_name_in_owner = true
