@@ -43,7 +43,7 @@ func create_2d_audio_at_location(location: Vector2, type: SoundEffectSettings.SO
 		push_error("Audio Manager failed to find setting for type ", type)
 
 ## Create a standard 2D audio source with the given sound effect type.
-func create_audio(type: SoundEffectSettings.SOUND_EFFECT_TYPE):
+func create_audio(type: SoundEffectSettings.SOUND_EFFECT_TYPE, start_pos: float = 0.0):
 	if _sound_effect_dict.has(type):
 		var sound_effect_setting: SoundEffectSettings = _sound_effect_dict[type]
 		if sound_effect_setting.has_open_limit():
@@ -62,7 +62,7 @@ func create_audio(type: SoundEffectSettings.SOUND_EFFECT_TYPE):
 				_remove_active_sound(type, new_audio)
 				new_audio.queue_free()
 			)
-			new_audio.play()
+			new_audio.play(start_pos)
 			_add_active_sound(type, new_audio)
 	else:
 		push_error("Audio Manager failed to find setting for type ", type)

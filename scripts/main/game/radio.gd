@@ -40,14 +40,16 @@ func _pressed() -> void:
 	await tween.finished
 	
 	switch_player.stop() 
-	AudioManager.create_audio(next_music)
+	AudioManager.create_audio(next_music, randf_range(0, 10))
 	_switching = false
 
 func _pick_new_music() -> SoundEffectSettings.SOUND_EFFECT_TYPE:
-	if musics.size() == 1:
-		return musics[0]
 
-	var choices := musics.duplicate()
-	if _last_music != null:
-		choices.erase(_last_music)
-	return choices.pick_random()
+	if _last_music == null:
+		_last_music = musics[0]
+		return _last_music
+
+	var index := musics.find(_last_music)
+	index = (index + 1) % musics.size()
+	_last_music = musics[index]
+	return _last_music
