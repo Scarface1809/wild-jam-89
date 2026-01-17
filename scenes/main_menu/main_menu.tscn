@@ -98,7 +98,6 @@ layout_mode = 1
 
 [node name="CharacterSelector" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -106,7 +105,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_rrgl4")
-units = Array[ExtResource("6_dn3lk")]([ExtResource("7_4ujhu"), ExtResource("8_vnpsp"), ExtResource("9_a1gy5"), ExtResource("10_bq5lc"), ExtResource("11_xac7c"), ExtResource("12_0m3cs"), ExtResource("13_i7nm7")])
+units = Array[ExtResource("6_dn3lk")]([ExtResource("12_0m3cs"), ExtResource("7_4ujhu"), ExtResource("13_i7nm7"), ExtResource("9_a1gy5"), ExtResource("10_bq5lc"), ExtResource("11_xac7c"), ExtResource("8_vnpsp")])
 
 [node name="ColorRect" type="ColorRect" parent="CharacterSelector"]
 layout_mode = 1
@@ -118,7 +117,24 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0.101960786, 0.047058824, 0.043137256, 1)
 
-[node name="PortraitTexture" type="TextureRect" parent="CharacterSelector"]
+[node name="BackCard" type="TextureRect" parent="CharacterSelector"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -442.0
+offset_right = 234.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(230, 280)
+texture = ExtResource("5_qel0l")
+
+[node name="FrontCard" type="TextureRect" parent="CharacterSelector"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
