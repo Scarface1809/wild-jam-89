@@ -11,4 +11,5 @@ name = "Iguana"
 piece_texture = ExtResource("2_bkt47")
 portrait_texture = ExtResource("3_qmqxw")
 human_texture = ExtResource("1_r8kog")
+actions = Array[int]([0, 5])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

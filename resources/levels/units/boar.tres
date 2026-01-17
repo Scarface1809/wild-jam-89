@@ -11,4 +11,5 @@ name = "Boar"
 piece_texture = ExtResource("2_q5hv0")
 portrait_texture = ExtResource("3_moohm")
 human_texture = ExtResource("1_hg2ev")
+actions = Array[int]([0, 4])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

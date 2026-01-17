@@ -11,4 +11,5 @@ name = "Rabbit"
 piece_texture = ExtResource("2_a5k88")
 portrait_texture = ExtResource("3_r146x")
 human_texture = ExtResource("1_qe356")
+actions = Array[int]([0, 3])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

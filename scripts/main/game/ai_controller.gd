@@ -4,6 +4,8 @@ extends Node
 
 signal action_chosen(action: Action)
 
+@export var action_odds: float = 0.1
+
 var _enabled := false
 
 func set_enabled(enabled: bool) -> void:
@@ -20,19 +22,51 @@ func begin_turn(state: GameState) -> void:
 		push_warning("AI controller not enabled")
 		return
 
-	# 1️⃣ Try to kill a player if possible
+	# Try to kill a player if possible
 	for action_type in unit.actions:
-		if action_type in [Global.ACTION_TYPE.KNIFE, Global.ACTION_TYPE.GUN, Global.ACTION_TYPE.TRAP]:
+		if action_type in [Global.ACTION_TYPE.KNIFE, Global.ACTION_TYPE.GUN, Global.ACTION_TYPE.PUSH]:
 			for player_unit in state.get_units(Global.GROUP_TYPE.PLAYER):
 				var test_action := Action.new()
 				test_action.type = action_type
 				test_action.unit_id = unit.id
 				test_action.target_pos = player_unit.cell_pos
-				if _can_kill_player(state, test_action):
+				if _can_hit_player(state, test_action):
 					action_chosen.emit(test_action)
 					return
+		
+		if action_type == Global.ACTION_TYPE.TELEPORT:
+			for player_unit in state.get_units(Global.GROUP_TYPE.PLAYER):
+				var test_action := Action.new()
+				test_action.type = action_type
+				test_action.unit_id = unit.id
+				test_action.target_pos = player_unit.cell_pos
+				if randf() < action_odds:
+					action_chosen.emit(test_action)
+				return
+		
+		if action_type == Global.ACTION_TYPE.SHIELD:
+			var test_action := Action.new()
+			test_action.type = action_type
+			test_action.unit_id = unit.id
+			test_action.target_pos = unit.cell_pos
+			if randf() < action_odds:
+				action_chosen.emit(test_action)
+			return
+		
+		if action_type == Global.ACTION_TYPE.TRAP:
+			var free_tiles = state.get_free_adjacent_tiles(unit.cell_pos)
+			if free_tiles.is_empty():
+				return
+			# These actions don't require a target, so we can just emit them
+			var action := Action.new()
+			action.type = action_type
+			action.unit_id = unit.id
+			action.target_pos = free_tiles.pick_random()
+			if randf() < action_odds:
+				action_chosen.emit(action)
+			return
 	
-	# 2️⃣ Try to move if possible
+	# Try to move if possible
 	if Global.ACTION_TYPE.MOVE in unit.actions:
 		var free_tiles = state.get_free_adjacent_tiles(unit.cell_pos)
 		if free_tiles.size() > 0:
@@ -43,7 +77,7 @@ func begin_turn(state: GameState) -> void:
 			action_chosen.emit(move_action)
 			return
 
-	# 3️⃣ Fallback: pass/draw
+	# Fallback: pass/draw
 	var pass_action := Action.new()
 	pass_action.type = Global.ACTION_TYPE.DRAW
 	pass_action.unit_id = unit.id
@@ -51,8 +85,8 @@ func begin_turn(state: GameState) -> void:
 	action_chosen.emit(pass_action)
 
 # --- Helpers ---
-# Returns true if this action would remove a player unit
-func _can_kill_player(state: GameState, action: Action) -> bool:
+# Returns true if this action would hit a player unit
+func _can_hit_player(state: GameState, action: Action) -> bool:
 	var target_unit = state.get_unit_by_position(action.target_pos)
 	if target_unit == null:
 		return false
@@ -73,8 +107,5 @@ func _can_kill_player(state: GameState, action: Action) -> bool:
 		Global.ACTION_TYPE.GUN:
 			# Must be aligned horizontally or vertically
 			return unit.cell_pos.x == target_unit.cell_pos.x or unit.cell_pos.y == target_unit.cell_pos.y
-		Global.ACTION_TYPE.TRAP:
-			# Must be adjacent to place trap under player unit
-			return state.get_adjacent_tiles(unit.cell_pos).has(target_unit.cell_pos)
 		_:
 			return false

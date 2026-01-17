@@ -11,4 +11,5 @@ name = "Flamingo"
 piece_texture = ExtResource("2_ukxu0")
 portrait_texture = ExtResource("3_xpknf")
 human_texture = ExtResource("1_f1t6r")
+actions = Array[int]([0, 6])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"
