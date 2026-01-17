@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SoundEffectSettings" load_steps=3 format=3 uid="uid://bo36jw1sxqkh0"]
+
+[ext_resource type="Script" uid="uid://dw2bqkenv2kn5" path="res://scripts/audio_manager/sound_effect_settings.gd" id="1_tt211"]
+[ext_resource type="AudioStream" uid="uid://bx8scq76e8wdk" path="res://assets/sounds/JazzHop.mp3" id="2_tt211"]
+
+[resource]
+script = ExtResource("1_tt211")
+limit = 1
+type = 5
+sound_effect = ExtResource("2_tt211")
+bus_name = &"Music"
+metadata/_custom_type_script = "uid://dw2bqkenv2kn5"

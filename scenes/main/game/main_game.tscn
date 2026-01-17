@@ -148,7 +148,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 flat = true
 script = ExtResource("48_vkk4j")
-musics = Array[int]([2, 3, 4])
+musics = Array[int]([2, 3, 4, 5])
 
 [node name="switch_player" type="AudioStreamPlayer" parent="Background/Radio/radio_button"]
 stream = ExtResource("50_6rm54")
