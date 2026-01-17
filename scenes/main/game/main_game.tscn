@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=69 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -56,9 +56,10 @@
 [ext_resource type="Resource" uid="uid://cc4b8bt8u16wf" path="res://resources/cards/trap_2.tres" id="37_m12gr"]
 [ext_resource type="Resource" uid="uid://b2fqu1kt2bbvq" path="res://resources/cards/trap_3.tres" id="38_jshmr"]
 [ext_resource type="Script" uid="uid://cu6x7fecrmf0g" path="res://scripts/main/game/radio.gd" id="48_vkk4j"]
-[ext_resource type="PackedScene" path="res://scenes/main/game/highlight.tscn" id="55_vkk4j"]
+[ext_resource type="AudioStream" uid="uid://b4ds4tug36wh0" path="res://assets/sounds/radio.mp3" id="50_6rm54"]
+[ext_resource type="PackedScene" uid="uid://dsov21g7m88ul" path="res://scenes/main/game/highlight.tscn" id="55_vkk4j"]
 [ext_resource type="Script" uid="uid://vpgmrtsqjc8f" path="res://scripts/main/game/board_highlights.gd" id="55_y02lv"]
-[ext_resource type="PackedScene" path="res://scenes/main/game/highlight_red.tscn" id="56_a4e6n"]
+[ext_resource type="PackedScene" uid="uid://bw6dst1apcn2a" path="res://scenes/main/game/highlight_red.tscn" id="56_a4e6n"]
 [ext_resource type="Script" uid="uid://c7ueqoraj5y50" path="res://scripts/main/game/hazards_container.gd" id="56_v7aw0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rddef"]
@@ -148,6 +149,10 @@ mouse_default_cursor_shape = 2
 flat = true
 script = ExtResource("48_vkk4j")
 musics = Array[int]([2, 3, 4])
+
+[node name="switch_player" type="AudioStreamPlayer" parent="Background/Radio/radio_button"]
+stream = ExtResource("50_6rm54")
+volume_db = -8.0
 
 [node name="Seats" type="Node2D" parent="Background"]
 unique_name_in_owner = true
