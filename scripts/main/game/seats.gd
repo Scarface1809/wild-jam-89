@@ -7,14 +7,23 @@ extends Node2D
 
 func initialize_from_state(state: GameState) -> void:
 	# Clear all seats
-	for seat in _left_seats + _right_seats + [_player_seat]:
+	var seats: Array[Marker2D] = []
+	seats.append_array(_left_seats)
+	seats.append_array(_right_seats)
+
+	for seat in seats:
 		_clear_seat(seat)
+
+	#TODO: Hack check this 
+	await get_tree().process_frame
+
+	seats.shuffle()
 
 	for group: GroupState in state.groups:
 		if group.type == Global.GROUP_TYPE.PLAYER:
 			_place_player(group)
 		else:
-			_place_enemies(group)
+			_place_enemies(group, seats)
 
 func _place_player(group: GroupState) -> void:
 	assert(group.units.size() == 1)
@@ -24,17 +33,13 @@ func _place_player(group: GroupState) -> void:
 	sprite.position = Vector2.ZERO
 	_player_seat.add_child(sprite)
 
-func _place_enemies(group: GroupState) -> void:
-	var seats: Array[Marker2D] = []
-	seats.append_array(_left_seats)
-	seats.append_array(_right_seats)
-	seats.shuffle()
-
+func _place_enemies(group: GroupState, seats: Array[Marker2D]) -> void:
 	for unit in group.units:
-		var seat: Marker2D = _get_first_free_seat(seats)
-		if seat == null:
+		if seats.is_empty():
 			push_warning("No free seat for unit %s" % unit.name)
 			return
+		
+		var seat: Marker2D = seats.pop_front()
 
 		var sprite := Sprite2D.new()
 		sprite.texture = unit.human_texture
@@ -42,15 +47,9 @@ func _place_enemies(group: GroupState) -> void:
 		sprite.position = Vector2.ZERO
 		seat.add_child(sprite)
 
-func _get_first_free_seat(seats: Array[Marker2D]) -> Marker2D:
-	for seat in seats:
-		if _is_seat_free(seat):
-			return seat
-	return null
-
 func _is_seat_free(seat: Marker2D) -> bool:
 	return seat.get_child_count() == 0
 
 func _clear_seat(seat: Marker2D) -> void:
 	for child in seat.get_children():
-		child.queue_free()
+		child.free()
