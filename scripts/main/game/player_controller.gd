@@ -6,11 +6,15 @@ signal action_chosen(action: Action)
 
 var _state: GameState
 var _selected_card_index: int = -1
+var _enabled := false
 
 func _ready() -> void:
 	Global.tile_clicked.connect(_on_tile_clicked)
 	Global.card_clicked.connect(_on_card_clicked)
 	Global.shuffle_request.connect(_on_shuffle_request)
+
+func set_enabled(enabled: bool) -> void:
+	_enabled = enabled
 
 func begin_turn(state: GameState):
 	_state = state
@@ -20,6 +24,10 @@ func begin_turn(state: GameState):
 func _on_tile_clicked(cell_pos: Vector2i):
 	var unit_state: UnitState = _state.get_active_unit()
 	var card: CardData = _state.hand[_selected_card_index]
+
+	if not _enabled:
+		push_warning("Player controller not enabled")
+		return
 
 	if unit_state == null:
 		push_warning("No unit found")
@@ -38,6 +46,10 @@ func _on_tile_clicked(cell_pos: Vector2i):
 	action_chosen.emit(action)
 
 func _on_shuffle_request() -> void:
+	if not _enabled:
+		push_warning("Player controller not enabled")
+		return
+
 	var action: Action = Action.new()
 	action.type = Global.ACTION_TYPE.RESHUFFLE
 	action.num_cards = 4
@@ -45,6 +57,14 @@ func _on_shuffle_request() -> void:
 	action_chosen.emit(action)
 
 func _on_card_clicked(index: int) -> void:
+	if not _enabled:
+		push_warning("Player controller not enabled")
+		return
+
+	if index < 0 or index >= _state.hand.size():
+		_selected_card_index = -1
+		return
+
 	_selected_card_index = index
 
 	# Debug

@@ -20,24 +20,20 @@ func _init(id: int) -> void:
 	_id = id
 
 func sync_with_state(group_state: GroupState, action: Action) -> void:
-	var units: Array[UnitState] = group_state.units
-
 	# Remove or sync existing units
 	for unit: Unit in _units.duplicate(): # duplicate to safely remove
 		var found: bool = false
-		for unit_state: UnitState in units:
+		for unit_state: UnitState in group_state.units:
 			if unit_state.id == unit.get_id():
 				unit.sync_with_state(unit_state, action)
 				found = true
 				break
 		if not found:
 			unit.animate_death()
-			unit.animation_finished.connect(func(u = unit):
-				_remove_unit(u)
-			)
+			_units.erase(unit)
 
 	# Create missing units
-	for unit_state in units:
+	for unit_state in group_state.units:
 		if _get_unit_by_id(unit_state.id) == null:
 			_create_unit(unit_state, action)
 
@@ -56,10 +52,6 @@ func _create_unit(unit_state: UnitState, action: Action) -> void:
 	)
 	unit.sync_with_state(unit_state, action)
 	_units.append(unit)
-
-func _remove_unit(unit: Unit) -> void:
-	unit.queue_free()
-	_units.remove_at(_units.find(unit))
 
 func _get_unit_by_id(id: int) -> Unit:
 	for unit: Unit in _units:

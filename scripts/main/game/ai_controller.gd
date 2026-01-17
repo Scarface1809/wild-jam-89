@@ -4,12 +4,21 @@ extends Node
 
 signal action_chosen(action: Action)
 
+var _enabled := false
+
+func set_enabled(enabled: bool) -> void:
+	_enabled = enabled
+
 func begin_turn(state: GameState) -> void:
 	var group: GroupState = state.get_active_group()
 	var unit: UnitState = state.get_active_unit()
 
 	assert(unit != null, "No active unit for AI turn")
 	assert(group != null, "No active group for AI turn")
+
+	if not _enabled:
+		push_warning("AI controller not enabled")
+		return
 
 	# 1️⃣ Try to kill a player if possible
 	for action_type in unit.actions:

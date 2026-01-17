@@ -14,12 +14,14 @@ const CARD_SCENE: PackedScene = preload(Global.SCENE_UIDS.CARD)
 # Private Variables
 var _cards: Array[Card] = []
 var _highlighted_index: int = -1
+var _enabled := true
 
 func set_hand(hand_data: Array[CardData]) -> void:
 	_clear()
 
 	for i in range(hand_data.size()):
 		var card: Card = CARD_SCENE.instantiate()
+		card.disabled = not _enabled
 		card.clicked.connect(func():
 			_on_card_clicked(i)
 		)
@@ -30,6 +32,9 @@ func set_hand(hand_data: Array[CardData]) -> void:
 	_update_fan()
 
 func set_enabled(enabled: bool) -> void:
+	_enabled = enabled
+	print("Hand.set_enabled:", enabled)
+
 	for card in _cards:
 		card.disabled = not enabled
 
@@ -44,6 +49,7 @@ func _ready() -> void:
 
 func sync_with_state(game_state: GameState, _action: Action) -> void:
 	var hand: Array[CardData] = game_state.hand
+	#TODO: DONT CALL SET HAND Expensive to destroy and create again without smart building...
 	set_hand(hand)
 
 func _on_player_turn_started() -> void:

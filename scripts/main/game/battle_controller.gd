@@ -62,6 +62,13 @@ func _next_turn():
 
 # Every Action ends the turn. If different behaviour change here 
 func _on_action_chosen(action: Action):
+	var active_group := game_state.get_active_group()
+
+	if active_group.type == Global.GROUP_TYPE.PLAYER:
+		assert(player_controller._enabled, "Player action during AI turn")
+	else:
+		assert(ai_controller._enabled, "AI action during Player turn")
+
 	if not rule_system.can_apply(game_state, action):
 		push_error("Action rejected by RuleSystem: " + str(action.type))
 		return
@@ -94,10 +101,16 @@ func _end_turn():
 	_next_turn()
 
 func _process_player_turn(group: GroupState, unit: UnitState) -> void:
+	print("▶ Player TURN | Group ", group.id, " | Unit ", unit.id)
+
+	# Disable AI input
+	ai_controller.set_enabled(false)
+	# Enable player input
+	player_controller.set_enabled(true)
+
 	# AUTOMATIC ACTION: Draw 4 cards
 	_handle_auto_draw()
 
-	print("▶ Player TURN | Group ", group.id, " | Unit ", unit.id)
 	player_controller.begin_turn(game_state)
 
 func _handle_auto_draw():
@@ -141,6 +154,12 @@ func _handle_traps():
 
 func _process_ai_turn(group: GroupState, unit: UnitState) -> void:
 	print("▶ AI TURN | Group ", group.id, " | Unit ", unit.id)
+
+	# Disable player input
+	player_controller.set_enabled(false)
+	# Enable AI input
+	ai_controller.set_enabled(true)
+
 	ai_controller.begin_turn(game_state)
 
 func _check_victory_conditions() -> bool:

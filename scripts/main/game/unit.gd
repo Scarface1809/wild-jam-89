@@ -23,6 +23,7 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 	var target_pos: Vector2 = board.cell_to_world(unit_state.cell_pos)
 
 	# Always sync shield visual from state
+	# Kind of sketchy?
 	animate_shield(unit_state)
 
 	if action == null:
@@ -80,12 +81,15 @@ func animate_death() -> void:
 	if not _start_animation():
 		return
 	
-	# Then shrink + fade out
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.2)
 	tween.tween_property(self, "modulate:a", 0.0, 0.2)
 
-	tween.finished.connect(_end_animation)
+	tween.finished.connect(func():
+		_end_animation()
+		if is_inside_tree():
+			queue_free() # Unit removes itself safely
+	)
 
 func animate_push(target_pos: Vector2) -> void:
 	if not _start_animation():
@@ -104,15 +108,14 @@ func animate_teleport_swap(target_pos: Vector2) -> void:
 	tween.finished.connect(_end_animation)
 
 func animate_shield(unit_state: UnitState) -> void:
-	if not _start_animation():
-		return
-
+	#if not _start_animation():
+	#	return
 	if unit_state.shielded:
 		piece_sprite.modulate = Color(0.4, 0.6, 1.0, 1.0)
 	else:
 		piece_sprite.modulate = Color(1, 1, 1, 1)
 
-	_end_animation()
+	#_end_animation()
 
 func animate_special_seven() -> void:
 	if not _start_animation():
