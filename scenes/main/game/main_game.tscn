@@ -56,7 +56,7 @@
 [ext_resource type="Resource" uid="uid://cc4b8bt8u16wf" path="res://resources/cards/trap_2.tres" id="37_m12gr"]
 [ext_resource type="Resource" uid="uid://b2fqu1kt2bbvq" path="res://resources/cards/trap_3.tres" id="38_jshmr"]
 [ext_resource type="Script" uid="uid://cu6x7fecrmf0g" path="res://scripts/main/game/radio.gd" id="48_vkk4j"]
-[ext_resource type="Texture2D" uid="uid://dqcip3sgbw515" path="res://assets/tiles/highlight.png" id="55_lhfh8"]
+[ext_resource type="PackedScene" uid="uid://dsov21g7m88ul" path="res://scenes/main/game/highlight.tscn" id="55_vkk4j"]
 [ext_resource type="Script" uid="uid://vpgmrtsqjc8f" path="res://scripts/main/game/board_highlights.gd" id="55_y02lv"]
 [ext_resource type="Script" uid="uid://c7ueqoraj5y50" path="res://scripts/main/game/hazards_container.gd" id="56_v7aw0"]
 
@@ -81,14 +81,12 @@ sources/1 = SubResource("TileSetAtlasSource_rddef")
 sources/2 = SubResource("TileSetAtlasSource_ef78a")
 sources/3 = SubResource("TileSetAtlasSource_ejuuv")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkk4j"]
-texture = ExtResource("55_lhfh8")
-texture_region_size = Vector2i(130, 130)
-0:0/0 = 0
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_a4e6n"]
+scenes/1/scene = ExtResource("55_vkk4j")
 
-[sub_resource type="TileSet" id="TileSet_8dr6f"]
+[sub_resource type="TileSet" id="TileSet_6rm54"]
 tile_size = Vector2i(130, 130)
-sources/0 = SubResource("TileSetAtlasSource_vkk4j")
+sources/0 = SubResource("TileSetScenesCollectionSource_a4e6n")
 
 [sub_resource type="Environment" id="Environment_v7aw0"]
 background_mode = 3
@@ -191,7 +189,7 @@ script = ExtResource("5_wob2k")
 [node name="Highlights" type="TileMapLayer" parent="." node_paths=PackedStringArray("rule_system")]
 unique_name_in_owner = true
 position = Vector2(641, 38)
-tile_set = SubResource("TileSet_8dr6f")
+tile_set = SubResource("TileSet_6rm54")
 script = ExtResource("55_y02lv")
 rule_system = NodePath("../RuleSystem")
 

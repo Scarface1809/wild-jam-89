@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsov21g7m88ul"]
+
+[ext_resource type="Texture2D" uid="uid://dqcip3sgbw515" path="res://assets/tiles/highlight.png" id="1_puum4"]
+
+[node name="highlight" type="TextureRect"]
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 65.0
+pivot_offset = Vector2(65, 65)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture = ExtResource("1_puum4")
