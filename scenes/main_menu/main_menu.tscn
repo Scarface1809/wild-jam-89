@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dolritqgtceml"]
+[gd_scene load_steps=23 format=3 uid="uid://dolritqgtceml"]
 
 [ext_resource type="Script" uid="uid://crp24nu04jd44" path="res://scripts/main_menu/main_menu.gd" id="1_4v5wy"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="2_tj3dw"]
@@ -15,6 +15,9 @@
 [ext_resource type="Resource" uid="uid://bobtdgmhamkae" path="res://resources/levels/units/rat.tres" id="12_0m3cs"]
 [ext_resource type="Resource" uid="uid://dipngc8176wck" path="res://resources/levels/units/tuna.tres" id="13_i7nm7"]
 [ext_resource type="FontFile" uid="uid://dsh63vyqephpo" path="res://assets/fonts/Casino Madrid.otf" id="15_4ujhu"]
+[ext_resource type="AudioStream" uid="uid://djapf2gxny0ap" path="res://assets/sounds/cards/card-shove-2.ogg" id="16_0m3cs"]
+[ext_resource type="AudioStream" uid="uid://dmmmw0afwicmu" path="res://assets/sounds/cards/card-shove-3.ogg" id="17_i7nm7"]
+[ext_resource type="AudioStream" uid="uid://cwqnnv5g1thfi" path="res://assets/sounds/cards/card-shove-4.ogg" id="18_tfctf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bq5lc"]
 shader = ExtResource("2_vnpsp")
@@ -57,6 +60,12 @@ shader = SubResource("Shader_vnpsp")
 shader_parameter/move_strength = 30.98
 shader_parameter/rotate_strength = 0.02
 shader_parameter/speed = 0.22
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n7xlh"]
+streams_count = 3
+stream_0/stream = ExtResource("16_0m3cs")
+stream_1/stream = ExtResource("17_i7nm7")
+stream_2/stream = ExtResource("18_tfctf")
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -191,7 +200,6 @@ color = Color(0.07, 0.0441, 0.0441, 1)
 
 [node name="CharacterSelector" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -201,6 +209,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_rrgl4")
 units = Array[ExtResource("6_dn3lk")]([ExtResource("12_0m3cs"), ExtResource("7_4ujhu"), ExtResource("13_i7nm7"), ExtResource("9_a1gy5"), ExtResource("11_xac7c"), ExtResource("8_vnpsp")])
+
+[node name="card_player" type="AudioStreamPlayer" parent="CharacterSelector"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_n7xlh")
+volume_db = -14.0
+max_polyphony = 5
+bus = &"SFX"
 
 [node name="background4" type="ColorRect" parent="CharacterSelector"]
 z_index = -1

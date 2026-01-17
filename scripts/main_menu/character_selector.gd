@@ -7,6 +7,7 @@ const throw_rotation: float = 320.0
 
 @onready var character_button = load("res://scenes/main_menu/character_button.tscn")
 
+@onready var card_player: AudioStreamPlayer = %card_player
 @onready var front_card: TextureRect = %FrontCard
 @onready var back_card: TextureRect = %BackCard
 @onready var _characters_container: HBoxContainer = %CharactersContainer
@@ -45,6 +46,8 @@ func show_unit(unit: UnitData) -> void:
 	if current_unit == unit:
 		return
 	current_unit = unit
+	
+	card_player.play()
 
 	# If an animation is running, resolve it instantly
 	if current_tween and current_tween.is_running():
