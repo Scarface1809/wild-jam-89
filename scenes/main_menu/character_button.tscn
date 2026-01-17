@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1y8al5563q23"]
+
+[ext_resource type="Texture2D" uid="uid://p6cerhhekey7" path="res://assets/characters/pieces/boar.png" id="1_ima04"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spxwd"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 150
+corner_radius_top_right = 150
+corner_radius_bottom_right = 150
+corner_radius_bottom_left = 150
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ima04"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 150
+corner_radius_top_right = 150
+corner_radius_bottom_right = 150
+corner_radius_bottom_left = 150
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fik5o"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 75
+corner_radius_top_right = 75
+corner_radius_bottom_right = 75
+corner_radius_bottom_left = 75
+corner_detail = 10
+
+[node name="character_button" type="Button"]
+custom_minimum_size = Vector2(150, 150)
+offset_right = 8.0
+offset_bottom = 8.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_spxwd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ima04")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fik5o")
+icon = ExtResource("1_ima04")
+icon_alignment = 1

@@ -1,10 +1,11 @@
 extends Control
 
-const THEME: Theme = preload(Global.THEME_UIDS.MAIN)
 const throw_distance: float = 700.0
 const throw_rotation: float = 320.0
 
 @export var units: Array[UnitData] = []
+
+@onready var character_button = load("res://scenes/main_menu/character_button.tscn")
 
 @onready var front_card: TextureRect = %FrontCard
 @onready var back_card: TextureRect = %BackCard
@@ -20,12 +21,8 @@ func _ready() -> void:
 	back_card.visible = false
 	for unit: UnitData in units:
 		# More customization make it a scene
-		var button: Button = Button.new()
+		var button: Button = character_button.instantiate()
 		button.icon = unit.piece_texture
-		button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		button.focus_mode = Control.FOCUS_NONE
-		button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		button.theme = THEME
 		button.mouse_entered.connect(_on_button_mouse_entered.bind(button, unit))
 		button.pressed.connect(_on_button_pressed.bind(button, unit))
 		_characters_container.add_child(button)
