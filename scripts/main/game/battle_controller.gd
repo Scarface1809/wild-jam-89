@@ -52,6 +52,9 @@ func _next_turn():
 	# AUTOMATIC ACTION: Handle traps
 	_handle_traps()
 
+	if _check_victory_conditions():
+		return
+
 	turn_started.emit(active_group, active_unit)
 
 	# Player Group
