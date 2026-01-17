@@ -13,8 +13,6 @@ const throw_rotation: float = 320.0
 var is_animating: bool = false
 var current_tween: Tween
 var current_unit: UnitData
-var rest_rotation := 0.0
-
 
 func _ready() -> void:
 	front_card.pivot_offset = front_card.size * 0.5
