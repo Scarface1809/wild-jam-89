@@ -36,35 +36,33 @@ func begin_turn(state: GameState) -> void:
 		
 		if action_type == Global.ACTION_TYPE.TELEPORT:
 			for player_unit in state.get_units(Global.GROUP_TYPE.PLAYER):
+				if randf() < action_odds:
+					var test_action := Action.new()
+					test_action.type = action_type
+					test_action.unit_id = unit.id
+					test_action.target_pos = player_unit.cell_pos
+					action_chosen.emit(test_action)
+					return
+			continue
+		
+		if action_type == Global.ACTION_TYPE.SHIELD:
+			if randf() < action_odds:
 				var test_action := Action.new()
 				test_action.type = action_type
 				test_action.unit_id = unit.id
-				test_action.target_pos = player_unit.cell_pos
-				if randf() < action_odds:
-					action_chosen.emit(test_action)
-				return
-		
-		if action_type == Global.ACTION_TYPE.SHIELD:
-			var test_action := Action.new()
-			test_action.type = action_type
-			test_action.unit_id = unit.id
-			test_action.target_pos = unit.cell_pos
-			if randf() < action_odds:
+				test_action.target_pos = unit.cell_pos
 				action_chosen.emit(test_action)
-			return
+				return
 		
 		if action_type == Global.ACTION_TYPE.TRAP:
 			var free_tiles = state.get_free_adjacent_tiles(unit.cell_pos)
-			if free_tiles.is_empty():
-				return
-			# These actions don't require a target, so we can just emit them
-			var action := Action.new()
-			action.type = action_type
-			action.unit_id = unit.id
-			action.target_pos = free_tiles.pick_random()
-			if randf() < action_odds:
+			if not free_tiles.is_empty() and randf() < action_odds:
+				var action := Action.new()
+				action.type = action_type
+				action.unit_id = unit.id
+				action.target_pos = free_tiles.pick_random()
 				action_chosen.emit(action)
-			return
+				return
 	
 	# Try to move if possible
 	if Global.ACTION_TYPE.MOVE in unit.actions:
