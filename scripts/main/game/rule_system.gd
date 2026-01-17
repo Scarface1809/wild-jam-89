@@ -54,7 +54,35 @@ func can_apply(game_state: GameState, action: Action) -> bool:
 			return _can_apply_reshuffle(game_state, action)
 		_:
 			return false
-
+			
+func get_targetable_tiles(game_state: GameState, action: Action) -> Array[Vector2i]:
+	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
+	var possible_tiles: Array[Vector2i] = []
+	match action.type:
+		Global.ACTION_TYPE.MOVE, Global.ACTION_TYPE.KNIFE, Global.ACTION_TYPE.TRAP, Global.ACTION_TYPE.PUSH:
+			if game_state.get_adjacent_tiles(unit.cell_pos).has(action.target_pos):
+				possible_tiles.append(action.target_pos)
+			return possible_tiles
+		Global.ACTION_TYPE.GUN:
+			if action.target_pos != unit.cell_pos:
+				if unit.cell_pos.x == action.target_pos.x or unit.cell_pos.y == action.target_pos.y:
+					possible_tiles.append(action.target_pos)
+			return possible_tiles
+		Global.ACTION_TYPE.SHIELD:
+			if action.target_pos == unit.cell_pos:
+				possible_tiles.append(action.target_pos)
+			return possible_tiles
+		Global.ACTION_TYPE.TELEPORT:
+			if action.target_pos != unit.cell_pos:
+				var target_unit := game_state.get_unit_by_position(action.target_pos)
+				if target_unit != null:
+					possible_tiles.append(target_unit.cell_pos)
+				elif game_state.is_tile_hazard(action.target_pos):
+					possible_tiles.append(action.target_pos)
+			return possible_tiles
+		_:
+			return []
+	
 # Private Methods
 #region Applies
 func _apply_move(game_state: GameState, action: Action) -> void:

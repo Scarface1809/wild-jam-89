@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=68 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -58,6 +58,7 @@
 [ext_resource type="Script" uid="uid://cu6x7fecrmf0g" path="res://scripts/main/game/radio.gd" id="48_vkk4j"]
 [ext_resource type="PackedScene" uid="uid://dsov21g7m88ul" path="res://scenes/main/game/highlight.tscn" id="55_vkk4j"]
 [ext_resource type="Script" uid="uid://vpgmrtsqjc8f" path="res://scripts/main/game/board_highlights.gd" id="55_y02lv"]
+[ext_resource type="PackedScene" uid="uid://bw6dst1apcn2a" path="res://scenes/main/game/highlight_red.tscn" id="56_a4e6n"]
 [ext_resource type="Script" uid="uid://c7ueqoraj5y50" path="res://scripts/main/game/hazards_container.gd" id="56_v7aw0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rddef"]
@@ -83,6 +84,7 @@ sources/3 = SubResource("TileSetAtlasSource_ejuuv")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_a4e6n"]
 scenes/1/scene = ExtResource("55_vkk4j")
+scenes/2/scene = ExtResource("56_a4e6n")
 
 [sub_resource type="TileSet" id="TileSet_6rm54"]
 tile_size = Vector2i(130, 130)

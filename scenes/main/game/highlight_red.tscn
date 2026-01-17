@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw6dst1apcn2a"]
+
+[ext_resource type="Texture2D" uid="uid://dqcip3sgbw515" path="res://assets/tiles/highlight.png" id="1_hh5i1"]
+
+[node name="highlight" type="TextureRect"]
+modulate = Color(0.12632817, 0.0083908215, 0.018871494, 1)
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 65.0
+pivot_offset = Vector2(65, 65)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_hh5i1")

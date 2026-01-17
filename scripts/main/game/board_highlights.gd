@@ -10,17 +10,15 @@ func _ready() -> void:
 	Global.card_clicked.connect(_on_card_clicked)
 	Global.game_state_changed.connect(sync_with_state)
 
-func sync_with_state(state: GameState, action: Action) -> void:
+func sync_with_state(state: GameState, _action: Action) -> void:
+	clear()
 	_state = state
-	if action != null and action.source_card != null:
-		clear() # clear highlights after using a card
 
 func _on_card_clicked(index: int) -> void:
+	clear()
 	if index >= 0 and index < _state.hand.size():
 		var card: CardData = _state.hand[index]
 		_update_highlights(card)
-	else:
-		clear()
 
 func _update_highlights(card: CardData) -> void:
 	clear() # Remove previous highlights
@@ -38,11 +36,15 @@ func _update_highlights(card: CardData) -> void:
 			action.source_card = card
 			
 			#TODO: Fix can_apply debugger spam calls
+			
+			if rule_system.get_targetable_tiles(_state, action):
+				set_cell(cell, 0, Vector2.ZERO, 2)
 
 			# Check if the action can be applied
 			if rule_system.can_apply(_state, action):
 				#var suit = _state.get_suit_at(cell)
-				set_cell(cell, 0, Vector2.ZERO, 1) # default
+				set_cell(cell, 0, Vector2.ZERO, 1)
+
 				
 				#This is not looking to good, i think it´s better to leave it white for now 
 				
