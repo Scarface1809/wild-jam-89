@@ -68,12 +68,15 @@ func begin_turn(state: GameState) -> void:
 	
 	# Try to move if possible
 	if Global.ACTION_TYPE.MOVE in unit.actions:
-		var free_tiles = state.get_free_adjacent_tiles(unit.cell_pos)
-		if free_tiles.size() > 0:
+		var adj_tiles = state.get_adjacent_tiles(unit.cell_pos)
+		adj_tiles = adj_tiles.filter(func(tile: Vector2i) -> bool:
+			return state.get_unit_by_position(tile) == null
+		)
+		if adj_tiles.size() > 0:
 			var move_action := Action.new()
 			move_action.type = Global.ACTION_TYPE.MOVE
 			move_action.unit_id = unit.id
-			move_action.target_pos = free_tiles.pick_random()
+			move_action.target_pos = adj_tiles.pick_random()
 			action_chosen.emit(move_action)
 			return
 
