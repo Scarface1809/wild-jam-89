@@ -14,7 +14,11 @@ config/name="Wild Jam #89"
 config/tags=PackedStringArray("wildjam89")
 run/main_scene="uid://cyangrc80ocx0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/bg_color=Color(0.07058824, 0.043137256, 0.043137256, 1)
+boot_splash/use_filter=false
+boot_splash/image="uid://dihnw1gcmtybl"
 config/icon="res://assets/icons/game.png"
+boot_splash/minimum_display_time=2000
 
 [audio]
 
