@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bp7pspq4knti5"]
+[gd_scene load_steps=4 format=3 uid="uid://bp7pspq4knti5"]
 
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="1_7qeq7"]
 [ext_resource type="Script" uid="uid://45kqjepfkw24" path="res://scripts/main_menu/options_menu.gd" id="1_js8hf"]
+[ext_resource type="FontFile" uid="uid://de23coyimf0c8" path="res://assets/fonts/CRUMPLED.ttf" id="3_yh5mj"]
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -98,7 +99,6 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="MinusMusicButton" type="Button" parent="VBoxContainer/MusicContainer"]
-z_index = 1
 custom_minimum_size = Vector2(40, 34)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -106,6 +106,7 @@ size_flags_vertical = 8
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_7qeq7")
+theme_override_fonts/font = ExtResource("3_yh5mj")
 text = "-"
 
 [node name="MusicVolumeBar" type="ProgressBar" parent="VBoxContainer/MusicContainer"]
@@ -127,6 +128,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_7qeq7")
 theme_type_variation = &"small button"
+theme_override_fonts/font = ExtResource("3_yh5mj")
 text = "+"
 icon_alignment = 1
 
@@ -164,6 +166,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_7qeq7")
 theme_type_variation = &"small button"
+theme_override_fonts/font = ExtResource("3_yh5mj")
 text = "-"
 
 [node name="SoundVolumeBar" type="ProgressBar" parent="VBoxContainer/SoundContainer"]
@@ -185,6 +188,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_7qeq7")
 theme_type_variation = &"small button"
+theme_override_fonts/font = ExtResource("3_yh5mj")
 text = "+"
 icon_alignment = 1
 

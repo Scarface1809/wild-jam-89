@@ -1,44 +1,18 @@
 [gd_resource type="Theme" load_steps=14 format=3 uid="uid://2ek7eagjo7f0"]
 
-[ext_resource type="FontFile" uid="uid://de23coyimf0c8" path="res://assets/fonts/CRUMPLED.ttf" id="1_mgqmb"]
+[ext_resource type="FontFile" uid="uid://dsh63vyqephpo" path="res://assets/fonts/Casino Madrid.otf" id="1_mgqmb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lpcdl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_83oeg"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mgqmb"]
-bg_color = Color(0.92156863, 0.9254902, 0.8627451, 1)
-skew = Vector2(0.1, 0.1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-corner_detail = 2
-expand_margin_top = 1.0
-anti_aliasing = false
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d4n5j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mgqmb"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdkrw"]
-bg_color = Color(0.92156863, 0.9254902, 0.8627451, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-corner_detail = 2
-expand_margin_top = 1.0
-anti_aliasing = false
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e3fji"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4n5j"]
-bg_color = Color(0.92156863, 0.9254902, 0.8627451, 1)
-skew = Vector2(0.3, 0.13)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-corner_detail = 2
-expand_margin_top = 1.0
-anti_aliasing = false
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d4sfy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvagh"]
 bg_color = Color(0.92156863, 0.9254902, 0.8627451, 1)
@@ -101,18 +75,18 @@ anti_aliasing = false
 [resource]
 default_font = ExtResource("1_mgqmb")
 default_font_size = 32
-Button/colors/font_color = Color(0.13725491, 0.13333334, 0.15686275, 1)
+Button/colors/font_color = Color(0.92156863, 0.9254902, 0.8627451, 1)
 Button/colors/font_focus_color = Color(0.13725491, 0.13333334, 0.15686275, 1)
-Button/colors/font_hover_color = Color(0.13725491, 0.13333334, 0.15686275, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_pressed_color = Color(0.13725491, 0.13333334, 0.15686275, 1)
 Button/colors/font_outline_color = Color(0.92156863, 0.9254902, 0.8627451, 1)
-Button/colors/font_pressed_color = Color(0.13725491, 0.13333334, 0.15686275, 1)
+Button/colors/font_pressed_color = Color(0.5467, 0.55, 0.484, 1)
 Button/styles/disabled = SubResource("StyleBoxEmpty_lpcdl")
 Button/styles/focus = SubResource("StyleBoxEmpty_83oeg")
-Button/styles/hover = SubResource("StyleBoxFlat_mgqmb")
+Button/styles/hover = SubResource("StyleBoxEmpty_d4n5j")
 Button/styles/hover_pressed = SubResource("StyleBoxEmpty_mgqmb")
-Button/styles/normal = SubResource("StyleBoxFlat_sdkrw")
-Button/styles/pressed = SubResource("StyleBoxFlat_d4n5j")
+Button/styles/normal = SubResource("StyleBoxEmpty_e3fji")
+Button/styles/pressed = SubResource("StyleBoxEmpty_d4sfy")
 Label/colors/font_color = Color(0.13725491, 0.13333334, 0.15686275, 1)
 Label/styles/normal = SubResource("StyleBoxFlat_lvagh")
 LineEdit/colors/font_color = Color(0.14902, 0.168627, 0.266667, 1)
