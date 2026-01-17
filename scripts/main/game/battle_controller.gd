@@ -49,6 +49,9 @@ func _next_turn():
 	# AUTOMATIC ACTION: Clear shield
 	_handle_auto_deshield(active_unit)
 
+	# AUTOMATIC ACTION: Handle traps
+	_handle_traps()
+
 	turn_started.emit(active_group, active_unit)
 
 	# Player Group
@@ -97,18 +100,6 @@ func _process_player_turn(group: GroupState, unit: UnitState) -> void:
 	print("▶ Player TURN | Group ", group.id, " | Unit ", unit.id)
 	player_controller.begin_turn(game_state)
 
-func _handle_auto_deshield(active_unit: UnitState):
-	if active_unit:
-		var shield_action: Action = Action.new()
-		shield_action.type = Global.ACTION_TYPE.SHIELD
-		shield_action.unit_id = active_unit.id
-		shield_action.forced = true
-		if rule_system.can_apply(game_state, shield_action):
-			rule_system.apply(game_state, shield_action)
-			Global.game_state_changed.emit(game_state, shield_action)
-		else:
-			push_error("Auto deshield failed")
-
 func _handle_auto_draw():
 	if game_state.hand.is_empty():
 		var draw_action = Action.new()
@@ -123,6 +114,30 @@ func _handle_auto_draw():
 			# No cards left = loss
 			battle_lost.emit()
 			return
+
+func _handle_auto_deshield(unit: UnitState):
+	if unit.shielded:
+		var shield_action: Action = Action.new()
+		shield_action.type = Global.ACTION_TYPE.SHIELD
+		shield_action.target_pos = unit.cell_pos
+		shield_action.forced = true
+		if rule_system.can_apply(game_state, shield_action):
+			rule_system.apply(game_state, shield_action)
+			Global.game_state_changed.emit(game_state, shield_action)
+
+func _handle_traps():
+	for hazard: HazardState in game_state.get_hazards():
+		var unit: UnitState = game_state.get_unit_by_position(hazard.cell_pos)
+		if unit == null:
+			continue
+		else:
+			var trap_action = Action.new()
+			trap_action.type = Global.ACTION_TYPE.TRAP
+			trap_action.target_pos = hazard.cell_pos
+			trap_action.forced = true
+			if rule_system.can_apply(game_state, trap_action):
+				rule_system.apply(game_state, trap_action)
+				Global.game_state_changed.emit(game_state, trap_action)
 
 func _process_ai_turn(group: GroupState, unit: UnitState) -> void:
 	print("▶ AI TURN | Group ", group.id, " | Unit ", unit.id)

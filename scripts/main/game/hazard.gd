@@ -1,8 +1,9 @@
 class_name Hazard
 extends Node2D
 
+var board: Board
 var cell_pos: Vector2i
 
-func initialize(cell: Vector2i, world_pos: Vector2) -> void:
-	cell_pos = cell
-	position = world_pos
+func sync_with_state(hazard_state: HazardState) -> void:
+	cell_pos = hazard_state.cell_pos
+	position = board.cell_to_world(cell_pos)

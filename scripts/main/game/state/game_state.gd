@@ -6,7 +6,7 @@ extends Resource
 # Board
 var board_size: Vector2i
 var tiles: Dictionary[Vector2i, Global.SUIT] = {}
-var hazards: Array[Vector2i] = [] # Currently being used for traps
+var hazards: Array[HazardState] = [] # Currently being used for traps
 # group_id -> Array[UnitState]
 var groups: Array[GroupState] = []
 # Turn State
@@ -105,17 +105,23 @@ func is_tile_occupied(cell: Vector2i) -> bool:
 		return true
 	return false
 
-func get_hazards() -> Array[Vector2i]:
+func get_hazards() -> Array[HazardState]:
 	return hazards
 
 func set_hazard(cell: Vector2i) -> void:
-	hazards.append(cell)
+	hazards.append(HazardState.new(cell))
 
 func remove_hazard(cell: Vector2i) -> void:
-	hazards.erase(cell)
+	hazards.erase(get_hazard(cell))
+
+func get_hazard(cell: Vector2i) -> HazardState:
+	for hazard: HazardState in hazards:
+		if hazard.cell_pos == cell:
+			return hazard
+	return null
 
 func is_tile_hazard(cell: Vector2i) -> bool:
-	return hazards.has(cell)
+	return get_hazard(cell) != null
 #endregion
 
 #region Groups
@@ -174,6 +180,12 @@ func get_num_units(group_type: Global.GROUP_TYPE) -> int:
 		if group.type == group_type:
 			count += group.get_unit_count()
 	return count
+
+func get_all_units() -> Array[UnitState]:
+	var units: Array[UnitState] = []
+	for group in groups:
+		units += group.units
+	return units
 
 func get_units(group_type: Global.GROUP_TYPE) -> Array[UnitState]:
 	var units: Array[UnitState] = []

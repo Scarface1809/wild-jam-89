@@ -22,6 +22,9 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 
 	var target_pos: Vector2 = board.cell_to_world(unit_state.cell_pos)
 
+	# Always sync shield visual from state
+	animate_shield(unit_state)
+
 	if action == null:
 		position = target_pos
 		return
@@ -34,14 +37,10 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 		Global.ACTION_TYPE.KNIFE:
 			if action.unit_id == _id:
 				animate_knife(target_pos)
-			elif action.target_pos == unit_state.cell_pos:
-				animate_death()
 
 		Global.ACTION_TYPE.GUN:
 			if action.unit_id == _id:
 				animate_gun()
-			elif action.target_pos == unit_state.cell_pos:
-				animate_death()
 
 		Global.ACTION_TYPE.TELEPORT:
 			animate_teleport_swap(target_pos)
@@ -49,39 +48,30 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 		Global.ACTION_TYPE.PUSH:
 			animate_push(target_pos)
 
-		Global.ACTION_TYPE.SHIELD:
-			if action.unit_id == _id:
-				animate_shield(action.forced)
-
 		Global.ACTION_TYPE.SEVEN:
-			if action.unit_id == _id:
-				animate_special_seven()
+			animate_special_seven()
 
 func animate_move(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
-	create_tween() \
-		.tween_property(self, "position", target_pos, 0.25) \
-		.set_trans(Tween.TRANS_SINE) \
-		.set_ease(Tween.EASE_OUT) \
-		.finished.connect(_end_animation)
+	var tween = create_tween()
+	tween.tween_property(self, "position", target_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.finished.connect(_end_animation)
 
 func animate_knife(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
-	create_tween() \
-		.tween_property(self, "position", target_pos, 0.25) \
-		.set_trans(Tween.TRANS_SINE) \
-		.set_ease(Tween.EASE_OUT) \
-		.finished.connect(_end_animation)
+	var tween = create_tween()
+	tween.tween_property(self, "position", target_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.finished.connect(_end_animation)
 
 func animate_gun() -> void:
 	if not _start_animation():
 		return
 
-	var tween := create_tween()
+	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE * 1.1, 0.05)
 	tween.tween_property(self, "scale", Vector2.ONE, 0.05)
 	tween.finished.connect(_end_animation)
@@ -89,44 +79,38 @@ func animate_gun() -> void:
 func animate_death() -> void:
 	if not _start_animation():
 		return
+	
+	# Then shrink + fade out
+	var tween = create_tween()
+	tween.tween_property(self, "scale", Vector2.ZERO, 0.2)
+	tween.tween_property(self, "modulate:a", 0.0, 0.2)
 
-	create_tween() \
-		.tween_property(self, "scale", Vector2.ZERO, 0.2) \
-		.tween_property(self, "modulate:a", 0.0, 0.2) \
-		.finished.connect(func():
-			queue_free()
-			_end_animation())
+	tween.finished.connect(_end_animation)
 
 func animate_push(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
-	create_tween() \
-		.tween_property(self, "position", target_pos, 0.25) \
-		.set_trans(Tween.TRANS_SINE) \
-		.set_ease(Tween.EASE_OUT) \
-		.finished.connect(_end_animation)
+	var tween = create_tween()
+	tween.tween_property(self, "position", target_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.finished.connect(_end_animation)
 
 func animate_teleport_swap(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
-	create_tween() \
-		.tween_property(self, "position", target_pos, 0.25) \
-		.set_trans(Tween.TRANS_SINE) \
-		.set_ease(Tween.EASE_OUT) \
-		.finished.connect(_end_animation)
+	var tween = create_tween()
+	tween.tween_property(self, "position", target_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.finished.connect(_end_animation)
 
-func animate_shield(forced: bool) -> void:
+func animate_shield(unit_state: UnitState) -> void:
 	if not _start_animation():
 		return
 
-	if forced:
-		# Forced = remove shield
-		piece_sprite.modulate = Color(1, 1, 1, 1) # reset to normal
+	if unit_state.shielded:
+		piece_sprite.modulate = Color(0.4, 0.6, 1.0, 1.0)
 	else:
-		# Normal shield action = raise shield
-		piece_sprite.modulate = Color(0.4, 0.6, 1.0, 1.0) # light blue
+		piece_sprite.modulate = Color(1, 1, 1, 1)
 
 	_end_animation()
 
@@ -135,6 +119,7 @@ func animate_special_seven() -> void:
 		return
 	_end_animation()
 
+# Utils
 func _start_animation() -> bool:
 	if _is_animating:
 		return false

@@ -1,42 +1,38 @@
 class_name HazardsContainer
 extends Node2D
-## Owns all Hazards in the game
+## Owns all Hazard visuals in the game (VIEW ONLY)
 
 # Constants
 const HAZARD_SCENE: PackedScene = preload(Global.SCENE_UIDS.HAZARD)
 
-# Export Variables
+# Export
 @export var board: Board
 
 # Private
-var _hazards: Array[Hazard] = []
+var _hazards: Dictionary[Vector2i, Hazard] = {}
 
 func _ready() -> void:
+	assert(board != null, "Board reference is required")
 	Global.game_state_changed.connect(sync_with_state)
 
-## Sync hazards with game state
+## Sync hazard visuals with GameState
 func sync_with_state(state: GameState, _action: Action) -> void:
-	# 1. Remove hazards that no longer exist in state
-	for hazard in _hazards.duplicate():
-		if not state.is_tile_hazard(hazard.cell_pos):
-			_hazards.erase(hazard)
+	# 1. Remove visuals that no longer exist in GameState
+	for cell_pos in _hazards.keys():
+		if not state.is_tile_hazard(cell_pos):
+			var hazard: Hazard = _hazards[cell_pos]
+			_hazards.erase(cell_pos)
 			hazard.queue_free()
 
-	# 2. Create hazards missing in visuals
-	for cell: Vector2i in state.get_hazards():
-		if not _has_hazard_at(cell):
-			_create_hazard(cell)
+	# 2. Create visuals missing from GameState
+	for hazard_state: HazardState in state.get_hazards():
+		if not _hazards.has(hazard_state.cell_pos):
+			_create_hazard(hazard_state)
 
-func _create_hazard(cell: Vector2i) -> void:
+func _create_hazard(hazard_state: HazardState) -> void:
 	var hazard: Hazard = HAZARD_SCENE.instantiate()
-	var world_pos: Vector2 = board.cell_to_world(cell)
-	hazard.initialize(cell, world_pos)
+	hazard.board = board
+	hazard.sync_with_state(hazard_state)
 	add_child(hazard)
-	_hazards.append(hazard)
 
-
-func _has_hazard_at(cell: Vector2i) -> bool:
-	for hazard: Hazard in _hazards:
-		if hazard.cell_pos == cell:
-			return true
-	return false
+	_hazards[hazard_state.cell_pos] = hazard

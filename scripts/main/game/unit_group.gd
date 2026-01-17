@@ -23,15 +23,18 @@ func sync_with_state(group_state: GroupState, action: Action) -> void:
 	var units: Array[UnitState] = group_state.units
 
 	# Remove or sync existing units
-	for unit in _units.duplicate(): # duplicate to safely remove
+	for unit: Unit in _units.duplicate(): # duplicate to safely remove
 		var found: bool = false
-		for unit_state in units:
+		for unit_state: UnitState in units:
 			if unit_state.id == unit.get_id():
 				unit.sync_with_state(unit_state, action)
 				found = true
 				break
 		if not found:
-			_remove_unit(unit)
+			unit.animate_death()
+			unit.animation_finished.connect(func(u = unit):
+				_remove_unit(u)
+			)
 
 	# Create missing units
 	for unit_state in units:
