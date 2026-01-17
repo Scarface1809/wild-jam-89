@@ -6,9 +6,9 @@
 [ext_resource type="Resource" uid="uid://bobtdgmhamkae" path="res://resources/levels/units/rat.tres" id="4_pgilm"]
 [ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/boar.tres" id="5_6lesy"]
 [ext_resource type="Resource" uid="uid://crn35uu5i3vee" path="res://resources/levels/units/rabbit.tres" id="6_o7lph"]
-[ext_resource type="Resource" uid="uid://nu11fdj7qldy" path="res://resources/levels/units/flamingo.tres" id="7_2oogq"]
+[ext_resource type="Resource" uid="uid://dg3537igj5um1" path="res://resources/levels/units/iguana.tres" id="7_6lesy"]
 
 [resource]
 script = ExtResource("1_81jkn")
-units = Array[ExtResource("2_r67xm")]([ExtResource("3_ebqir"), ExtResource("4_pgilm"), ExtResource("5_6lesy"), ExtResource("6_o7lph"), ExtResource("7_2oogq")])
+units = Array[ExtResource("2_r67xm")]([ExtResource("3_ebqir"), ExtResource("5_6lesy"), ExtResource("6_o7lph"), ExtResource("4_pgilm"), ExtResource("7_6lesy")])
 metadata/_custom_type_script = "uid://pm72qu6bk70b"

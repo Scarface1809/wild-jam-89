@@ -11,5 +11,5 @@
 script = ExtResource("1_lnuwo")
 name = "EnemyGroup3"
 type = 1
-units = Array[ExtResource("2_i30bu")]([ExtResource("3_e8gs2"), ExtResource("4_360l0"), ExtResource("5_446nv"), ExtResource("6_ti3mh")])
+units = Array[ExtResource("2_i30bu")]([ExtResource("3_e8gs2"), ExtResource("5_446nv"), ExtResource("6_ti3mh"), ExtResource("4_360l0")])
 metadata/_custom_type_script = "uid://pm72qu6bk70b"
