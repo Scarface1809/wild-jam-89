@@ -156,6 +156,7 @@ volume_db = -8.0
 
 [node name="Seats" type="Node2D" parent="Background"]
 unique_name_in_owner = true
+z_index = 1
 script = ExtResource("19_0xo6k")
 
 [node name="LeftSeat1" type="Marker2D" parent="Background/Seats"]
