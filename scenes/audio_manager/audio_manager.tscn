@@ -9,5 +9,6 @@
 [ext_resource type="Resource" uid="uid://dhpqeto3t7gmr" path="res://resources/sound_effect_settings/bossa.tres" id="7_f1eqd"]
 
 [node name="AudioManager" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_vdqnd")
 sound_effect_settings = Array[ExtResource("2_pwxbx")]([ExtResource("3_f1eqd"), ExtResource("4_grhbf"), ExtResource("5_plb8m"), ExtResource("6_7o73n"), ExtResource("7_f1eqd")])

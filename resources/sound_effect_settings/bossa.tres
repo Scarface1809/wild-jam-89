@@ -8,6 +8,5 @@ script = ExtResource("1_byqrj")
 limit = 1
 type = 4
 sound_effect = ExtResource("2_l4451")
-volume = -15
 bus_name = &"Music"
 metadata/_custom_type_script = "uid://dw2bqkenv2kn5"
