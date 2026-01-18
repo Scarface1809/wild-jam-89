@@ -80,6 +80,7 @@ func animate_gun() -> void:
 	if not _start_animation():
 		return
 
+	# THIS IS TRIGGERING TWICE
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.GUN)
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE * 1.1, 0.05)

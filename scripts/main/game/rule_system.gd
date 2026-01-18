@@ -473,7 +473,7 @@ func _can_apply_draw(game_state: GameState, _action: Action) -> bool:
 	return not game_state.is_deck_empty()
 
 func _can_apply_reshuffle(game_state: GameState, _action: Action) -> bool:
-	return not game_state.is_deck_empty()
+	return true
 #endregion
 
 func post_action_cleanup(game_state: GameState, unit: UnitState) -> void:

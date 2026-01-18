@@ -74,6 +74,12 @@ func _on_action_chosen(action: Action):
 	if action == null:
 		_end_turn()
 		return
+	
+	if action != null and action.type == Global.ACTION_TYPE.RESHUFFLE:
+		if game_state.hand.is_empty():
+			print("Player reshuffled with 0 cards")
+			battle_lost.emit()
+			return
 
 	if not rule_system.can_apply(game_state, action):
 		push_error("Action rejected by RuleSystem: " + str(action.type))
