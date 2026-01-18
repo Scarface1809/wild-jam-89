@@ -83,8 +83,4 @@ func begin_turn(state: GameState) -> void:
 			return
 
 	# Fallback: pass/draw
-	var pass_action := Action.new()
-	pass_action.type = Global.ACTION_TYPE.DRAW
-	pass_action.unit_id = unit.id
-	pass_action.num_cards = 0
-	action_chosen.emit(pass_action)
+	action_chosen.emit(null)

@@ -12,6 +12,7 @@ func _ready() -> void:
 	Global.tile_clicked.connect(_on_tile_clicked)
 	Global.card_clicked.connect(_on_card_clicked)
 	Global.shuffle_request.connect(_on_shuffle_request)
+	Global.skip_turn.connect(_on_skip_turn)
 
 func set_enabled(enabled: bool) -> void:
 	_enabled = enabled
@@ -55,6 +56,13 @@ func _on_shuffle_request() -> void:
 	action.num_cards = 4
 
 	action_chosen.emit(action)
+
+func _on_skip_turn() -> void:
+	if not _enabled:
+		push_warning("Player controller not enabled")
+		return
+	
+	action_chosen.emit(null)
 
 func _on_card_clicked(index: int) -> void:
 	if not _enabled:

@@ -73,6 +73,10 @@ func _on_action_chosen(action: Action):
 	else:
 		assert(ai_controller._enabled, "AI action during Player turn")
 
+	if action == null:
+		_end_turn()
+		return
+
 	if not rule_system.can_apply(game_state, action):
 		push_error("Action rejected by RuleSystem: " + str(action.type))
 		return
