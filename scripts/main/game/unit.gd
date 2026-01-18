@@ -105,6 +105,7 @@ func animate_push(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.PUNCH)
 	var tween = create_tween()
 	tween.tween_property(self, "position", target_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.finished.connect(_end_animation)
@@ -121,6 +122,7 @@ func animate_teleport_swap(target_pos: Vector2) -> void:
 func animate_shield(unit_state: UnitState) -> void:
 	#if not _start_animation():
 	#	return
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.SHIELD)
 	if unit_state.shielded:
 		piece_sprite.modulate = Color(0.4, 0.6, 1.0, 1.0)
 	else:

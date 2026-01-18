@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://btlfaor6y0i46"]
+[gd_scene load_steps=14 format=3 uid="uid://btlfaor6y0i46"]
 
 [ext_resource type="Script" uid="uid://cfacosep3s13w" path="res://scripts/audio_manager/audio_manager.gd" id="1_vdqnd"]
 [ext_resource type="Script" uid="uid://dw2bqkenv2kn5" path="res://scripts/audio_manager/sound_effect_settings.gd" id="2_pwxbx"]
@@ -11,8 +11,10 @@
 [ext_resource type="Resource" uid="uid://dlyda6w8ghiuw" path="res://resources/sound_effect_settings/teleport.tres" id="9_7o73n"]
 [ext_resource type="Resource" uid="uid://chn02aiaco6p4" path="res://resources/sound_effect_settings/trap.tres" id="10_q5ig5"]
 [ext_resource type="Resource" uid="uid://cd11v8rnrr8ln" path="res://resources/sound_effect_settings/bullet.tres" id="11_q5ig5"]
+[ext_resource type="Resource" uid="uid://do8bdstn3qwcq" path="res://resources/sound_effect_settings/punch.tres" id="12_73rtu"]
+[ext_resource type="Resource" uid="uid://be4ry8femqyf5" path="res://resources/sound_effect_settings/shield.tres" id="13_fb584"]
 
 [node name="AudioManager" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_vdqnd")
-sound_effect_settings = Array[ExtResource("2_pwxbx")]([ExtResource("3_f1eqd"), ExtResource("4_grhbf"), ExtResource("5_plb8m"), ExtResource("6_7o73n"), ExtResource("7_f1eqd"), ExtResource("8_grhbf"), ExtResource("9_7o73n"), ExtResource("10_q5ig5"), ExtResource("11_q5ig5")])
+sound_effect_settings = Array[ExtResource("2_pwxbx")]([ExtResource("3_f1eqd"), ExtResource("4_grhbf"), ExtResource("5_plb8m"), ExtResource("6_7o73n"), ExtResource("7_f1eqd"), ExtResource("8_grhbf"), ExtResource("9_7o73n"), ExtResource("10_q5ig5"), ExtResource("11_q5ig5"), ExtResource("12_73rtu"), ExtResource("13_fb584")])

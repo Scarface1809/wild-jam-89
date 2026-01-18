@@ -11,7 +11,9 @@ enum SOUND_EFFECT_TYPE {
 	GAME_MUSIC_4,
 	TELEPORT,
 	TRAP,
-	GUN
+	GUN,
+	SHIELD,
+	PUNCH
 }
 
 ## Maximum amount of this sound that can play at the same time.
