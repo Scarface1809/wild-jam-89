@@ -18,7 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://dmmmw0afwicmu" path="res://assets/sounds/cards/card-shove-3.ogg" id="17_i7nm7"]
 [ext_resource type="Texture2D" uid="uid://ccwcq0wcclay1" path="res://assets/characters/portraits/rat.png" id="18_bq5lc"]
 [ext_resource type="AudioStream" uid="uid://cwqnnv5g1thfi" path="res://assets/sounds/cards/card-shove-4.ogg" id="18_tfctf"]
-[ext_resource type="FontFile" uid="uid://de23coyimf0c8" path="res://assets/fonts/CRUMPLED.ttf" id="19_xac7c"]
+[ext_resource type="FontFile" uid="uid://d1oikydavd3gm" path="res://assets/fonts/BatmanRiddler-Regular.ttf" id="19_xac7c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bq5lc"]
 shader = ExtResource("2_vnpsp")
@@ -201,7 +201,6 @@ color = Color(0.07, 0.0441, 0.0441, 1)
 
 [node name="CharacterSelector" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -256,9 +255,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -44.0
+offset_left = -52.0
 offset_top = 208.0
-offset_right = 44.0
+offset_right = 51.0
 offset_bottom = 247.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -266,6 +265,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("19_xac7c")
 theme_override_font_sizes/font_size = 36
 text = "wins: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FrontCard" type="TextureRect" parent="CharacterSelector"]
 unique_name_in_owner = true
@@ -292,9 +293,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -44.0
+offset_left = -52.0
 offset_top = 208.0
-offset_right = 44.0
+offset_right = 51.0
 offset_bottom = 247.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -302,6 +303,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("19_xac7c")
 theme_override_font_sizes/font_size = 36
 text = "wins: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CharactersContainer" type="HBoxContainer" parent="CharacterSelector"]
 unique_name_in_owner = true
