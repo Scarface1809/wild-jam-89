@@ -103,7 +103,16 @@ func _initialize_game_state(level: LevelData) -> GameState:
 	state.active_unit_index = 0
 
 	# Setup Deck
-	state.deck = deck.duplicate()
+	var action_types: Array[Global.ACTION_TYPE] = player_unit_data.actions.duplicate()
+	var current_deck := deck.duplicate()
+	action_types.erase(Global.ACTION_TYPE.MOVE)
+	for action_type in action_types:
+		var card_data := CardData.new()
+		card_data.action_type = action_type
+		card_data.suit = Global.SUIT.GREEN
+		current_deck.append(card_data)
+	
+	state.deck = current_deck
 	state.deck.shuffle()
 
 	state.hand = []
