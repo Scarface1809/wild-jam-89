@@ -386,6 +386,7 @@ func _can_apply_push(game_state: GameState, action: Action) -> bool:
 		edge.y = game_state.board_size.y - 1 if action.target_pos.y > unit.cell_pos.y else 0
 
 	var line := game_state.get_tiles_in_line_exclusive(action.target_pos, edge)
+	line.append(edge)
 
 	if line.is_empty():
 		push_warning("No valid destination for push")
