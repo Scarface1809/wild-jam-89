@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1rsrt4vnky1p"]
+
+[ext_resource type="Script" uid="uid://ome3x6m8krly" path="res://scripts/main/ui/lose_screen.gd" id="1_j56jx"]
+[ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="1_py4k4"]
+[ext_resource type="Shader" path="res://resources/shaders/background_menu.gdshader" id="2_fn2tm"]
+[ext_resource type="FontFile" uid="uid://dsh63vyqephpo" path="res://assets/fonts/Casino Madrid.otf" id="3_q26kf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q26kf"]
+shader = ExtResource("2_fn2tm")
+shader_parameter/base_color = Color(0.07058824, 0.043137256, 0.043137256, 1)
+shader_parameter/smoke_color = Color(0.12570694, 0.12570578, 0.14251363, 1)
+shader_parameter/speed = -0.015
+shader_parameter/noise_scale = 2.5
+shader_parameter/contrast = 2.0
+shader_parameter/softness = 0.095
+
+[node name="LoseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j56jx")
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_q26kf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.07, 0.0441, 0.0441, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92156863, 0.9254902, 0.8627451, 1)
+theme_override_fonts/font = ExtResource("3_q26kf")
+theme_override_font_sizes/font_size = 240
+text = "YOU LOST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Next" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_py4k4")
+theme_override_font_sizes/font_size = 48
+text = "MAIN MENU"

@@ -4,12 +4,14 @@ extends Node
 # Scenes
 const SCENE_UIDS = {
 	"GAME_CONTROLLER": "uid://cyangrc80ocx0",
+	"MAIN_MENU": "uid://dolritqgtceml",
 	"MAIN_GAME": "uid://c3flgpg55d6cv",
 	"MAIN_UI": "uid://c76kj4of14ajq",
 	"UNIT": "uid://bl3bkx617qrac",
 	"CARD": "uid://c83iru1766q8g",
 	"HAZARD": "uid://bjgtss2iyo7hj",
-	"MAIN_MENU": "uid://dolritqgtceml"
+	"WIN_SCREEN": "uid://cxex3ancqi3pm",
+	"LOSE_SCREEN": "uid://c1rsrt4vnky1p",
 }
 
 # Materials

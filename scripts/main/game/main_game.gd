@@ -124,14 +124,14 @@ func _on_battle_won() -> void:
 
 	if _current_level >= levels_data.size():
 		print("🎉 All levels completed! You win the game!")
-		#_show_game_win_screen()
+		await Global.game_controller.change_scene(Global.SCENE_UIDS.WIN_SCREEN, "", TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 	else:
 		print("➡ Loading next level...")
 		_load_current_level()
 
 func _on_battle_lost() -> void:
 	print("❌ Player defeated. Returning to main menu.")
-	#_show_main_menu()
+	await Global.game_controller.change_scene(Global.SCENE_UIDS.LOSE_SCREEN, "", TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("level_1"):

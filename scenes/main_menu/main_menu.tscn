@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://crp24nu04jd44" path="res://scripts/main_menu/main_menu.gd" id="1_4v5wy"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="2_tj3dw"]
-[ext_resource type="Shader" uid="uid://bxs1uj6vo7aix" path="res://resources/shaders/background_menu.gdshader" id="2_vnpsp"]
+[ext_resource type="Shader" path="res://resources/shaders/background_menu.gdshader" id="2_vnpsp"]
 [ext_resource type="PackedScene" uid="uid://bp7pspq4knti5" path="res://scenes/main_menu/options_menu.tscn" id="4_eum3g"]
 [ext_resource type="PackedScene" uid="uid://2i316e7renfb" path="res://scenes/main_menu/how_to_play_menu.tscn" id="5_gu1vn"]
 [ext_resource type="Script" uid="uid://bojvemddgli0m" path="res://scripts/main_menu/character_selector.gd" id="5_rrgl4"]
@@ -28,7 +28,7 @@ shader_parameter/noise_scale = 2.5
 shader_parameter/contrast = 2.0
 shader_parameter/softness = 0.095
 
-[sub_resource type="Shader" id="Shader_vnpsp"]
+[sub_resource type="Shader" id="Shader_bq5lc"]
 code = "shader_type canvas_item;
 
 uniform float move_strength = 3.0;   // pixels
@@ -56,7 +56,7 @@ void vertex() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a1gy5"]
-shader = SubResource("Shader_vnpsp")
+shader = SubResource("Shader_bq5lc")
 shader_parameter/move_strength = 30.98
 shader_parameter/rotate_strength = 0.02
 shader_parameter/speed = 0.22
