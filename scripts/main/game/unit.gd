@@ -55,6 +55,9 @@ func sync_with_state(unit_state: UnitState, action: Action) -> void:
 
 		Global.ACTION_TYPE.SEVEN:
 			animate_special_seven()
+		
+		Global.ACTION_TYPE.TRAP:
+			AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.TRAP)
 
 func animate_move(target_pos: Vector2) -> void:
 	if not _start_animation():
@@ -77,6 +80,7 @@ func animate_gun() -> void:
 	if not _start_animation():
 		return
 
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.GUN)
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ONE * 1.1, 0.05)
 	tween.tween_property(self, "scale", Vector2.ONE, 0.05)
@@ -108,6 +112,7 @@ func animate_teleport_swap(target_pos: Vector2) -> void:
 	if not _start_animation():
 		return
 
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.TELEPORT)
 	var tween = create_tween()
 	tween.tween_property(self, "position", target_pos, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.finished.connect(_end_animation)

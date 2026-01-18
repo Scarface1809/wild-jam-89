@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SoundEffectSettings" load_steps=3 format=3 uid="uid://chn02aiaco6p4"]
+
+[ext_resource type="Script" uid="uid://dw2bqkenv2kn5" path="res://scripts/audio_manager/sound_effect_settings.gd" id="1_tqw2u"]
+[ext_resource type="AudioStream" uid="uid://b47xyyueekkfv" path="res://assets/sounds/trap.mp3" id="2_5hsbk"]
+
+[resource]
+script = ExtResource("1_tqw2u")
+limit = 3
+type = 7
+sound_effect = ExtResource("2_5hsbk")
+volume = -15
+bus_name = &"SFX"
+metadata/_custom_type_script = "uid://dw2bqkenv2kn5"
