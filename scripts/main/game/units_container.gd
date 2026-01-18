@@ -14,6 +14,8 @@ var _pending_animations: int = 0
 func _ready() -> void:
 	assert(board != null, "Board reference is required")
 	Global.game_state_changed.connect(sync_with_state)
+	Global.turn_started.connect(_on_turn_started)
+	Global.turn_ended.connect(_on_turn_ended)
 
 ## Sync units with game state
 func sync_with_state(state: GameState, action: Action) -> void:
@@ -72,3 +74,11 @@ func _on_unit_anim_finished():
 
 func has_pending_animations() -> bool:
 	return _pending_animations > 0
+
+func _on_turn_started(_group: GroupState, unit: UnitState) -> void:
+	for unit_group in _unit_groups:
+		unit_group.set_active_unit(unit.id)
+
+func _on_turn_ended(_group: GroupState, _unit: UnitState) -> void:
+	for unit_group in _unit_groups:
+		unit_group.clear_active_unit()

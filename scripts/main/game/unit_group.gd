@@ -63,3 +63,11 @@ func _clear() -> void:
 	for unit: Unit in _units:
 		unit.queue_free()
 	_units.clear()
+
+func set_active_unit(unit_id: int) -> void:
+	for unit in _units:
+		unit.set_active(unit.get_id() == unit_id)
+
+func clear_active_unit() -> void:
+	for unit in _units:
+		unit.set_active(false)

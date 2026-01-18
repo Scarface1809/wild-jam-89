@@ -28,9 +28,11 @@ func _ready():
 	player_controller.action_chosen.connect(_on_action_chosen)
 	ai_controller.action_chosen.connect(_on_action_chosen)
 	turn_started.connect(func(group: GroupState, _unit: UnitState):
+		Global.turn_started.emit(group, _unit)
 		if group.type == Global.GROUP_TYPE.PLAYER:
 			Global.player_turn_started.emit())
 	turn_ended.connect(func(group: GroupState, _unit: UnitState):
+		Global.turn_ended.emit(group, _unit)
 		if group.type == Global.GROUP_TYPE.PLAYER:
 			Global.player_turn_ended.emit())
 

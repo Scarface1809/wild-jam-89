@@ -5,6 +5,9 @@ extends Node2D
 signal animation_started()
 signal animation_finished()
 
+#Constants
+const OUTLINE_MATERIAL: ShaderMaterial = preload(Global.MATERIAL_UIDS.OUTLINE)
+
 # Onready Variables
 @onready var piece_sprite: Sprite2D = %Sprite2D
 
@@ -14,6 +17,7 @@ var board: Board
 # Private Variables
 var _id: int
 var _is_animating: bool = false
+var _active := false
 
 func sync_with_state(unit_state: UnitState, action: Action) -> void:
 	_id = unit_state.id
@@ -137,3 +141,13 @@ func _end_animation() -> void:
 
 func get_id() -> int:
 	return _id
+
+func set_active(active: bool) -> void:
+	if _active == active:
+		return
+	_active = active
+
+	if _active:
+		piece_sprite.material = OUTLINE_MATERIAL
+	else:
+		piece_sprite.material = null
