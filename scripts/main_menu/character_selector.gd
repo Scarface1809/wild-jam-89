@@ -83,7 +83,7 @@ func show_unit(unit: UnitData) -> void:
 		
 		wins = Global.character_wins[unit.name]
 
-	wins_2.text = "wins: " + str(wins)
+	wins_1.text = "wins: " + str(wins)
 	back_card.position = front_card.position
 	back_card.scale = Vector2(0.92, 0.92)
 
