@@ -1,62 +1,71 @@
 shader_type canvas_item;
 
-uniform vec4 color : source_color = vec4(1.0);
-uniform float width : hint_range(0, 10) = 1.0;
-uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
-uniform bool inside = false;
-uniform bool add_margins = true; // only useful when inside is false
+uniform vec4 line_colour : source_color = vec4(1., 1., 1.,0.3); // default = white
+uniform float line_thickness : hint_range(0, 0.1) = 0.05; // the max distance from a transparent fragment to search for an opaque pixel - effectively the line width as named
+uniform float border_visibility : hint_range(0, 1) = 1.0; // control to fade border in and out
+uniform float gradient_intensity : hint_range(0, 5) = 3; // controls how quickly the gradient falls off
+uniform float gradient_steps : hint_range(1, 20) = 10; // controls the 'fineness' of the gradient
 
-void vertex() {
-	if (add_margins) {
-		VERTEX += (UV * 2.0 - 1.0) * width;
-	}
-}
-
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
-	for (float i = -ceil(width); i <= ceil(width); i++) {
-		float x = abs(i) > width ? width * sign(i) : i;
-		float offset;
-		
-		if (pattern == 0) {
-			offset = width - abs(x);
-		} else if (pattern == 1) {
-			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
-		} else if (pattern == 2) {
-			offset = width;
-		}
-		
-		for (float j = -ceil(offset); j <= ceil(offset); j++) {
-			float y = abs(j) > offset ? offset * sign(j) : j;
-			vec2 xy = uv + texture_pixel_size * vec2(x, y);
-			
-			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
-				return true;
-			}
-		}
-	}
-	
-	return false;
-}
+// the directions to search for an opaque pixel - each a point on the unit circle (full distance multiplies this by line_thickness)
+// more directions = more accurate detection = better results around curved edges or corners
+const vec2 OFFSETS[16] = vec2[16](
+    vec2(-1.000,  0.000),   // 0° (Left) - Actually 180°, but starting here for comparison
+    vec2(-0.924, -0.383),   // 22.5°
+    vec2(-0.707, -0.707),   // 45° (Down-Left)
+    vec2(-0.383, -0.924),   // 67.5°
+    vec2( 0.000, -1.000),   // 90° (Down)
+    vec2( 0.383, -0.924),   // 112.5°
+    vec2( 0.707, -0.707),   // 135° (Down-Right)
+    vec2( 0.924, -0.383),   // 157.5°
+    vec2( 1.000,  0.000),   // 180° (Right) - Actually 0°
+    vec2( 0.924,  0.383),   // 202.5°
+    vec2( 0.707,  0.707),   // 225° (Up-Right)
+    vec2( 0.383,  0.924),   // 247.5°
+    vec2( 0.000,  1.000),   // 270° (Up)
+    vec2(-0.383,  0.924),   // 292.5°
+    vec2(-0.707,  0.707),   // 315° (Up-Left)
+    vec2(-0.924,  0.383)    // 337.5°
+);
 
 void fragment() {
-	vec2 uv = UV;
-	
-	if (add_margins) {
-		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
-		
-		uv = (uv - texture_pixel_size * width) * TEXTURE_PIXEL_SIZE / texture_pixel_size;
-		
-		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
-			COLOR.a = 0.0;
-		} else {
-			COLOR = texture(TEXTURE, uv);
-		}
-	} else {
-		COLOR = texture(TEXTURE, uv);
-	}
-	
-	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
-		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb, color.a) : color.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a;
-	}
+    vec4 colour = texture(TEXTURE, UV);
+    if(colour.a > 0.9 || border_visibility < 0.001)
+    {
+        COLOR = colour; // skip calculation for near fully opaque pixels or when fully faded
+    } 
+    else 
+    {
+        vec2 aspect_corrected_thickness = vec2(line_thickness, line_thickness / (TEXTURE_PIXEL_SIZE.x / TEXTURE_PIXEL_SIZE.y));
+
+        // test each direction, finding any opaque pixels in range. note this isn't adjacent pixels, 
+        // but 'up to line length' away in each of the offsets. this results in the thick border effect,
+        // as the edge of the border still finds the edge of the opaque region in that direction
+        float min_distance = 1.0;
+        for (int i = 0; i < OFFSETS.length(); i++) {
+            vec2 sample_uv = UV + OFFSETS[i] * aspect_corrected_thickness;
+        
+            // sample multiple points along the direction to get a distance estimate
+            // more sample positions mean smoother gradient
+            for (float t = 0.0; t <= 1.0; t += 1.0/gradient_steps) {
+                vec4 sample_colour = texture(TEXTURE, mix(UV, sample_uv, t));
+                if (sample_colour.a > 0.5) { // mostly opaque
+                    min_distance = min(min_distance, t);
+                    break;
+                }
+            }
+        }
+
+        // no opaque pixels found likely means we are > line_length away from the edge of the sprite
+        if (min_distance >= 1.0) {
+            discard;
+        }
+
+        float gradient = 1.0 - pow(min_distance, gradient_intensity);
+        gradient *= border_visibility;
+        
+        vec4 outline_colour = line_colour;
+        outline_colour.a *= gradient;
+
+        COLOR = outline_colour;
+    }
 }

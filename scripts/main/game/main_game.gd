@@ -149,19 +149,19 @@ func _on_battle_lost() -> void:
 	print("❌ Player defeated. Returning to main menu.")
 	await Global.game_controller.change_scene(Global.SCENE_UIDS.LOSE_SCREEN, "", TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("level_1"):
-		_current_level = 0
-		_load_current_level()
-	elif event.is_action_pressed("level_2"):
-		_current_level = 1
-		_load_current_level()
-	elif event.is_action_pressed("level_3"):
-		_current_level = 2
-		_load_current_level()
-	elif event.is_action_pressed("level_4"):
-		_current_level = 3
-		_load_current_level()
-	elif event.is_action_pressed("level_5"):
-		_current_level = 4
-		_load_current_level()
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed("level_1"):
+		#_current_level = 0
+		#_load_current_level()
+	#elif event.is_action_pressed("level_2"):
+		#_current_level = 1
+		#_load_current_level()
+	#elif event.is_action_pressed("level_3"):
+		#_current_level = 2
+		#_load_current_level()
+	#elif event.is_action_pressed("level_4"):
+		#_current_level = 3
+		#_load_current_level()
+	#elif event.is_action_pressed("level_5"):
+		#_current_level = 4
+		#_load_current_level()
