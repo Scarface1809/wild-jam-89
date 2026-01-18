@@ -182,7 +182,7 @@ func _apply_push(game_state: GameState, action: Action) -> void:
 
 	var line := game_state.get_tiles_in_line_exclusive(action.target_pos, edge)
 	line.append(edge)
-	
+
 	var final_pos := action.target_pos
 
 	for cell in line:
@@ -297,6 +297,12 @@ func _can_apply_gun(game_state: GameState, action: Action) -> bool:
 	if target_unit != null and target_unit.group_id == unit.group_id:
 		push_warning("Cannot shoot own units")
 		return false
+	
+	var tiles_between := game_state.get_tiles_in_line_exclusive(unit.cell_pos, action.target_pos)
+	for cell in tiles_between:
+		if game_state.get_unit_by_position(cell) != null:
+			push_warning("Cannot shoot through another unit at %s" % cell)
+			return false
 
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
