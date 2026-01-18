@@ -15,6 +15,7 @@ const throw_rotation: float = 320.0
 var is_animating: bool = false
 var current_tween: Tween
 var current_unit: UnitData
+var selection_locked: bool = false
 
 func _ready() -> void:
 	front_card.pivot_offset = front_card.size * 0.5
@@ -32,6 +33,9 @@ func _on_button_mouse_entered(_button: Button, unit: UnitData) -> void:
 	show_unit(unit)
 
 func _on_button_pressed(_button: Button, unit: UnitData) -> void:
+	if selection_locked:
+		return
+	selection_locked = true
 	for child: Button in _characters_container.get_children():
 		child.disabled = true
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
@@ -45,6 +49,9 @@ func _on_back_button_pressed() -> void:
 	
 
 func show_unit(unit: UnitData) -> void:
+	if selection_locked:
+		return
+
 	# Ignore same unit spam
 	if current_unit == unit:
 		return
