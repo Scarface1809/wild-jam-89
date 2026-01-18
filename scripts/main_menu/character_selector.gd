@@ -32,6 +32,8 @@ func _on_button_mouse_entered(_button: Button, unit: UnitData) -> void:
 	show_unit(unit)
 
 func _on_button_pressed(_button: Button, unit: UnitData) -> void:
+	for child: Button in _characters_container.get_children():
+		child.disabled = true
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	Global.selected_unit = unit
 	AudioManager.fade_out_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.MENU_MUSIC, 0.8)
@@ -71,23 +73,23 @@ func show_unit(unit: UnitData) -> void:
 	back_card.visible = true
 
 	# Random throw direction (biased upward)
-	var dir := Vector2(randf_range(-0.6, 0.6),randf_range(-1.2, -0.8)).normalized()
+	var dir := Vector2(randf_range(-0.6, 0.6), randf_range(-1.2, -0.8)).normalized()
 
 	var throw_pos := front_card.position + dir * throw_distance
-	var throw_rot := front_card.rotation + randf_range(-deg_to_rad(throw_rotation),deg_to_rad(throw_rotation))
+	var throw_rot := front_card.rotation + randf_range(-deg_to_rad(throw_rotation), deg_to_rad(throw_rotation))
 
 
 	current_tween = create_tween().set_parallel()
 
 	# Throw outgoing card
-	current_tween.tween_property(front_card,"position",throw_pos,0.28).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	current_tween.tween_property(front_card, "position", throw_pos, 0.28).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
-	current_tween.tween_property(front_card,"rotation",throw_rot,0.28)
+	current_tween.tween_property(front_card, "rotation", throw_rot, 0.28)
 
-	current_tween.tween_property(front_card,"scale",Vector2(0.85, 0.85),0.28)
+	current_tween.tween_property(front_card, "scale", Vector2(0.85, 0.85), 0.28)
 
 	# Bring new card forward
-	current_tween.tween_property(back_card,"scale",Vector2.ONE,0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_delay(0.08)
+	current_tween.tween_property(back_card, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_delay(0.08)
 
 	await current_tween.finished
 
