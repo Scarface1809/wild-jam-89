@@ -89,6 +89,9 @@ func _on_action_chosen(action: Action):
 	rule_system.post_action_cleanup(game_state, active_unit)
 	Global.game_state_changed.emit(game_state, action)
 
+	if units_container.has_pending_animations():
+		await units_container.animations_finished
+
 	_end_turn()
 
 func _end_turn():
