@@ -90,7 +90,7 @@ func _apply_move(game_state: GameState, action: Action) -> void:
 	assert(unit != null, "Unit not found")
 
 	unit.cell_pos = action.target_pos
-
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	# Remove card
 	if action.source_card != null:
 		game_state.remove_card(action.source_card)

@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_36shl")
 sound_effect = ExtResource("2_j4gua")
-volume = -8
+volume = -16
+pitch_randomness = 0.1
 bus_name = &"SFX"
 metadata/_custom_type_script = "uid://dw2bqkenv2kn5"
