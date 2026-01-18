@@ -6,6 +6,7 @@ const throw_rotation: float = 320.0
 @export var units: Array[UnitData] = []
 
 @onready var character_button = load("res://scenes/main_menu/character_button.tscn")
+@onready var win_button_style = load("res://resources/themes/win_button_style.tres")
 
 @onready var card_player: AudioStreamPlayer = %card_player
 @onready var front_card: TextureRect = %FrontCard
@@ -30,6 +31,8 @@ func _ready() -> void:
 		button.icon = unit.piece_texture
 		button.mouse_entered.connect(_on_button_mouse_entered.bind(button, unit))
 		button.pressed.connect(_on_button_pressed.bind(button, unit))
+		if Global.character_wins.has(unit.name):
+			button.add_theme_stylebox_override("normal",win_button_style)
 		_characters_container.add_child(button)
 
 func _on_button_mouse_entered(_button: Button, unit: UnitData) -> void:
@@ -77,6 +80,7 @@ func show_unit(unit: UnitData) -> void:
 	back_card.texture = unit.portrait_texture
 	var wins := 0
 	if Global.character_wins.has(unit.name):
+		
 		wins = Global.character_wins[unit.name]
 
 	wins_2.text = "wins: " + str(wins)
