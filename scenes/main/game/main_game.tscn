@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://c3flgpg55d6cv"]
+[gd_scene load_steps=66 format=3 uid="uid://c3flgpg55d6cv"]
 
 [ext_resource type="Texture2D" uid="uid://c4jp56nxrfpuo" path="res://assets/tile01.png" id="1_b61y3"]
 [ext_resource type="Script" uid="uid://doxlofrgort1" path="res://scripts/main/game/main_game.gd" id="1_lxwqh"]
@@ -51,6 +51,7 @@
 [ext_resource type="Resource" uid="uid://pfgbnrb2k3ni" path="res://resources/cards/trap_1.tres" id="36_c5ty6"]
 [ext_resource type="Resource" uid="uid://cc4b8bt8u16wf" path="res://resources/cards/trap_2.tres" id="37_m12gr"]
 [ext_resource type="Resource" uid="uid://b2fqu1kt2bbvq" path="res://resources/cards/trap_3.tres" id="38_jshmr"]
+[ext_resource type="Texture2D" uid="uid://l3v4346s11w4" path="res://assets/background/radio-machine.png" id="47_lhfh8"]
 [ext_resource type="Script" uid="uid://cu6x7fecrmf0g" path="res://scripts/main/game/radio.gd" id="48_vkk4j"]
 [ext_resource type="AudioStream" uid="uid://b4ds4tug36wh0" path="res://assets/sounds/radio.mp3" id="50_6rm54"]
 [ext_resource type="PackedScene" uid="uid://dsov21g7m88ul" path="res://scenes/main/game/highlight.tscn" id="55_vkk4j"]
@@ -149,6 +150,12 @@ musics = Array[int]([2, 3, 4, 5])
 [node name="switch_player" type="AudioStreamPlayer" parent="Background/Radio/radio_button"]
 stream = ExtResource("50_6rm54")
 volume_db = -8.0
+
+[node name="radio-machine" type="Sprite2D" parent="Background/Radio"]
+unique_name_in_owner = true
+show_behind_parent = true
+position = Vector2(145, -61)
+texture = ExtResource("47_lhfh8")
 
 [node name="Seats" type="Node2D" parent="Background"]
 unique_name_in_owner = true

@@ -4,6 +4,7 @@ extends Button
 @export var musics: Array[SoundEffectSettings.SOUND_EFFECT_TYPE] = []
 
 @onready var switch_player: AudioStreamPlayer = $switch_player
+@onready var radio_machine: Sprite2D = %"radio-machine"
 
 var _last_music = null
 
@@ -35,8 +36,20 @@ func _pressed() -> void:
 	switch_player.play(start_time)
 
 	var tween := create_tween()
-	tween.tween_interval(0.6)
-	
+	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+	var base_pos := radio_machine.position
+	var base_scale := radio_machine.scale
+
+	tween.tween_property(radio_machine,"scale",base_scale * Vector2(1.1, 0.9),0.08)
+	tween.parallel().tween_property(radio_machine,"position",base_pos + Vector2(0, 4),0.08)
+
+	tween.tween_property(radio_machine,"scale",base_scale * Vector2(0.95, 1.05),0.12)
+	tween.parallel().tween_property(radio_machine,"position",base_pos - Vector2(0, 6),0.12)
+
+	tween.tween_property(radio_machine,"scale",base_scale,0.18)
+	tween.parallel().tween_property(radio_machine,"position",base_pos,0.18)
+
 	await tween.finished
 	
 	switch_player.stop() 
