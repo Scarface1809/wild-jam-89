@@ -13,6 +13,7 @@ func initialize_from_state(state: GameState) -> void:
 
 	for seat in seats:
 		_clear_seat(seat)
+	_clear_seat(_player_seat)
 
 	#TODO: Hack check this 
 	await get_tree().process_frame
