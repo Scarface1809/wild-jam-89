@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://crp24nu04jd44" path="res://scripts/main_menu/main_menu.gd" id="1_4v5wy"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="2_tj3dw"]
-[ext_resource type="Shader" uid="uid://bxs1uj6vo7aix" path="res://resources/shaders/background_menu.gdshader" id="2_vnpsp"]
+[ext_resource type="Shader" path="res://resources/shaders/background_menu.gdshader" id="2_vnpsp"]
 [ext_resource type="PackedScene" uid="uid://bp7pspq4knti5" path="res://scenes/main_menu/options_menu.tscn" id="4_eum3g"]
 [ext_resource type="PackedScene" uid="uid://2i316e7renfb" path="res://scenes/main_menu/how_to_play_menu.tscn" id="5_gu1vn"]
 [ext_resource type="Script" uid="uid://bojvemddgli0m" path="res://scripts/main_menu/character_selector.gd" id="5_rrgl4"]
@@ -248,6 +248,7 @@ pivot_offset = Vector2(230, 280)
 texture = ExtResource("18_bq5lc")
 
 [node name="wins1" type="Label" parent="CharacterSelector/BackCard"]
+unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -286,6 +287,7 @@ pivot_offset = Vector2(230, 280)
 texture = ExtResource("18_bq5lc")
 
 [node name="wins2" type="Label" parent="CharacterSelector/FrontCard"]
+unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
 anchors_preset = 8

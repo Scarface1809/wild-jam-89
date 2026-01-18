@@ -42,6 +42,9 @@ const THEME_UIDS = {
 	"MAIN": "uid://2ek7eagjo7f0",
 }
 
+const SAVE_LOCATION: String = "user://save_game.json"
+const ENCRYPTION_PASSWORD: String = "WildJam89"
+
 # Game Enums
 enum SUIT {
 	BLUE,
@@ -99,6 +102,10 @@ var game_controller: GameController
 # Settings
 var music_step: int = 9
 var sound_step: int = 9
+var character_wins: Dictionary[String, int] = {}
+
+func _ready() -> void:
+	load_game()
 
 # Input
 func _input(event: InputEvent) -> void:
@@ -109,3 +116,18 @@ func _input(event: InputEvent) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+func save_game() -> void:
+	var file := FileAccess.open_encrypted_with_pass(SAVE_LOCATION, FileAccess.WRITE, ENCRYPTION_PASSWORD)
+	if file:
+		file.store_var(character_wins)
+		file.close()
+
+func load_game() -> void:
+	if FileAccess.file_exists(SAVE_LOCATION):
+		var file := FileAccess.open_encrypted_with_pass(SAVE_LOCATION, FileAccess.READ, ENCRYPTION_PASSWORD)
+		if file:
+			var data = file.get_var()
+			if typeof(data) == TYPE_DICTIONARY:
+				character_wins = data
+			file.close()

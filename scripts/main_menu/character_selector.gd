@@ -75,7 +75,11 @@ func show_unit(unit: UnitData) -> void:
 
 	# Prepare back card (new incoming card)
 	back_card.texture = unit.portrait_texture
-	wins_1.text = "wins: " + str(2)
+	var wins := 0
+	if Global.character_wins.has(unit.name):
+		wins = Global.character_wins[unit.name]
+
+	wins_2.text = "wins: " + str(wins)
 	back_card.position = front_card.position
 	back_card.scale = Vector2(0.92, 0.92)
 
@@ -106,7 +110,7 @@ func show_unit(unit: UnitData) -> void:
 
 	# Finalize swap
 	front_card.texture = back_card.texture
-	wins_2.text = "wins: " + str(2)
+	wins_2.text = "wins: " + str(wins)
 	front_card.position = back_card.position
 	front_card.scale = Vector2.ONE
 	front_card.rotation = back_card.rotation
