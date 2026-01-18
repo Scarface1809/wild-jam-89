@@ -11,5 +11,6 @@
 
 [resource]
 script = ExtResource("1_pj7u6")
+type = 1
 units = Array[ExtResource("2_rttpe")]([ExtResource("3_ftl6x"), ExtResource("4_e3b60"), ExtResource("5_nyqjp"), ExtResource("6_30qdm"), ExtResource("8_vyosv"), ExtResource("7_m1wqy")])
 metadata/_custom_type_script = "uid://pm72qu6bk70b"
