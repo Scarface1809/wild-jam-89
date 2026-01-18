@@ -1,4 +1,5 @@
 extends Node2D
+#TODO: NEEDS SOME REFACTORING
 
 # Public variables
 @export var sound_effect_settings: Array[SoundEffectSettings]
@@ -84,6 +85,21 @@ func fade_out_audio(type: SoundEffectSettings.SOUND_EFFECT_TYPE, duration: float
 				sound_effect_setting.on_audio_finished()
 				_remove_active_sound(type, player)
 				player.queue_free())
+
+## Fade out all active audios that play on a specific bus over a duration
+func fade_out_audio_by_bus(bus_name: StringName, duration: float = 1.0) -> void:
+	for type in _active_sounds.keys():
+		for player in _active_sounds[type]:
+			if is_instance_valid(player) and player.bus == bus_name:
+				var tween: Tween = player.create_tween()
+				tween.tween_property(player, "volume_db", -80, duration)
+				tween.finished.connect(func():
+					if is_instance_valid(player):
+						player.stop()
+						var sound_effect_setting: SoundEffectSettings = _sound_effect_dict[type]
+						sound_effect_setting.on_audio_finished()
+						_remove_active_sound(type, player)
+						player.queue_free())
 
 ## Stop all active audio sources of a given type immediately.
 func stop_audio(type: SoundEffectSettings.SOUND_EFFECT_TYPE):
