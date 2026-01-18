@@ -115,8 +115,9 @@ script = ExtResource("7_anyif")
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource("7_af7in")
 
-[node name="AIController" type="Node" parent="."]
+[node name="AIController" type="Node" parent="." node_paths=PackedStringArray("rule_system")]
 script = ExtResource("8_anyif")
+rule_system = NodePath("../RuleSystem")
 
 [node name="Background" type="Node2D" parent="."]
 

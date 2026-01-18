@@ -4,9 +4,13 @@ extends Node
 
 signal action_chosen(action: Action)
 
+@export var rule_system: RuleSystem
 @export var action_odds: float = 0.1
 
 var _enabled := false
+
+func _ready() -> void:
+	assert(rule_system != null, "Rule system not set")
 
 func set_enabled(enabled: bool) -> void:
 	_enabled = enabled
@@ -30,7 +34,7 @@ func begin_turn(state: GameState) -> void:
 				test_action.type = action_type
 				test_action.unit_id = unit.id
 				test_action.target_pos = player_unit.cell_pos
-				if _can_hit_player(state, test_action):
+				if rule_system.can_apply(state, test_action):
 					action_chosen.emit(test_action)
 					return
 		
@@ -84,29 +88,3 @@ func begin_turn(state: GameState) -> void:
 	pass_action.unit_id = unit.id
 	pass_action.num_cards = 0
 	action_chosen.emit(pass_action)
-
-# --- Helpers ---
-# Returns true if this action would hit a player unit
-func _can_hit_player(state: GameState, action: Action) -> bool:
-	var target_unit = state.get_unit_by_position(action.target_pos)
-	if target_unit == null:
-		return false
-
-	# Only care about player units
-	if target_unit.group_id != Global.GROUP_TYPE.PLAYER:
-		return false
-
-	# Determine if the AI unit can affect that player unit based on action type
-	var unit = state.get_unit_by_id(action.unit_id)
-	if unit == null:
-		return false
-
-	match action.type:
-		Global.ACTION_TYPE.KNIFE, Global.ACTION_TYPE.PUSH:
-			# Must be adjacent
-			return state.get_adjacent_tiles(unit.cell_pos).has(target_unit.cell_pos)
-		Global.ACTION_TYPE.GUN:
-			# Must be aligned horizontally or vertically
-			return unit.cell_pos.x == target_unit.cell_pos.x or unit.cell_pos.y == target_unit.cell_pos.y
-		_:
-			return false
