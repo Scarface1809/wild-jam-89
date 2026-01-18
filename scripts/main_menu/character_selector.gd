@@ -38,6 +38,7 @@ func _on_button_pressed(_button: Button, unit: UnitData) -> void:
 	await Global.game_controller.change_scene(Global.SCENE_UIDS.MAIN_UI, Global.SCENE_UIDS.MAIN_GAME, TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 
 func _on_back_button_pressed() -> void:
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	hide()
 	
 
