@@ -380,22 +380,6 @@ func _can_apply_push(game_state: GameState, action: Action) -> bool:
 		push_warning("Cannot push friendly units")
 		return false
 
-	var edge := action.target_pos
-	if unit.cell_pos.y == action.target_pos.y:
-		edge.x = game_state.board_size.x - 1 if action.target_pos.x > unit.cell_pos.x else 0
-	else:
-		edge.y = game_state.board_size.y - 1 if action.target_pos.y > unit.cell_pos.y else 0
-
-	var line := game_state.get_tiles_in_line_exclusive(action.target_pos, edge)
-
-	if line.is_empty():
-		push_warning("No valid destination for push")
-		return false
-
-	if game_state.get_unit_by_position(line[0]) != null:
-		push_warning("Cannot push unit to occupied tile")
-		return false
-
 	if action.source_card != null:
 		var card_suit: Global.SUIT = action.source_card.suit
 		if card_suit != Global.SUIT.GREEN and card_suit != game_state.get_suit_at(action.target_pos):
