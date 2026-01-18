@@ -14,8 +14,21 @@ func _init(state: GameState, data: GroupData, start_positions: Array[Vector2i]) 
 	type = data.type
 	units = []
 	# Get all free tiles (avoid collisions with existing units or hazards)
+	var board_min_x := 0
+	var board_min_y := 0
+	var board_max_x := state.board_size.x - 1
+	var board_max_y := state.board_size.y - 1
+
 	var free_tiles: Array[Vector2i] = state.get_free_tiles(state.tiles.keys())
 
+	var border_tiles := free_tiles.filter(func(cell: Vector2i) -> bool:
+		return (
+			cell.x == board_min_x
+			or cell.x == board_max_x
+			or cell.y == board_min_y
+			or cell.y == board_max_y
+		)
+	)
 	# Track tiles used for this group to avoid intra-group overlap
 	var occupied_tiles: Array[Vector2i] = []
 
@@ -27,7 +40,7 @@ func _init(state: GameState, data: GroupData, start_positions: Array[Vector2i]) 
 			pos = start_positions[i]
 		else:
 			# Filter out tiles already taken by this group's previous units
-			var available_tiles = free_tiles.filter(func(cell: Vector2i) -> bool:
+			var available_tiles = border_tiles.filter(func(cell: Vector2i) -> bool:
 				return not occupied_tiles.has(cell)
 			)
 			if available_tiles.size() == 0:
