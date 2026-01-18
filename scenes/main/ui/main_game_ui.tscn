@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c76kj4of14ajq"]
+[gd_scene load_steps=11 format=3 uid="uid://c76kj4of14ajq"]
 
 [ext_resource type="Script" uid="uid://8fw6u7jyx1ci" path="res://scripts/main/ui/hand.gd" id="1_a3gx8"]
 [ext_resource type="Texture2D" uid="uid://bodful5pisos0" path="res://assets/cards/card_base.png" id="2_8v443"]
 [ext_resource type="Script" uid="uid://cftkl3orxrkw4" path="res://scripts/main/ui/shuffle.gd" id="3_i1v4j"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="4_vrub2"]
 [ext_resource type="PackedScene" uid="uid://boaytsxvldcf8" path="res://scenes/main/ui/pause.tscn" id="5_f45jh"]
+[ext_resource type="Texture2D" uid="uid://bno1smh4bmfdt" path="res://assets/cards/back_card.png" id="5_y4s04"]
 [ext_resource type="Script" uid="uid://dde0k1rqwh8vi" path="res://scripts/main/ui/back_card.gd" id="6_5h8kp"]
 [ext_resource type="Script" uid="uid://daxmhj2bvbtqb" path="res://scripts/main/ui/skip_button.gd" id="6_i1v4j"]
 
@@ -85,7 +86,7 @@ offset_left = 72.0
 offset_top = 834.0
 offset_right = 198.0
 offset_bottom = 1011.8823
-texture = ExtResource("2_8v443")
+texture = ExtResource("5_y4s04")
 expand_mode = 1
 script = ExtResource("6_5h8kp")
 
@@ -109,13 +110,36 @@ text = "52/56"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="BackCard"]
+[node name="TextureRect3" type="TextureRect" parent="BackCard"]
+modulate = Color(0.54976076, 0.5497609, 0.5497609, 1)
 show_behind_parent = true
 layout_mode = 0
 offset_left = -10.0
 offset_top = 10.0
 offset_right = 116.0
 offset_bottom = 188.0
+texture = ExtResource("2_8v443")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="BackCard"]
+modulate = Color(0.6599839, 0.6599845, 0.659984, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -7.0
+offset_top = 6.0
+offset_right = 119.0
+offset_bottom = 184.0
+texture = ExtResource("2_8v443")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackCard"]
+modulate = Color(0.7531428, 0.75314295, 0.75314254, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = 3.0
+offset_right = 123.0
+offset_bottom = 181.0
 texture = ExtResource("2_8v443")
 expand_mode = 1
 
