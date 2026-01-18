@@ -87,6 +87,8 @@ signal game_state_changed(game_state: GameState, action: Action)
 signal turn_started(group: GroupState, unit: UnitState)
 @warning_ignore("unused_signal")
 signal turn_ended(group: GroupState, unit: UnitState)
+@warning_ignore("unused_signal")
+signal round_changed(round: int)
 
 # Game variables
 var selected_unit: UnitData # The unit selected by the player

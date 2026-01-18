@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://c76kj4of14ajq"]
+[gd_scene load_steps=12 format=3 uid="uid://c76kj4of14ajq"]
 
 [ext_resource type="Script" uid="uid://8fw6u7jyx1ci" path="res://scripts/main/ui/hand.gd" id="1_a3gx8"]
 [ext_resource type="Texture2D" uid="uid://bodful5pisos0" path="res://assets/cards/card_base.png" id="2_8v443"]
+[ext_resource type="Script" uid="uid://dhapohlbhb3ea" path="res://scripts/main/ui/round_display.gd" id="2_lvkde"]
 [ext_resource type="Script" uid="uid://cftkl3orxrkw4" path="res://scripts/main/ui/shuffle.gd" id="3_i1v4j"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="4_vrub2"]
 [ext_resource type="PackedScene" uid="uid://boaytsxvldcf8" path="res://scenes/main/ui/pause.tscn" id="5_f45jh"]
 [ext_resource type="Texture2D" uid="uid://bno1smh4bmfdt" path="res://assets/cards/back_card.png" id="5_y4s04"]
-[ext_resource type="Script" uid="uid://dde0k1rqwh8vi" path="res://scripts/main/ui/back_card.gd" id="6_5h8kp"]
+[ext_resource type="Script" path="res://scripts/main/ui/back_card.gd" id="6_5h8kp"]
 [ext_resource type="Script" uid="uid://daxmhj2bvbtqb" path="res://scripts/main/ui/skip_button.gd" id="6_i1v4j"]
 
 [sub_resource type="Curve" id="Curve_vrub2"]
@@ -27,6 +28,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="Round" type="Label" parent="."]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 39.0
+offset_right = 201.0
+offset_bottom = 89.0
+theme = ExtResource("4_vrub2")
+text = "1/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_lvkde")
 
 [node name="Hand" type="Control" parent="."]
 layout_mode = 1
