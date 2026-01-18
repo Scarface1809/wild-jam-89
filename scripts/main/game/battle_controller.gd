@@ -43,14 +43,15 @@ func _next_turn():
 	if !(game_state.get_group_count() > 0 and game_state.get_active_group().get_unit_count() > 0):
 		return
 
+	# AUTOMATIC ACTION: Handle traps
+	# TODO: HANDLE THIS IN RULE SYSTEM CREATE ACTION ON APPLY ACTION
+	_handle_traps()
+
 	var active_group: GroupState = game_state.get_active_group()
 	var active_unit: UnitState = game_state.get_active_unit()
 
 	# AUTOMATIC ACTION: Clear shield
 	_handle_auto_deshield(active_unit)
-
-	# AUTOMATIC ACTION: Handle traps
-	_handle_traps()
 
 	if _check_victory_conditions():
 		return

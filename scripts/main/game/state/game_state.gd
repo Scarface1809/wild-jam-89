@@ -122,6 +122,26 @@ func get_hazard(cell: Vector2i) -> HazardState:
 
 func is_tile_hazard(cell: Vector2i) -> bool:
 	return get_hazard(cell) != null
+
+func get_tiles_in_line_exclusive(from: Vector2i, to: Vector2i) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+
+	if from.x != to.x and from.y != to.y:
+		return result
+
+	var step := Vector2i.ZERO
+	if from.x == to.x:
+		step.y = sign(to.y - from.y)
+	else:
+		step.x = sign(to.x - from.x)
+
+	var current := from + step
+	while current != to:
+		result.append(current)
+		current += step
+
+	return result
+
 #endregion
 
 #region Groups

@@ -170,25 +170,25 @@ func _apply_teleport(game_state: GameState, action: Action) -> void:
 func _apply_push(game_state: GameState, action: Action) -> void:
 	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
 	assert(unit != null, "Unit not found")
-
 	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
-
 	assert(unit.cell_pos.x == action.target_pos.x or unit.cell_pos.y == action.target_pos.y, "Push requires alignment")
-	var final_pos: Vector2i = action.target_pos
-	# Horizontal push
+	
+	# compute board edge
+	var edge := action.target_pos
 	if unit.cell_pos.y == action.target_pos.y:
-		final_pos.x = (
-			game_state.board_size.x - 1
-			if action.target_pos.x > unit.cell_pos.x
-			else 0
-		)
-	# Vertical push
+		edge.x = game_state.board_size.x - 1 if action.target_pos.x > unit.cell_pos.x else 0
 	else:
-		final_pos.y = (
-			game_state.board_size.y - 1
-			if action.target_pos.y > unit.cell_pos.y
-			else 0
-		)
+		edge.y = game_state.board_size.y - 1 if action.target_pos.y > unit.cell_pos.y else 0
+
+	var line := game_state.get_tiles_in_line_exclusive(action.target_pos, edge)
+	line.append(edge)
+	
+	var final_pos := action.target_pos
+
+	for cell in line:
+		if game_state.get_unit_by_position(cell) != null:
+			break
+		final_pos = cell
 	
 	if target_unit == null:
 		# Push with hazard
@@ -372,6 +372,22 @@ func _can_apply_push(game_state: GameState, action: Action) -> bool:
 	# TODO: IS IT ALLOWED TO PUSH FRIENDLY UNITS? Maybe too OP for enemies
 	if target_unit != null and target_unit.group_id == unit.group_id:
 		push_warning("Cannot push friendly units")
+		return false
+
+	var edge := action.target_pos
+	if unit.cell_pos.y == action.target_pos.y:
+		edge.x = game_state.board_size.x - 1 if action.target_pos.x > unit.cell_pos.x else 0
+	else:
+		edge.y = game_state.board_size.y - 1 if action.target_pos.y > unit.cell_pos.y else 0
+
+	var line := game_state.get_tiles_in_line_exclusive(action.target_pos, edge)
+
+	if line.is_empty():
+		push_warning("No valid destination for push")
+		return false
+
+	if game_state.get_unit_by_position(line[0]) != null:
+		push_warning("Cannot push unit to occupied tile")
 		return false
 
 	if action.source_card != null:
