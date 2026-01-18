@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dolritqgtceml"]
+[gd_scene load_steps=24 format=3 uid="uid://dolritqgtceml"]
 
 [ext_resource type="Script" uid="uid://crp24nu04jd44" path="res://scripts/main_menu/main_menu.gd" id="1_4v5wy"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="2_tj3dw"]
@@ -18,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://dmmmw0afwicmu" path="res://assets/sounds/cards/card-shove-3.ogg" id="17_i7nm7"]
 [ext_resource type="Texture2D" uid="uid://ccwcq0wcclay1" path="res://assets/characters/portraits/rat.png" id="18_bq5lc"]
 [ext_resource type="AudioStream" uid="uid://cwqnnv5g1thfi" path="res://assets/sounds/cards/card-shove-4.ogg" id="18_tfctf"]
+[ext_resource type="FontFile" uid="uid://de23coyimf0c8" path="res://assets/fonts/CRUMPLED.ttf" id="19_xac7c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bq5lc"]
 shader = ExtResource("2_vnpsp")
@@ -200,7 +201,6 @@ color = Color(0.07, 0.0441, 0.0441, 1)
 
 [node name="CharacterSelector" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -247,6 +247,25 @@ grow_vertical = 2
 pivot_offset = Vector2(230, 280)
 texture = ExtResource("18_bq5lc")
 
+[node name="wins1" type="Label" parent="CharacterSelector/BackCard"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = 208.0
+offset_right = 44.0
+offset_bottom = 247.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("19_xac7c")
+theme_override_font_sizes/font_size = 36
+text = "wins: 0"
+
 [node name="FrontCard" type="TextureRect" parent="CharacterSelector"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -263,6 +282,25 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(230, 280)
 texture = ExtResource("18_bq5lc")
+
+[node name="wins2" type="Label" parent="CharacterSelector/FrontCard"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = 208.0
+offset_right = 44.0
+offset_bottom = 247.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("19_xac7c")
+theme_override_font_sizes/font_size = 36
+text = "wins: 0"
 
 [node name="CharactersContainer" type="HBoxContainer" parent="CharacterSelector"]
 unique_name_in_owner = true
