@@ -90,7 +90,6 @@ func _apply_move(game_state: GameState, action: Action) -> void:
 	assert(unit != null, "Unit not found")
 
 	unit.cell_pos = action.target_pos
-	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	# Remove card
 	if action.source_card != null:
 		game_state.remove_card(action.source_card)
@@ -475,3 +474,11 @@ func _can_apply_draw(game_state: GameState, _action: Action) -> bool:
 func _can_apply_reshuffle(game_state: GameState, _action: Action) -> bool:
 	return not game_state.is_deck_empty()
 #endregion
+
+func post_action_cleanup(game_state: GameState, unit: UnitState) -> void:
+	# Check if the unit landed on a hazard (trap)
+	if unit != null and game_state.is_tile_hazard(unit.cell_pos):
+		var group := game_state.get_group(unit.group_id)
+		group.remove_unit(unit)
+		game_state.remove_hazard(unit.cell_pos)
+		print("Unit ", unit.id, " died to a trap at ", unit.cell_pos)

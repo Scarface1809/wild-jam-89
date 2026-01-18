@@ -43,10 +43,6 @@ func _next_turn():
 	if !(game_state.get_group_count() > 0 and game_state.get_active_group().get_unit_count() > 0):
 		return
 
-	# AUTOMATIC ACTION: Handle traps
-	# TODO: HANDLE THIS IN RULE SYSTEM CREATE ACTION ON APPLY ACTION
-	_handle_traps()
-
 	var active_group: GroupState = game_state.get_active_group()
 	var active_unit: UnitState = game_state.get_active_unit()
 
@@ -82,11 +78,16 @@ func _on_action_chosen(action: Action):
 		return
 
 	rule_system.apply(game_state, action)
+
 	_debug_print_action(action)
 	Global.game_state_changed.emit(game_state, action)
 	
 	if units_container.has_pending_animations():
 		await units_container.animations_finished
+	
+	var active_unit := game_state.get_active_unit()
+	rule_system.post_action_cleanup(game_state, active_unit)
+	Global.game_state_changed.emit(game_state, action)
 
 	_end_turn()
 
@@ -94,9 +95,12 @@ func _end_turn():
 	var group: GroupState = game_state.get_active_group()
 	var unit: UnitState = game_state.get_active_unit()
 	assert(group != null, "No active group")
-	assert(unit != null, "No active unit")
 
-	print("◀ TURN END | Group ", group.id, " | Unit ", unit.id)
+	if (unit):
+		print("◀ TURN END | Group ", group.id, " | Unit ", unit.id)
+	else:
+		print("◀ TURN END | Group ", group.id, " | Unit DEAD")
+
 	turn_ended.emit(group, unit)
 
 	if _check_victory_conditions():
@@ -145,20 +149,6 @@ func _handle_auto_deshield(unit: UnitState):
 		if rule_system.can_apply(game_state, shield_action):
 			rule_system.apply(game_state, shield_action)
 			Global.game_state_changed.emit(game_state, shield_action)
-
-func _handle_traps():
-	for hazard: HazardState in game_state.get_hazards():
-		var unit: UnitState = game_state.get_unit_by_position(hazard.cell_pos)
-		if unit == null:
-			continue
-		else:
-			var trap_action = Action.new()
-			trap_action.type = Global.ACTION_TYPE.TRAP
-			trap_action.target_pos = hazard.cell_pos
-			trap_action.forced = true
-			if rule_system.can_apply(game_state, trap_action):
-				rule_system.apply(game_state, trap_action)
-				Global.game_state_changed.emit(game_state, trap_action)
 
 func _process_ai_turn(group: GroupState, unit: UnitState) -> void:
 	print("▶ AI TURN | Group ", group.id, " | Unit ", unit.id)

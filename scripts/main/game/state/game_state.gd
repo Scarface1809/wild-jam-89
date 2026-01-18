@@ -26,7 +26,10 @@ func get_active_group() -> GroupState:
 	return groups[active_group_index]
 
 func get_active_unit() -> UnitState:
-	return get_active_group().units[active_unit_index]
+	var group := get_active_group()
+	if active_unit_index >= group.get_unit_count():
+		return null
+	return group.units[active_unit_index]
 
 func has_next_unit() -> bool:
 	return active_unit_index + 1 < get_active_group().get_unit_count()
