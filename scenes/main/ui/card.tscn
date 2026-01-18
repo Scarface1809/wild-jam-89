@@ -18,6 +18,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_36shs"]
 
 [node name="Card" type="Button"]
+z_index = -1
 custom_minimum_size = Vector2(170, 240)
 offset_right = 170.0
 offset_bottom = 240.0
