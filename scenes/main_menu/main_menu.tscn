@@ -106,7 +106,8 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.92156863, 0.9254902, 0.8627451, 1)
 theme_override_fonts/font = ExtResource("15_4ujhu")
 theme_override_font_sizes/font_size = 240
-text = "DEALER GRID"
+text = "WILD SUITS"
+horizontal_alignment = 1
 
 [node name="ButtonContainer" type="VBoxContainer" parent="."]
 z_index = -1
