@@ -135,7 +135,10 @@ func _on_battle_won() -> void:
 
 	if _current_level >= levels_data.size():
 		print("🎉 All levels completed! You win the game!")
-		Global.character_wins[Global.selected_unit.name] += 1
+		var _name := Global.selected_unit.name
+		if not Global.character_wins.has(_name):
+			Global.character_wins[_name] = 0
+		Global.character_wins[_name] += 1
 		Global.save_game()
 		await Global.game_controller.change_scene(Global.SCENE_UIDS.WIN_SCREEN, "", TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 	else:

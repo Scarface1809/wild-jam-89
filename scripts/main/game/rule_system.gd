@@ -95,24 +95,39 @@ func _apply_move(game_state: GameState, action: Action) -> void:
 		game_state.remove_card(action.source_card)
 
 func _apply_gun(game_state: GameState, action: Action) -> void:
-	var unit: UnitState = game_state.get_unit_by_id(action.unit_id)
-	assert(unit != null, "Unit not found")
-
-	var target_unit: UnitState = game_state.get_unit_by_position(action.target_pos)
-
-	if target_unit == null:
-		assert(game_state.is_tile_hazard(action.target_pos), "Gun target is neither a unit nor a trap")
-		# Gun can destroy trap
-		game_state.remove_hazard(action.target_pos)
-	else:
-		var target_group: GroupState = game_state.get_group(target_unit.group_id)
-		assert(target_group != null, "Target unit's group not found")
+	var shooter: UnitState = game_state.get_unit_by_id(action.unit_id)
+	assert(shooter != null, "Unit not found")
+	
+	var line := game_state.get_tiles_in_line_exclusive(shooter.cell_pos, action.target_pos)
+	for cell in line:
+		var unit := game_state.get_unit_by_position(cell)
+		if unit != null:
+			var target_group := game_state.get_group(unit.group_id)
+			assert(target_group != null)
+			
+			if unit.shielded:
+				unit.shielded = false
+			else:
+				target_group.remove_unit(unit)
+			break
+		
+		if game_state.is_tile_hazard(cell):
+			game_state.remove_hazard(cell)
+			break
+	
+	var target_unit := game_state.get_unit_by_position(action.target_pos)
+	if target_unit != null:
+		var target_group := game_state.get_group(target_unit.group_id)
 		if target_unit.shielded:
 			target_unit.shielded = false
 		else:
 			target_group.remove_unit(target_unit)
-
-	# Remove card
+	elif game_state.is_tile_hazard(action.target_pos):
+		game_state.remove_hazard(action.target_pos)
+	else:
+		push_warning("Gun shot ended on empty tile, nothing happens")
+	
+	# Remove carta
 	if action.source_card != null:
 		game_state.remove_card(action.source_card)
 
