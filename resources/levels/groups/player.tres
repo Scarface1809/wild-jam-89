@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="GroupData" load_steps=4 format=3 uid="uid://dpqkitltgehrd"]
 
-[ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/group_data.gd" id="1_8p7h6"]
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="2_lcvoy"]
+[ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/definitions/group_data.gd" id="1_8p7h6"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="2_lcvoy"]
 [ext_resource type="Resource" uid="uid://bpnmbopn825e" path="res://resources/levels/units/monkey.tres" id="3_ssn2k"]
 
 [resource]

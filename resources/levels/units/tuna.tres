@@ -1,9 +1,20 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://dipngc8176wck"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=10 format=3 uid="uid://dipngc8176wck"]
 
+[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/actions/action.gd" id="1_2alxp"]
 [ext_resource type="Texture2D" uid="uid://i5toctpe6e5k" path="res://assets/characters/humans/tuna.png" id="1_r8k0r"]
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_v7f4f"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="1_v7f4f"]
+[ext_resource type="Script" uid="uid://b0ri5wu1ak1yw" path="res://scripts/main/game/actions/move_action.gd" id="2_ais57"]
 [ext_resource type="Texture2D" uid="uid://y4hgq41j0tln" path="res://assets/characters/pieces/tuna.png" id="2_k1iq6"]
 [ext_resource type="Texture2D" uid="uid://d2gsr46otrhyi" path="res://assets/characters/portraits/tuna.png" id="3_8j41u"]
+[ext_resource type="Script" uid="uid://bihcwuxykfmjw" path="res://scripts/main/game/actions/knife_action.gd" id="3_uj0h7"]
+
+[sub_resource type="Resource" id="Resource_6dn8w"]
+script = ExtResource("2_ais57")
+metadata/_custom_type_script = "uid://b0ri5wu1ak1yw"
+
+[sub_resource type="Resource" id="Resource_duvqi"]
+script = ExtResource("3_uj0h7")
+metadata/_custom_type_script = "uid://bihcwuxykfmjw"
 
 [resource]
 script = ExtResource("1_v7f4f")
@@ -11,5 +22,5 @@ name = "Tuna"
 piece_texture = ExtResource("2_k1iq6")
 portrait_texture = ExtResource("3_8j41u")
 human_texture = ExtResource("1_r8k0r")
-actions = Array[int]([0, 2])
+actions = Array[ExtResource("1_2alxp")]([SubResource("Resource_6dn8w"), SubResource("Resource_duvqi")])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

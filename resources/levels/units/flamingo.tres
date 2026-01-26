@@ -1,9 +1,20 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://nu11fdj7qldy"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=10 format=3 uid="uid://nu11fdj7qldy"]
 
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_65un1"]
+[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/actions/action.gd" id="1_1ab5u"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="1_65un1"]
 [ext_resource type="Texture2D" uid="uid://di1mo8gwvfvus" path="res://assets/characters/humans/flamingo.png" id="1_f1t6r"]
+[ext_resource type="Script" uid="uid://b0ri5wu1ak1yw" path="res://scripts/main/game/actions/move_action.gd" id="2_8bjs1"]
 [ext_resource type="Texture2D" uid="uid://dokjo161vemhn" path="res://assets/characters/pieces/flamingo.png" id="2_ukxu0"]
+[ext_resource type="Script" uid="uid://cy682qn6b4k5j" path="res://scripts/main/game/actions/shield_action.gd" id="3_apni8"]
 [ext_resource type="Texture2D" uid="uid://cm08ivepe8uda" path="res://assets/characters/portraits/flamingo.png" id="3_xpknf"]
+
+[sub_resource type="Resource" id="Resource_8qu8a"]
+script = ExtResource("2_8bjs1")
+metadata/_custom_type_script = "uid://b0ri5wu1ak1yw"
+
+[sub_resource type="Resource" id="Resource_kemuh"]
+script = ExtResource("3_apni8")
+metadata/_custom_type_script = "uid://cy682qn6b4k5j"
 
 [resource]
 script = ExtResource("1_65un1")
@@ -11,5 +22,5 @@ name = "Flamingo"
 piece_texture = ExtResource("2_ukxu0")
 portrait_texture = ExtResource("3_xpknf")
 human_texture = ExtResource("1_f1t6r")
-actions = Array[int]([0, 6])
+actions = Array[ExtResource("1_1ab5u")]([SubResource("Resource_8qu8a"), SubResource("Resource_kemuh")])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

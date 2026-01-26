@@ -1,9 +1,20 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://ded7cqshxclrx"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=10 format=3 uid="uid://ded7cqshxclrx"]
 
+[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/actions/action.gd" id="1_d3k4t"]
 [ext_resource type="Texture2D" uid="uid://da158i4bg3m00" path="res://assets/characters/humans/boar.png" id="1_hg2ev"]
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_q8we1"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="1_q8we1"]
+[ext_resource type="Script" uid="uid://b0ri5wu1ak1yw" path="res://scripts/main/game/actions/move_action.gd" id="2_khxum"]
 [ext_resource type="Texture2D" uid="uid://p6cerhhekey7" path="res://assets/characters/pieces/boar.png" id="2_q5hv0"]
+[ext_resource type="Script" uid="uid://dd20pek6cnj56" path="res://scripts/main/game/actions/push_action.gd" id="3_k7f2b"]
 [ext_resource type="Texture2D" uid="uid://dv3rinfu2h78e" path="res://assets/characters/portraits/boar.png" id="3_moohm"]
+
+[sub_resource type="Resource" id="Resource_bvsru"]
+script = ExtResource("2_khxum")
+metadata/_custom_type_script = "uid://b0ri5wu1ak1yw"
+
+[sub_resource type="Resource" id="Resource_w3sa7"]
+script = ExtResource("3_k7f2b")
+metadata/_custom_type_script = "uid://dd20pek6cnj56"
 
 [resource]
 script = ExtResource("1_q8we1")
@@ -11,5 +22,5 @@ name = "Boar"
 piece_texture = ExtResource("2_q5hv0")
 portrait_texture = ExtResource("3_moohm")
 human_texture = ExtResource("1_hg2ev")
-actions = Array[int]([0, 4])
+actions = Array[ExtResource("1_d3k4t")]([SubResource("Resource_bvsru"), SubResource("Resource_w3sa7")])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

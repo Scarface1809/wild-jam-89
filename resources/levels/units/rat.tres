@@ -1,9 +1,20 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://bobtdgmhamkae"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=10 format=3 uid="uid://bobtdgmhamkae"]
 
 [ext_resource type="Texture2D" uid="uid://c2i2my7dtvcui" path="res://assets/characters/humans/rat.png" id="1_3ddma"]
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_puh5e"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="1_puh5e"]
+[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/actions/action.gd" id="1_r0fdi"]
+[ext_resource type="Script" uid="uid://b0ri5wu1ak1yw" path="res://scripts/main/game/actions/move_action.gd" id="2_d506k"]
 [ext_resource type="Texture2D" uid="uid://7ttgvblqbnj7" path="res://assets/characters/pieces/rat.png" id="2_hbrwq"]
 [ext_resource type="Texture2D" uid="uid://ccwcq0wcclay1" path="res://assets/characters/portraits/rat.png" id="3_8twob"]
+[ext_resource type="Script" uid="uid://cybudlscxrdbp" path="res://scripts/main/game/actions/gun_action.gd" id="3_p0ht7"]
+
+[sub_resource type="Resource" id="Resource_viebf"]
+script = ExtResource("2_d506k")
+metadata/_custom_type_script = "uid://b0ri5wu1ak1yw"
+
+[sub_resource type="Resource" id="Resource_ew4da"]
+script = ExtResource("3_p0ht7")
+metadata/_custom_type_script = "uid://cybudlscxrdbp"
 
 [resource]
 script = ExtResource("1_puh5e")
@@ -11,5 +22,5 @@ name = "Rat"
 piece_texture = ExtResource("2_hbrwq")
 portrait_texture = ExtResource("3_8twob")
 human_texture = ExtResource("1_3ddma")
-actions = Array[int]([0, 1])
+actions = Array[ExtResource("1_r0fdi")]([SubResource("Resource_viebf"), SubResource("Resource_ew4da")])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

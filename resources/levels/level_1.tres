@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelData" load_steps=4 format=3 uid="uid://vj884bohqm8j"]
 
-[ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/group_data.gd" id="1_sfdh2"]
-[ext_resource type="Script" uid="uid://rh015li6y8t" path="res://scripts/main/game/data/level_data.gd" id="2_yc005"]
+[ext_resource type="Script" uid="uid://pm72qu6bk70b" path="res://scripts/main/game/data/definitions/group_data.gd" id="1_sfdh2"]
+[ext_resource type="Script" uid="uid://rh015li6y8t" path="res://scripts/main/game/data/definitions/level_data.gd" id="2_yc005"]
 [ext_resource type="Resource" uid="uid://cjnm8oifw4cbf" path="res://resources/levels/groups/enemy_1.tres" id="3_8dpr2"]
 
 [resource]

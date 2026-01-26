@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://bpnmbopn825e"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=8 format=3 uid="uid://bpnmbopn825e"]
 
 [ext_resource type="Texture2D" uid="uid://coqkv678svh1f" path="res://assets/characters/humans/monkey.png" id="1_3jsqm"]
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_uavc4"]
+[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/actions/action.gd" id="1_bk6jo"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="1_uavc4"]
 [ext_resource type="Texture2D" uid="uid://cr0x1u31ochh0" path="res://assets/characters/pieces/monkey.png" id="2_demku"]
+[ext_resource type="Script" uid="uid://b0ri5wu1ak1yw" path="res://scripts/main/game/actions/move_action.gd" id="2_rgl2b"]
 [ext_resource type="Texture2D" uid="uid://cysnqhthbfcke" path="res://assets/characters/portraits/monkey.png" id="3_cwvm4"]
+
+[sub_resource type="Resource" id="Resource_iqkc5"]
+script = ExtResource("2_rgl2b")
+metadata/_custom_type_script = "uid://b0ri5wu1ak1yw"
 
 [resource]
 script = ExtResource("1_uavc4")
@@ -11,5 +17,5 @@ name = "Monkey"
 piece_texture = ExtResource("2_demku")
 portrait_texture = ExtResource("3_cwvm4")
 human_texture = ExtResource("1_3jsqm")
-actions = Array[int]([0])
+actions = Array[ExtResource("1_bk6jo")]([SubResource("Resource_iqkc5")])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

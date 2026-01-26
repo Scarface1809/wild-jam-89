@@ -1,9 +1,20 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://dg3537igj5um1"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=10 format=3 uid="uid://dg3537igj5um1"]
 
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_5x0mf"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="1_5x0mf"]
+[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/actions/action.gd" id="1_cd06j"]
 [ext_resource type="Texture2D" uid="uid://cmracm06t8bwa" path="res://assets/characters/humans/iguana.png" id="1_r8kog"]
+[ext_resource type="Script" uid="uid://b0ri5wu1ak1yw" path="res://scripts/main/game/actions/move_action.gd" id="2_8rt16"]
 [ext_resource type="Texture2D" uid="uid://c8dpqp0wajpy0" path="res://assets/characters/pieces/iguana.png" id="2_bkt47"]
+[ext_resource type="Script" uid="uid://cnkfr4gleirjl" path="res://scripts/main/game/actions/trap_action.gd" id="3_27yj0"]
 [ext_resource type="Texture2D" uid="uid://ch3wg7ug5l02v" path="res://assets/characters/portraits/iguana.png" id="3_qmqxw"]
+
+[sub_resource type="Resource" id="Resource_p5k00"]
+script = ExtResource("2_8rt16")
+metadata/_custom_type_script = "uid://b0ri5wu1ak1yw"
+
+[sub_resource type="Resource" id="Resource_pi7nx"]
+script = ExtResource("3_27yj0")
+metadata/_custom_type_script = "uid://cnkfr4gleirjl"
 
 [resource]
 script = ExtResource("1_5x0mf")
@@ -11,5 +22,5 @@ name = "Iguana"
 piece_texture = ExtResource("2_bkt47")
 portrait_texture = ExtResource("3_qmqxw")
 human_texture = ExtResource("1_r8kog")
-actions = Array[int]([0, 5])
+actions = Array[ExtResource("1_cd06j")]([SubResource("Resource_p5k00"), SubResource("Resource_pi7nx")])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"

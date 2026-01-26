@@ -1,9 +1,20 @@
-[gd_resource type="Resource" script_class="UnitData" load_steps=5 format=3 uid="uid://crn35uu5i3vee"]
+[gd_resource type="Resource" script_class="UnitData" load_steps=10 format=3 uid="uid://crn35uu5i3vee"]
 
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="1_c5krn"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="1_c5krn"]
 [ext_resource type="Texture2D" uid="uid://b0fji3icglt6k" path="res://assets/characters/humans/rabbit.png" id="1_qe356"]
+[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/actions/action.gd" id="1_wgks4"]
+[ext_resource type="Script" uid="uid://b0ri5wu1ak1yw" path="res://scripts/main/game/actions/move_action.gd" id="2_7pusf"]
 [ext_resource type="Texture2D" uid="uid://dj7rhw0mwcbbe" path="res://assets/characters/pieces/rabbit.png" id="2_a5k88"]
+[ext_resource type="Script" uid="uid://bofms6rqsi7ng" path="res://scripts/main/game/actions/teleport_action.gd" id="3_36qfq"]
 [ext_resource type="Texture2D" uid="uid://b6tawudo1ur7k" path="res://assets/characters/portraits/rabbit.png" id="3_r146x"]
+
+[sub_resource type="Resource" id="Resource_slpw5"]
+script = ExtResource("2_7pusf")
+metadata/_custom_type_script = "uid://b0ri5wu1ak1yw"
+
+[sub_resource type="Resource" id="Resource_3pwki"]
+script = ExtResource("3_36qfq")
+metadata/_custom_type_script = "uid://bofms6rqsi7ng"
 
 [resource]
 script = ExtResource("1_c5krn")
@@ -11,5 +22,5 @@ name = "Rabbit"
 piece_texture = ExtResource("2_a5k88")
 portrait_texture = ExtResource("3_r146x")
 human_texture = ExtResource("1_qe356")
-actions = Array[int]([0, 3])
+actions = Array[ExtResource("1_wgks4")]([SubResource("Resource_slpw5"), SubResource("Resource_3pwki")])
 metadata/_custom_type_script = "uid://dqu8eenc8tm4x"
