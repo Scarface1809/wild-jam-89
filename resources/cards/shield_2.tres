@@ -1,9 +1,14 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://cqku8xm5xf5l5"]
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://cqku8xm5xf5l5"]
 
-[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/card_data.gd" id="1_wacxr"]
+[ext_resource type="Script" uid="uid://cy682qn6b4k5j" path="res://scripts/main/game/actions/shield_action.gd" id="1_u48o0"]
+[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/definitions/card_data.gd" id="1_wacxr"]
+
+[sub_resource type="Resource" id="Resource_v7yjm"]
+script = ExtResource("1_u48o0")
+metadata/_custom_type_script = "uid://cy682qn6b4k5j"
 
 [resource]
 script = ExtResource("1_wacxr")
 suit = 2
-action_type = 6
+action = SubResource("Resource_v7yjm")
 metadata/_custom_type_script = "uid://c2cdsdeye0y3t"

@@ -1,9 +1,14 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://bix2pfht2f7qm"]
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://bix2pfht2f7qm"]
 
-[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/card_data.gd" id="1_qessr"]
+[ext_resource type="Script" uid="uid://bofms6rqsi7ng" path="res://scripts/main/game/actions/teleport_action.gd" id="1_e18ps"]
+[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/definitions/card_data.gd" id="1_qessr"]
+
+[sub_resource type="Resource" id="Resource_k3po7"]
+script = ExtResource("1_e18ps")
+metadata/_custom_type_script = "uid://bofms6rqsi7ng"
 
 [resource]
 script = ExtResource("1_qessr")
 suit = 1
-action_type = 3
+action = SubResource("Resource_k3po7")
 metadata/_custom_type_script = "uid://c2cdsdeye0y3t"

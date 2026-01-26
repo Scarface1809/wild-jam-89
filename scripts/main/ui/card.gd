@@ -2,37 +2,12 @@ class_name Card
 extends Button
 
 # Signals
-signal clicked
+signal selected
 
 # Constants
 const OUTLINE_MATERIAL: ShaderMaterial = preload(Global.MATERIAL_UIDS.OUTLINE)
 const PERSPECTIVE_MATERIAL: ShaderMaterial = preload(Global.MATERIAL_UIDS.PERSPECTIVE)
-const SUIT_TEXTURES: Dictionary = {
-	Global.SUIT.BLUE: preload(Global.TEXTURE_UUIDS.SUIT_BLUE),
-	Global.SUIT.YELLOW: preload(Global.TEXTURE_UUIDS.SUIT_YELLOW),
-	Global.SUIT.RED: preload(Global.TEXTURE_UUIDS.SUIT_RED),
-	Global.SUIT.GREEN: preload(Global.TEXTURE_UUIDS.SUIT_GREEN)
-}
-const ACTION_TEXTURES: Dictionary = {
-	Global.ACTION_TYPE.MOVE: preload(Global.TEXTURE_UUIDS.ACTION_MOVE),
-	Global.ACTION_TYPE.GUN: preload(Global.TEXTURE_UUIDS.ACTION_GUN),
-	Global.ACTION_TYPE.KNIFE: preload(Global.TEXTURE_UUIDS.ACTION_KNIFE),
-	Global.ACTION_TYPE.TELEPORT: preload(Global.TEXTURE_UUIDS.ACTION_TELEPORT),
-	Global.ACTION_TYPE.PUSH: preload(Global.TEXTURE_UUIDS.ACTION_PUSH),
-	Global.ACTION_TYPE.TRAP: preload(Global.TEXTURE_UUIDS.ACTION_TRAP),
-	Global.ACTION_TYPE.SHIELD: preload(Global.TEXTURE_UUIDS.ACTION_SHIELD),
-	Global.ACTION_TYPE.SEVEN: preload(Global.TEXTURE_UUIDS.ACTION_SEVEN)
-}
-const ACTION_NAMES: Dictionary = {
-	Global.ACTION_TYPE.MOVE: "MOVE",
-	Global.ACTION_TYPE.GUN: "SHOOT",
-	Global.ACTION_TYPE.KNIFE: "SLASH",
-	Global.ACTION_TYPE.TELEPORT: "SWAP",
-	Global.ACTION_TYPE.PUSH: "PUSH",
-	Global.ACTION_TYPE.TRAP: "TRAP",
-	Global.ACTION_TYPE.SHIELD: "SHIELD",
-	Global.ACTION_TYPE.SEVEN: "SEVEN",
-}
+
 # Export Variables
 @export_range(0.0, 30.0) var angle_x_max: float = 15.0
 @export_range(0.0, 30.0) var angle_y_max: float = 15.0
@@ -54,10 +29,9 @@ var _tween_selected: Tween
 # Public Methods
 func set_card_data(data: CardData) -> void:
 	_card_data = data
-	# TODO: Update visuals here (icon, text, cost, etc.)
-	suit_texture.texture = SUIT_TEXTURES[data.suit]
-	type_texture.texture = ACTION_TEXTURES[data.action_type]
-	type_name.text = ACTION_NAMES[data.action_type]
+	suit_texture.texture = data.get_suit_texture()
+	type_texture.texture = data.action.get_icon_texture()
+	type_name.text = data.action.get_display_name()
 
 func get_card_data() -> CardData:
 	return _card_data
@@ -82,7 +56,7 @@ func _ready() -> void:
 	angle_y_max = deg_to_rad(angle_y_max)
 
 func _on_pressed() -> void:
-	clicked.emit()
+	selected.emit()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if button_pressed or not event is InputEventMouseMotion:

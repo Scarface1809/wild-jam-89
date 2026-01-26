@@ -1,9 +1,14 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://b7tvpwmr3y2p0"]
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://b7tvpwmr3y2p0"]
 
-[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/card_data.gd" id="1_asvju"]
+[ext_resource type="Script" uid="uid://bihcwuxykfmjw" path="res://scripts/main/game/actions/knife_action.gd" id="1_237hr"]
+[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/definitions/card_data.gd" id="1_asvju"]
+
+[sub_resource type="Resource" id="Resource_4vrcx"]
+script = ExtResource("1_237hr")
+metadata/_custom_type_script = "uid://bihcwuxykfmjw"
 
 [resource]
 script = ExtResource("1_asvju")
 suit = 2
-action_type = 2
+action = SubResource("Resource_4vrcx")
 metadata/_custom_type_script = "uid://c2cdsdeye0y3t"

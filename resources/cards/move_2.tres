@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://cgm2gm05hko1u"]
 
-[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/card_data.gd" id="1_fdl7q"]
-[ext_resource type="Script" uid="uid://c4bahbia5oiu3" path="res://scripts/main/game/action.gd" id="1_onqya"]
+[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/definitions/card_data.gd" id="1_fdl7q"]
+[ext_resource type="Script" uid="uid://b0ri5wu1ak1yw" path="res://scripts/main/game/actions/move_action.gd" id="1_onqya"]
 
 [sub_resource type="Resource" id="Resource_g8pdu"]
 script = ExtResource("1_onqya")
-metadata/_custom_type_script = "uid://c4bahbia5oiu3"
+metadata/_custom_type_script = "uid://b0ri5wu1ak1yw"
 
 [resource]
 script = ExtResource("1_fdl7q")

@@ -1,8 +1,13 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://b8q8qkfajwodx"]
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://b8q8qkfajwodx"]
 
-[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/card_data.gd" id="1_wd5qk"]
+[ext_resource type="Script" uid="uid://cybudlscxrdbp" path="res://scripts/main/game/actions/gun_action.gd" id="1_47g7b"]
+[ext_resource type="Script" uid="uid://c2cdsdeye0y3t" path="res://scripts/main/game/data/definitions/card_data.gd" id="1_wd5qk"]
+
+[sub_resource type="Resource" id="Resource_b8sl2"]
+script = ExtResource("1_47g7b")
+metadata/_custom_type_script = "uid://cybudlscxrdbp"
 
 [resource]
 script = ExtResource("1_wd5qk")
-action_type = 1
+action = SubResource("Resource_b8sl2")
 metadata/_custom_type_script = "uid://c2cdsdeye0y3t"
