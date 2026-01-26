@@ -5,6 +5,7 @@ extends Node
 const SCENE_UIDS = {
 	"GAME_CONTROLLER": "uid://cyangrc80ocx0",
 	"MAIN_MENU": "uid://dolritqgtceml",
+	"CHARACTER_BUTTON": "uid://b1y8al5563q23",
 	"MAIN_GAME": "uid://c3flgpg55d6cv",
 	"MAIN_UI": "uid://c76kj4of14ajq",
 	"UNIT": "uid://bl3bkx617qrac",
@@ -39,51 +40,36 @@ const TEXTURE_UUIDS = {
 
 # Theme
 const THEME_UIDS = {
-	"MAIN": "uid://2ek7eagjo7f0",
+	"GENERAL": "uid://2ek7eagjo7f0",
+	"WIN_BUTTON": "uid://cocl083sqn6ep",
+	"WIN_HOVER": "uid://bk1tpqc5dew6o"
 }
 
 const SAVE_LOCATION: String = "user://save_game.json"
 const ENCRYPTION_PASSWORD: String = "WildJam89"
 
 # Game Enums
-enum SUIT {
+enum Suit {
 	BLUE,
 	YELLOW,
 	RED,
 	GREEN
 }
 
-enum GROUP_TYPE {
+enum GroupType {
 	PLAYER,
 	ENEMY
 }
 
-enum ACTION_TYPE {
-	MOVE,
-	GUN,
-	KNIFE,
-	TELEPORT,
-	PUSH,
-	TRAP,
-	SHIELD,
-	SEVEN,
-	DRAW,
-	RESHUFFLE
-}
-
 # Game Signals
 @warning_ignore("unused_signal")
-signal tile_clicked(cell_pos: Vector2, suit: SUIT)
+signal tile_selected(cell_pos: Vector2, suit: Suit)
 @warning_ignore("unused_signal")
-signal card_clicked(card_index: int)
+signal card_selected(card_index: int)
 @warning_ignore("unused_signal")
-signal shuffle_request()
+signal shuffle_requested()
 @warning_ignore("unused_signal")
-signal skip_turn()
-@warning_ignore("unused_signal")
-signal player_turn_started()
-@warning_ignore("unused_signal")
-signal player_turn_ended()
+signal skip_requested()
 @warning_ignore("unused_signal")
 signal game_state_changed(game_state: GameState, action: Action)
 @warning_ignore("unused_signal")
@@ -98,6 +84,7 @@ var selected_unit: UnitData # The unit selected by the player
 
 # Game Controller
 var game_controller: GameController
+var debug_panel: DebugPanel
 
 # Settings
 var music_step: int = 9

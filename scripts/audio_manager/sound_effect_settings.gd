@@ -13,7 +13,7 @@ enum SOUND_EFFECT_TYPE {
 	TRAP,
 	GUN,
 	SHIELD,
-	PUNCH
+	PUSH
 }
 
 ## Maximum amount of this sound that can play at the same time.

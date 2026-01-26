@@ -1,24 +1,12 @@
-[gd_scene load_steps=24 format=3 uid="uid://dolritqgtceml"]
+[gd_scene load_steps=11 format=3 uid="uid://dolritqgtceml"]
 
 [ext_resource type="Script" uid="uid://crp24nu04jd44" path="res://scripts/main_menu/main_menu.gd" id="1_4v5wy"]
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="2_tj3dw"]
-[ext_resource type="Shader" uid="uid://bxs1uj6vo7aix" path="res://resources/shaders/background_menu.gdshader" id="2_vnpsp"]
+[ext_resource type="Shader" path="res://resources/shaders/background_menu.gdshader" id="2_vnpsp"]
 [ext_resource type="PackedScene" uid="uid://bp7pspq4knti5" path="res://scenes/main_menu/options_menu.tscn" id="4_eum3g"]
 [ext_resource type="PackedScene" uid="uid://2i316e7renfb" path="res://scenes/main_menu/how_to_play_menu.tscn" id="5_gu1vn"]
-[ext_resource type="Script" uid="uid://bojvemddgli0m" path="res://scripts/main_menu/character_selector.gd" id="5_rrgl4"]
-[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/unit_data.gd" id="6_dn3lk"]
-[ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/boar.tres" id="7_4ujhu"]
-[ext_resource type="Resource" uid="uid://nu11fdj7qldy" path="res://resources/levels/units/flamingo.tres" id="8_vnpsp"]
-[ext_resource type="Resource" uid="uid://dg3537igj5um1" path="res://resources/levels/units/iguana.tres" id="9_a1gy5"]
-[ext_resource type="Resource" uid="uid://crn35uu5i3vee" path="res://resources/levels/units/rabbit.tres" id="11_xac7c"]
-[ext_resource type="Resource" uid="uid://bobtdgmhamkae" path="res://resources/levels/units/rat.tres" id="12_0m3cs"]
-[ext_resource type="Resource" uid="uid://dipngc8176wck" path="res://resources/levels/units/tuna.tres" id="13_i7nm7"]
+[ext_resource type="PackedScene" uid="uid://gfwjdw0vvstd" path="res://scenes/main_menu/character_selector.tscn" id="7_5seab"]
 [ext_resource type="FontFile" uid="uid://dsh63vyqephpo" path="res://assets/fonts/Casino Madrid.otf" id="15_4ujhu"]
-[ext_resource type="AudioStream" uid="uid://djapf2gxny0ap" path="res://assets/sounds/cards/card-shove-2.ogg" id="16_0m3cs"]
-[ext_resource type="AudioStream" uid="uid://dmmmw0afwicmu" path="res://assets/sounds/cards/card-shove-3.ogg" id="17_i7nm7"]
-[ext_resource type="Texture2D" uid="uid://ccwcq0wcclay1" path="res://assets/characters/portraits/rat.png" id="18_bq5lc"]
-[ext_resource type="AudioStream" uid="uid://cwqnnv5g1thfi" path="res://assets/sounds/cards/card-shove-4.ogg" id="18_tfctf"]
-[ext_resource type="FontFile" uid="uid://d1oikydavd3gm" path="res://assets/fonts/BatmanRiddler-Regular.ttf" id="19_xac7c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bq5lc"]
 shader = ExtResource("2_vnpsp")
@@ -62,13 +50,7 @@ shader_parameter/move_strength = 30.98
 shader_parameter/rotate_strength = 0.02
 shader_parameter/speed = 0.22
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n7xlh"]
-streams_count = 3
-stream_0/stream = ExtResource("16_0m3cs")
-stream_1/stream = ExtResource("17_i7nm7")
-stream_2/stream = ExtResource("18_tfctf")
-
-[node name="StartMenu" type="Control"]
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,8 +61,7 @@ mouse_filter = 1
 script = ExtResource("1_4v5wy")
 metadata/_edit_horizontal_guides_ = [124.0]
 
-[node name="background" type="ColorRect" parent="."]
-z_index = -1
+[node name="Background" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_bq5lc")
 layout_mode = 1
 anchors_preset = 15
@@ -91,8 +72,16 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.07, 0.0441, 0.0441, 1)
 
-[node name="TitleLabel" type="Label" parent="."]
-z_index = -1
+[node name="StartMenu" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="StartMenu"]
 material = SubResource("ShaderMaterial_a1gy5")
 layout_mode = 1
 anchors_preset = 5
@@ -109,8 +98,7 @@ theme_override_font_sizes/font_size = 240
 text = "WILD SUITS"
 horizontal_alignment = 1
 
-[node name="ButtonContainer" type="VBoxContainer" parent="."]
-z_index = -1
+[node name="ButtonContainer" type="VBoxContainer" parent="StartMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -126,7 +114,7 @@ grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="StartButton" type="Button" parent="ButtonContainer"]
+[node name="StartButton" type="Button" parent="StartMenu/ButtonContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
@@ -136,7 +124,7 @@ theme = ExtResource("2_tj3dw")
 theme_override_font_sizes/font_size = 48
 text = "START"
 
-[node name="HowToPlayButton" type="Button" parent="ButtonContainer"]
+[node name="HowToPlayButton" type="Button" parent="StartMenu/ButtonContainer"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 focus_mode = 0
@@ -145,7 +133,7 @@ theme = ExtResource("2_tj3dw")
 theme_override_font_sizes/font_size = 48
 text = " HOW TO PLAY"
 
-[node name="OptionsButton" type="Button" parent="ButtonContainer"]
+[node name="OptionsButton" type="Button" parent="StartMenu/ButtonContainer"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 focus_mode = 0
@@ -154,7 +142,7 @@ theme = ExtResource("2_tj3dw")
 theme_override_font_sizes/font_size = 48
 text = " SETTINGS"
 
-[node name="QuitButton" type="Button" parent="ButtonContainer"]
+[node name="QuitButton" type="Button" parent="StartMenu/ButtonContainer"]
 visible = false
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
@@ -167,187 +155,23 @@ text = " QUIT"
 [node name="OptionsMenu" parent="." instance=ExtResource("4_eum3g")]
 unique_name_in_owner = true
 visible = false
-z_index = 1
 layout_mode = 1
-
-[node name="background2" type="ColorRect" parent="OptionsMenu"]
-z_index = -1
-material = SubResource("ShaderMaterial_bq5lc")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.07, 0.0441, 0.0441, 1)
 
 [node name="HowToPlayMenu" parent="." instance=ExtResource("5_gu1vn")]
 unique_name_in_owner = true
 visible = false
-z_index = 1
 layout_mode = 1
 
-[node name="background3" type="ColorRect" parent="HowToPlayMenu"]
-z_index = -1
-material = SubResource("ShaderMaterial_bq5lc")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.07, 0.0441, 0.0441, 1)
-
-[node name="CharacterSelector" type="Control" parent="."]
+[node name="CharacterSelector" parent="." instance=ExtResource("7_5seab")]
 unique_name_in_owner = true
 visible = false
-z_index = 1
+z_index = 0
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_rrgl4")
-units = Array[ExtResource("6_dn3lk")]([ExtResource("12_0m3cs"), ExtResource("7_4ujhu"), ExtResource("13_i7nm7"), ExtResource("9_a1gy5"), ExtResource("11_xac7c"), ExtResource("8_vnpsp")])
 
-[node name="card_player" type="AudioStreamPlayer" parent="CharacterSelector"]
-unique_name_in_owner = true
-stream = SubResource("AudioStreamRandomizer_n7xlh")
-volume_db = -14.0
-max_polyphony = 5
-bus = &"SFX"
-
-[node name="background4" type="ColorRect" parent="CharacterSelector"]
-z_index = -1
-material = SubResource("ShaderMaterial_bq5lc")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.07, 0.0441, 0.0441, 1)
-
-[node name="BackCard" type="TextureRect" parent="CharacterSelector"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -234.0
-offset_top = -442.0
-offset_right = 234.0
-offset_bottom = 122.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(230, 280)
-texture = ExtResource("18_bq5lc")
-
-[node name="wins1" type="Label" parent="CharacterSelector/BackCard"]
-unique_name_in_owner = true
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -52.0
-offset_top = 208.0
-offset_right = 51.0
-offset_bottom = 247.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("19_xac7c")
-theme_override_font_sizes/font_size = 36
-text = "wins: 0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FrontCard" type="TextureRect" parent="CharacterSelector"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -234.0
-offset_top = -442.0
-offset_right = 234.0
-offset_bottom = 122.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(230, 280)
-texture = ExtResource("18_bq5lc")
-
-[node name="wins2" type="Label" parent="CharacterSelector/FrontCard"]
-unique_name_in_owner = true
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -52.0
-offset_top = 208.0
-offset_right = 51.0
-offset_bottom = 247.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("19_xac7c")
-theme_override_font_sizes/font_size = 36
-text = "wins: 0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CharactersContainer" type="HBoxContainer" parent="CharacterSelector"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -662.0
-offset_top = -311.0
-offset_right = 662.0
-offset_bottom = -181.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 69
-alignment = 1
-
-[node name="BackButton" type="Button" parent="CharacterSelector"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = -97.0
-offset_right = 75.0
-offset_bottom = -57.0
-grow_horizontal = 2
-grow_vertical = 0
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme = ExtResource("2_tj3dw")
-text = "BACK"
-
-[connection signal="pressed" from="ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="ButtonContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
-[connection signal="pressed" from="ButtonContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="ButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CharacterSelector/BackButton" to="CharacterSelector" method="_on_back_button_pressed"]
+[connection signal="pressed" from="StartMenu/ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="StartMenu/ButtonContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
+[connection signal="pressed" from="StartMenu/ButtonContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="StartMenu/ButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="hidden" from="OptionsMenu" to="." method="_on_options_menu_hidden"]
+[connection signal="hidden" from="HowToPlayMenu" to="." method="_on_how_to_play_menu_hidden"]
+[connection signal="hidden" from="CharacterSelector" to="." method="_on_character_selector_hidden"]

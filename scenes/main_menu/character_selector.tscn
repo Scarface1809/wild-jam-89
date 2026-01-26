@@ -1,0 +1,156 @@
+[gd_scene load_steps=16 format=3 uid="uid://gfwjdw0vvstd"]
+
+[ext_resource type="Script" uid="uid://bojvemddgli0m" path="res://scripts/main_menu/character_selector.gd" id="1_fmcet"]
+[ext_resource type="Script" uid="uid://dqu8eenc8tm4x" path="res://scripts/main/game/data/definitions/unit_data.gd" id="2_7cg1e"]
+[ext_resource type="Resource" uid="uid://bobtdgmhamkae" path="res://resources/levels/units/rat.tres" id="3_r76if"]
+[ext_resource type="Resource" uid="uid://ded7cqshxclrx" path="res://resources/levels/units/boar.tres" id="4_pwvfs"]
+[ext_resource type="Resource" uid="uid://dipngc8176wck" path="res://resources/levels/units/tuna.tres" id="5_gghgp"]
+[ext_resource type="Resource" uid="uid://dg3537igj5um1" path="res://resources/levels/units/iguana.tres" id="6_vsv3i"]
+[ext_resource type="Resource" uid="uid://crn35uu5i3vee" path="res://resources/levels/units/rabbit.tres" id="7_mmi3m"]
+[ext_resource type="Resource" uid="uid://nu11fdj7qldy" path="res://resources/levels/units/flamingo.tres" id="8_y2q6b"]
+[ext_resource type="AudioStream" uid="uid://djapf2gxny0ap" path="res://assets/sounds/cards/card-shove-2.ogg" id="9_x87xn"]
+[ext_resource type="AudioStream" uid="uid://dmmmw0afwicmu" path="res://assets/sounds/cards/card-shove-3.ogg" id="10_vr1id"]
+[ext_resource type="AudioStream" uid="uid://cwqnnv5g1thfi" path="res://assets/sounds/cards/card-shove-4.ogg" id="11_q7hjk"]
+[ext_resource type="Texture2D" uid="uid://ccwcq0wcclay1" path="res://assets/characters/portraits/rat.png" id="12_mt01q"]
+[ext_resource type="FontFile" uid="uid://d1oikydavd3gm" path="res://assets/fonts/BatmanRiddler-Regular.ttf" id="13_rpe12"]
+[ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="14_4myte"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n7xlh"]
+streams_count = 3
+stream_0/stream = ExtResource("9_x87xn")
+stream_1/stream = ExtResource("10_vr1id")
+stream_2/stream = ExtResource("11_q7hjk")
+
+[node name="CharacterSelector" type="Control"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fmcet")
+units = Array[ExtResource("2_7cg1e")]([ExtResource("4_pwvfs"), ExtResource("8_y2q6b"), ExtResource("6_vsv3i"), ExtResource("7_mmi3m"), ExtResource("3_r76if"), ExtResource("5_gghgp")])
+
+[node name="card_player" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_n7xlh")
+volume_db = -14.0
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="BackCard" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -442.0
+offset_right = 234.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(230, 280)
+texture = ExtResource("12_mt01q")
+
+[node name="Wins1" type="Label" parent="BackCard"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = 208.0
+offset_right = 51.0
+offset_bottom = 247.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("13_rpe12")
+theme_override_font_sizes/font_size = 36
+text = "wins: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FrontCard" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -442.0
+offset_right = 234.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(230, 280)
+texture = ExtResource("12_mt01q")
+
+[node name="Wins2" type="Label" parent="FrontCard"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = 208.0
+offset_right = 51.0
+offset_bottom = 247.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("13_rpe12")
+theme_override_font_sizes/font_size = 36
+text = "wins: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharactersContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -662.0
+offset_top = -311.0
+offset_right = 662.0
+offset_bottom = -181.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 69
+alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -97.0
+offset_right = 75.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("14_4myte")
+text = "BACK"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
