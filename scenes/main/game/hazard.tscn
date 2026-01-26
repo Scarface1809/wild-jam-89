@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjgtss2iyo7hj"]
 
-[ext_resource type="Script" uid="uid://br8rnphrrpg0n" path="res://scripts/main/game/hazard.gd" id="1_hu64h"]
+[ext_resource type="Script" uid="uid://br8rnphrrpg0n" path="res://scripts/main/game/visuals/hazard.gd" id="1_hu64h"]
 [ext_resource type="Texture2D" uid="uid://c02w1ibpc67bt" path="res://assets/board/trap.png" id="2_hu64h"]
 
 [node name="Hazard" type="Node2D"]
 script = ExtResource("1_hu64h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("2_hu64h")

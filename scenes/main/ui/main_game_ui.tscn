@@ -8,7 +8,7 @@
 [ext_resource type="Theme" uid="uid://2ek7eagjo7f0" path="res://resources/themes/general_theme.tres" id="4_vrub2"]
 [ext_resource type="PackedScene" uid="uid://boaytsxvldcf8" path="res://scenes/main/ui/pause.tscn" id="5_f45jh"]
 [ext_resource type="Texture2D" uid="uid://bno1smh4bmfdt" path="res://assets/cards/back_card.png" id="5_y4s04"]
-[ext_resource type="Script" uid="uid://dde0k1rqwh8vi" path="res://scripts/main/ui/back_card.gd" id="6_5h8kp"]
+[ext_resource type="Script" uid="uid://dde0k1rqwh8vi" path="res://scripts/main/ui/deck.gd" id="6_5h8kp"]
 [ext_resource type="Script" uid="uid://daxmhj2bvbtqb" path="res://scripts/main/ui/skip_button.gd" id="6_i1v4j"]
 
 [sub_resource type="Curve" id="Curve_vrub2"]
@@ -20,7 +20,7 @@ _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.28289473, -0.41387022), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(0.71710527, 0.58836687), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.0, 0.0, 0, 0]
 point_count = 5
 
-[node name="MainGameUi" type="Control"]
+[node name="MainGameUI" type="Control"]
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -30,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Round" type="Label" parent="."]
+[node name="RoundLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 32.0
@@ -62,7 +62,7 @@ rotation_curve = SubResource("Curve_f45jh")
 max_rotation_degrees = 12.0
 card_spacing = 160.0
 
-[node name="Shuffle" type="Button" parent="."]
+[node name="ShuffleButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -78,7 +78,7 @@ theme = ExtResource("4_vrub2")
 text = "Shuffle Cards"
 script = ExtResource("3_i1v4j")
 
-[node name="Button" type="Button" parent="."]
+[node name="SkipButton" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
@@ -95,8 +95,8 @@ theme = ExtResource("4_vrub2")
 text = "SKIP TURN"
 script = ExtResource("6_i1v4j")
 
-[node name="BackCard" type="TextureRect" parent="."]
-layout_mode = 0
+[node name="Deck" type="TextureRect" parent="."]
+layout_mode = 1
 offset_left = 72.0
 offset_top = 834.0
 offset_right = 198.0
@@ -105,7 +105,7 @@ texture = ExtResource("5_y4s04")
 expand_mode = 1
 script = ExtResource("6_5h8kp")
 
-[node name="Label" type="Label" parent="BackCard"]
+[node name="Label" type="Label" parent="Deck"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -121,11 +121,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_vrub2")
 theme_override_font_sizes/font_size = 24
-text = "52/56"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect3" type="TextureRect" parent="BackCard"]
+[node name="Card1" type="TextureRect" parent="Deck"]
 modulate = Color(0.54976076, 0.5497609, 0.5497609, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -136,7 +135,7 @@ offset_bottom = 188.0
 texture = ExtResource("2_8v443")
 expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="BackCard"]
+[node name="Card2" type="TextureRect" parent="Deck"]
 modulate = Color(0.6599839, 0.6599845, 0.659984, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -147,7 +146,7 @@ offset_bottom = 184.0
 texture = ExtResource("2_8v443")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="BackCard"]
+[node name="Card3" type="TextureRect" parent="Deck"]
 modulate = Color(0.7531428, 0.75314295, 0.75314254, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -165,4 +164,4 @@ layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[connection signal="pressed" from="Shuffle" to="Shuffle" method="_on_pressed"]
+[connection signal="pressed" from="ShuffleButton" to="ShuffleButton" method="_on_pressed"]

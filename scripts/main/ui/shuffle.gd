@@ -2,16 +2,23 @@ class_name Shuffle
 extends Button
 
 
-
 func set_enabled(enabled: bool) -> void:
 	disabled = not enabled
 
 func _ready() -> void:
-	Global.player_turn_started.connect(_on_player_turn_started)
-	Global.player_turn_ended.connect(_on_player_turn_ended)
+	Global.turn_started.connect(
+		func(group: GroupState, _unit: UnitState):
+			if group.type == Global.GroupType.PLAYER:
+				_on_player_turn_started()
+	)
+	Global.turn_ended.connect(
+		func(group: GroupState, _unit: UnitState):
+			if group.type == Global.GroupType.PLAYER:
+				_on_player_turn_ended()
+	)
 
 func _on_pressed() -> void:
-	Global.shuffle_request.emit()
+	Global.shuffle_requested.emit()
 
 func _on_player_turn_started() -> void:
 	set_enabled(true)
