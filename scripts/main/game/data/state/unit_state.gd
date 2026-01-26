@@ -3,15 +3,15 @@ extends Resource
 class_name UnitState
 ## Represents the state of a unit in the game (Mutable)
 
-var id: int
-var group_id: int
-var cell_pos: Vector2i
+var id: int = -1
+var group_id: int = -1
+var cell_pos: Vector2i = Vector2i(-1, -1)
 var shielded: bool = false
 
-var name: String
-var piece_texture: Texture2D
-var human_texture: Texture2D
-var actions: Array[Global.ACTION_TYPE]
+var name: String = "Unit"
+var piece_texture: Texture2D = null
+var human_texture: Texture2D = null
+var actions: Array[Action] = []
 
 func _init(_id: int, _group_id: int, _cell_pos: Vector2i, data: UnitData) -> void:
 	self.id = _id
