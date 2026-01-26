@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bl3bkx617qrac"]
 
-[ext_resource type="Script" uid="uid://b1pjwm1mlcjfc" path="res://scripts/main/game/unit.gd" id="1_c173q"]
+[ext_resource type="Script" uid="uid://b1pjwm1mlcjfc" path="res://scripts/main/game/visuals/unit.gd" id="1_c173q"]
 [ext_resource type="Texture2D" uid="uid://cr0x1u31ochh0" path="res://assets/characters/pieces/monkey.png" id="2_c173q"]
 
 [node name="Unit" type="Node2D"]
