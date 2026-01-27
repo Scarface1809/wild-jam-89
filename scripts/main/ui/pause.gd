@@ -19,7 +19,6 @@ func open_close_pause():
 		options_menu.hide()
 		how_to_play_menu.hide()
 
-
 # Signal callbacks
 func _on_resume_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)

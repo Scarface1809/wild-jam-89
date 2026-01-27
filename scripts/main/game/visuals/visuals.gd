@@ -19,8 +19,8 @@ func sync_with_state(state: GameState, action: Action) -> void:
 
 	_board.sync_with_state(state, action)
 	_board_highlights.sync_with_state(state, action)
-	await _hazards_container.sync_with_state(state, action)
 	await _units_container.sync_with_state(state, action)
+	await _hazards_container.sync_with_state(state, action)
 	_seats.sync_with_state(state, action) # TODO
 
 	_is_animating = false

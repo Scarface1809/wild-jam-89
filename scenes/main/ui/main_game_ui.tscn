@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c76kj4of14ajq"]
+[gd_scene load_steps=14 format=3 uid="uid://c76kj4of14ajq"]
 
 [ext_resource type="FontFile" uid="uid://dsh63vyqephpo" path="res://assets/fonts/Casino Madrid.otf" id="1_271sd"]
 [ext_resource type="Script" uid="uid://8fw6u7jyx1ci" path="res://scripts/main/ui/hand.gd" id="1_a3gx8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bno1smh4bmfdt" path="res://assets/cards/back_card.png" id="5_y4s04"]
 [ext_resource type="Script" uid="uid://dde0k1rqwh8vi" path="res://scripts/main/ui/deck.gd" id="6_5h8kp"]
 [ext_resource type="Script" uid="uid://daxmhj2bvbtqb" path="res://scripts/main/ui/skip_button.gd" id="6_i1v4j"]
+[ext_resource type="Texture2D" uid="uid://bmrgmcvuskfwd" path="res://assets/icons/menu.png" id="10_4os72"]
 
 [sub_resource type="Curve" id="Curve_vrub2"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4966555, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -157,6 +158,32 @@ offset_bottom = 181.0
 texture = ExtResource("2_8v443")
 expand_mode = 1
 
+[node name="Button" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -58.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = 58.0
+grow_horizontal = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_4os72")
+
+[node name="Label" type="Label" parent="Button"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 64.0
+offset_right = 52.0
+offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("1_271sd")
+theme_override_font_sizes/font_size = 32
+text = "TAB"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Pause" parent="." instance=ExtResource("5_f45jh")]
 visible = false
 z_index = 1
@@ -165,3 +192,4 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 
 [connection signal="pressed" from="ShuffleButton" to="ShuffleButton" method="_on_pressed"]
+[connection signal="pressed" from="Button" to="Pause" method="open_close_pause"]
