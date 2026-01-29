@@ -32,11 +32,11 @@ func _ready() -> void:
 func _load_current_level() -> void:
 	Global.round_changed.emit(_current_level)
 
-	var state: GameState = _initialize_game_state(levels_data[_current_level])
-	Global.game_state_changed.emit(state, null)
+	Global.game_state = _initialize_game_state(levels_data[_current_level])
+	Global.game_state_changed.emit(Global.game_state, null)
 
 	# Generate level
-	_start_game(state)
+	_start_game(Global.game_state)
 
 func _start_game(state: GameState) -> void:
 	_turn_engine.start_battle(state)

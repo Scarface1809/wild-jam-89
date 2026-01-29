@@ -4,7 +4,7 @@ extends RefCounted
 
 # Specific to my game...
 func spawn_player_group(state: GameState, group_data: GroupData) -> GroupState:
-	var group: GroupState = GroupState.new(state, group_data)
+	var group: GroupState = GroupState.new(state.get_next_group_id(), group_data)
 	state.groups.append(group)
 
 	for unit_data: UnitData in group_data.units:
@@ -14,7 +14,7 @@ func spawn_player_group(state: GameState, group_data: GroupData) -> GroupState:
 
 # Generic except location...
 func spawn_enemy_group(state: GameState, group_data: GroupData) -> GroupState:
-	var group: GroupState = GroupState.new(state, group_data)
+	var group: GroupState = GroupState.new(state.get_next_group_id(), group_data)
 	state.groups.append(group)
 
 	var spawn_tiles: Array[Vector2i] = _get_border_tiles(state)

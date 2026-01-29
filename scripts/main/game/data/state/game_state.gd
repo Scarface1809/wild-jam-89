@@ -8,7 +8,7 @@ var board_size: Vector2i
 var tiles: Dictionary[Vector2i, Global.Suit] = {}
 var hazards: Dictionary[int, HazardState] = {}
 # Unit groups
-var groups: Array[GroupState] = []
+var groups: Array[GroupState] = [] # TODO: Pass to Dictionary
 # Turn State
 var active_group_index: int = -1
 var active_unit_index: int = -1
@@ -195,6 +195,54 @@ func get_next_hazard_id() -> int:
 	var id = next_hazard_id
 	next_hazard_id += 1
 	return id
+#endregion
+
+#region Serialization
+func to_dict() -> Dictionary:
+	return {
+		"board_size": board_size,
+		"tiles": tiles,
+		"hazards": hazards.values().map(func(h: HazardState) -> Dictionary: return h.to_dict()),
+		"groups": groups.map(func(g: GroupState) -> Dictionary: return g.to_dict()),
+		"active_group_index": active_group_index,
+		"active_unit_index": active_unit_index,
+		"deck": deck.map(func(c: CardData) -> String: return c.resource_path),
+		"hand": hand.map(func(c: CardData) -> String: return c.resource_path),
+		"next_unit_id": next_unit_id,
+		"next_group_id": next_group_id,
+		"next_hazard_id": next_hazard_id
+	}
+
+func from_dict(data: Dictionary) -> void:
+	board_size = data.get("board_size", board_size)
+	tiles = data.get("tiles", tiles)
+
+	hazards.clear()
+	for h_data in data.get("hazards", []):
+		var hazard: HazardState = HazardState.new(-1, Vector2i(-1, -1))
+		hazard.from_dict(h_data)
+		hazards[hazard.id] = hazard
+	
+	groups.clear()
+	for g_data in data.get("groups", []):
+		var group: GroupState = GroupState.new(-1, null)
+		group.from_dict(g_data)
+		groups.append(group)
+	
+	active_group_index = data.get("active_group_index", active_group_index)
+	active_unit_index = data.get("active_unit_index", active_unit_index)
+
+	deck.clear()
+	for path in data.get("deck", []):
+		deck.append(load(path))
+
+	hand.clear()
+	for path in data.get("hand", []):
+		hand.append(load(path))
+
+	next_unit_id = data.get("next_unit_id", next_unit_id)
+	next_group_id = data.get("next_group_id", next_group_id)
+	next_hazard_id = data.get("next_hazard_id", next_hazard_id)
 #endregion
 
 # String representation for debugging
