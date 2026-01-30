@@ -2,7 +2,7 @@ class_name RoundDisplay
 extends Label
 
 func _ready():
-	Global.round_changed.connect(_on_round_changed)
+	Global.game_state_changed.connect(_on_game_state_changed)
 
-func _on_round_changed(_round: int):
-	text = "round " + str(_round + 1) + "/5"
+func _on_game_state_changed(_game_state: GameState, _action: Action):
+	text = "round " + str(_game_state.get_current_round() + 1) + "/5"

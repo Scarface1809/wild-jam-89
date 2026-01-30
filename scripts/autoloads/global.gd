@@ -77,8 +77,6 @@ signal game_state_changed(game_state: GameState, action: Action)
 signal turn_started(group: GroupState, unit: UnitState)
 @warning_ignore("unused_signal")
 signal turn_ended(group: GroupState, unit: UnitState)
-@warning_ignore("unused_signal")
-signal round_changed(round: int)
 
 # Game Controller
 var game_controller: GameController
@@ -90,7 +88,7 @@ var sound_step: int = 9
 
 # Game Variables
 var selected_unit: UnitData # The unit selected by the player in the character selector
-var game_state: GameState = GameState.new()
+var game_state: GameState = null
 var character_wins: Dictionary[String, int] = {} # The number of wins for each character
 
 # Load Game
@@ -114,6 +112,8 @@ func _input(event: InputEvent) -> void:
 func save_game() -> void:
 	var file: FileAccess = FileAccess.open_encrypted_with_pass(SAVE_LOCATION, FileAccess.WRITE, ENCRYPTION_PASSWORD)
 	if file:
+		if game_state == null:
+			game_state = GameState.new()
 		var save_data: Dictionary = {
 			"settings": {
 				"music_step": music_step,
@@ -133,8 +133,11 @@ func load_game() -> void:
 			var data = file.get_var()
 			print(JSON.stringify(data, "  "))
 			if typeof(data) == TYPE_DICTIONARY:
-				music_step = data.get("music_step", music_step)
-				sound_step = data.get("sound_step", sound_step)
+				music_step = data.get("settings", {}).get("music_step", music_step)
+				sound_step = data.get("settings", {}).get("sound_step", sound_step)
 				character_wins = data.get("character_wins", character_wins)
-				game_state.from_dict(data.get("game_state", {}))
+				var game_state_data = data.get("game_state", {})
+				if game_state_data:
+					game_state = GameState.new()
+					game_state.from_dict(game_state_data)
 			file.close()

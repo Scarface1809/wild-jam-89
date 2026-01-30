@@ -3,6 +3,8 @@ class_name GameState
 extends Resource
 ## Immutable snapshot of the entire game state.
 
+# Round
+var current_round: int = 0
 # Board
 var board_size: Vector2i
 var tiles: Dictionary[Vector2i, Global.Suit] = {}
@@ -21,6 +23,11 @@ var next_group_id: int = 0
 var next_hazard_id: int = 0
 
 # Queries
+
+#region round
+func get_current_round() -> int:
+	return current_round
+#endregion
 
 #region Board
 # Board
@@ -200,20 +207,22 @@ func get_next_hazard_id() -> int:
 #region Serialization
 func to_dict() -> Dictionary:
 	return {
+		"current_round": current_round,
 		"board_size": board_size,
 		"tiles": tiles,
 		"hazards": hazards.values().map(func(h: HazardState) -> Dictionary: return h.to_dict()),
 		"groups": groups.map(func(g: GroupState) -> Dictionary: return g.to_dict()),
 		"active_group_index": active_group_index,
 		"active_unit_index": active_unit_index,
-		"deck": deck.map(func(c: CardData) -> String: return c.resource_path),
-		"hand": hand.map(func(c: CardData) -> String: return c.resource_path),
+		"deck": deck.filter(func(c: CardData) -> bool: return c != null).map(func(c: CardData) -> String: return c.resource_path),
+		"hand": hand.filter(func(c: CardData) -> bool: return c != null).map(func(c: CardData) -> String: return c.resource_path),
 		"next_unit_id": next_unit_id,
 		"next_group_id": next_group_id,
 		"next_hazard_id": next_hazard_id
 	}
 
 func from_dict(data: Dictionary) -> void:
+	current_round = data.get("current_round", current_round)
 	board_size = data.get("board_size", board_size)
 	tiles = data.get("tiles", tiles)
 
@@ -234,11 +243,19 @@ func from_dict(data: Dictionary) -> void:
 
 	deck.clear()
 	for path in data.get("deck", []):
-		deck.append(load(path))
+		if path == "" or path == null:
+			continue
+		var card = load(path)
+		if card != null:
+			deck.append(card)
 
 	hand.clear()
 	for path in data.get("hand", []):
-		hand.append(load(path))
+		if path == "" or path == null:
+			continue
+		var card = load(path)
+		if card != null:
+			hand.append(card)
 
 	next_unit_id = data.get("next_unit_id", next_unit_id)
 	next_group_id = data.get("next_group_id", next_group_id)
@@ -248,6 +265,7 @@ func from_dict(data: Dictionary) -> void:
 # String representation for debugging
 func _to_string() -> String:
 	var s = "[GameState] Board size: %s\n" % [str(board_size)]
+	s += "Round: %d\n" % [current_round]
 	s += "Tiles: %d, Hazards: %d\n" % [tiles.size(), hazards.size()]
 	s += "Groups: %d, Active Group: %d, Active Unit: %d\n" % [groups.size(), active_group_index, active_unit_index]
 	s += "Deck: %d, Hand: %d\n" % [deck.size(), hand.size()]

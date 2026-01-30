@@ -8,9 +8,6 @@ const BOARD_SIZE = 5
 @export var levels_data: Array[LevelData]
 @export var deck: Array[CardData]
 
-# Private Variables
-var _current_level: int = 0
-
 # OnReady Variables
 @onready var _turn_engine: TurnEngine = %TurnEngine
 
@@ -30,29 +27,46 @@ func _ready() -> void:
 
 # Private Methods
 func _load_current_level() -> void:
-	Global.round_changed.emit(_current_level)
+	var state := Global.game_state
 
-	Global.game_state = _initialize_game_state(levels_data[_current_level])
-	Global.game_state_changed.emit(Global.game_state, null)
+	if state == null:
+		var level := levels_data[0]
+		state = _initialize_game_state(level)
+		Global.game_state = state
+	else:
+		assert(state.current_round < levels_data.size())
 
-	# Generate level
-	_start_game(Global.game_state)
+	Global.game_state_changed.emit(state, null)
+	_start_game(state)
 
 func _start_game(state: GameState) -> void:
 	_turn_engine.start_battle(state)
 
+func _reset_for_next_level(state: GameState) -> void:
+	state.groups.clear()
+	state.tiles.clear()
+	state.hazards.clear()
+	state.deck.clear()
+	state.hand.clear()
+
+	state.active_group_index = 0
+	state.active_unit_index = 0
+
+	_generate_board(state)
+	_setup_units(state, levels_data[state.current_round])
+	_setup_deck(state)
+	_validate_state(state)
+
 func _initialize_game_state(level: LevelData) -> GameState:
 	var state: GameState = GameState.new()
+	state.current_round = 0
 	state.board_size = Vector2i(BOARD_SIZE, BOARD_SIZE)
 	state.groups = []
 	state.tiles = {}
 
 	_generate_board(state)
-
 	_setup_units(state, level)
-
 	_setup_deck(state)
-
 	_validate_state(state)
 
 	return state
@@ -121,11 +135,13 @@ func _validate_state(state: GameState) -> void:
 
 #region Signal Handlers
 func _on_battle_won() -> void:
-	print("Level ", _current_level + 1, " won!")
-	_current_level += 1
+	var state: GameState = Global.game_state
 
-	if _current_level >= levels_data.size():
-		print("🎉 All levels completed! You win the game!")
+	state.current_round += 1
+	print("Level ", state.current_round, " won!")
+
+	if state.current_round >= levels_data.size():
+		print("All levels completed! You win the game!")
 		var _name := Global.selected_unit.name
 		if not Global.character_wins.has(_name):
 			Global.character_wins[_name] = 0
@@ -133,29 +149,37 @@ func _on_battle_won() -> void:
 		Global.save_game()
 		await Global.game_controller.change_scene(Global.SCENE_UIDS.WIN_SCREEN, "", TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 	else:
-		print("➡ Loading next level...")
+		print("Loading next level...")
+		_reset_for_next_level(state)
 		_load_current_level()
 
 func _on_battle_lost() -> void:
-	print("❌ Player defeated. Returning to main menu.")
+	print("Player defeated. Returning to main menu.")
 	await Global.game_controller.change_scene(Global.SCENE_UIDS.LOSE_SCREEN, "", TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 #endregion
 
 #region Debug
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("level_1"):
-		_current_level = 0
-		_load_current_level()
+		_jump_to_level(0)
 	elif event.is_action_pressed("level_2"):
-		_current_level = 1
-		_load_current_level()
+		_jump_to_level(1)
 	elif event.is_action_pressed("level_3"):
-		_current_level = 2
-		_load_current_level()
+		_jump_to_level(2)
 	elif event.is_action_pressed("level_4"):
-		_current_level = 3
-		_load_current_level()
+		_jump_to_level(3)
 	elif event.is_action_pressed("level_5"):
-		_current_level = 4
-		_load_current_level()
+		_jump_to_level(4)
+
+func _jump_to_level(level_index: int) -> void:
+	assert(level_index >= 0 && level_index < levels_data.size())
+
+	var state := Global.game_state
+	if state == null:
+		state = GameState.new()
+		Global.game_state = state
+
+	state.current_round = level_index
+	_reset_for_next_level(state)
+	_load_current_level()
 #endregion
