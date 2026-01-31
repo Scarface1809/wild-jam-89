@@ -1,13 +1,13 @@
 extends Control
-
-const throw_distance: float = 700.0
-const throw_rotation: float = 320.0
-
-@export var units: Array[UnitData] = []
+class_name CharacterSelector
 
 const CHARACTER_BUTTON_SCENE = preload(Global.SCENE_UIDS.CHARACTER_BUTTON)
 const WIN_BUTTON_STYLE = preload(Global.THEME_UIDS.WIN_BUTTON)
 const WIN_HOVER_STYLE = preload(Global.THEME_UIDS.WIN_HOVER)
+const THROW_DISTANCE: float = 700.0
+const THROW_ROTATION: float = 320.0
+
+@export var units: Array[UnitData] = []
 
 @onready var card_player: AudioStreamPlayer = %card_player
 @onready var front_card: TextureRect = %FrontCard
@@ -95,8 +95,8 @@ func show_unit(unit: UnitData) -> void:
 	# Random throw direction (biased upward)
 	var dir := Vector2(randf_range(-0.6, 0.6), randf_range(-1.2, -0.8)).normalized()
 
-	var throw_pos := front_card.position + dir * throw_distance
-	var throw_rot := front_card.rotation + randf_range(-deg_to_rad(throw_rotation), deg_to_rad(throw_rotation))
+	var throw_pos := front_card.position + dir * THROW_DISTANCE
+	var throw_rot := front_card.rotation + randf_range(-deg_to_rad(THROW_ROTATION), deg_to_rad(THROW_ROTATION))
 
 
 	current_tween = create_tween().set_parallel()
