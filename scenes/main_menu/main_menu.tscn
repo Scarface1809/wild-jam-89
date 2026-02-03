@@ -58,9 +58,11 @@ visible = false
 z_index = 0
 layout_mode = 1
 
+[connection signal="continue_game" from="StartMenu" to="." method="_on_start_menu_continue_game"]
+[connection signal="new_game" from="StartMenu" to="." method="_on_start_menu_new_game"]
 [connection signal="open_how_to_play" from="StartMenu" to="." method="_on_start_menu_open_how_to_play"]
 [connection signal="open_options" from="StartMenu" to="." method="_on_start_menu_open_options"]
-[connection signal="start_game" from="StartMenu" to="." method="_on_start_menu_start_game"]
 [connection signal="hidden" from="OptionsMenu" to="." method="_on_options_menu_hidden"]
 [connection signal="hidden" from="HowToPlayMenu" to="." method="_on_how_to_play_menu_hidden"]
+[connection signal="character_selected" from="CharacterSelector" to="." method="_on_character_selector_character_selected"]
 [connection signal="hidden" from="CharacterSelector" to="." method="_on_character_selector_hidden"]

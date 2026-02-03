@@ -1,6 +1,8 @@
 extends Control
 class_name CharacterSelector
 
+signal character_selected(unit: UnitData)
+
 const CHARACTER_BUTTON_SCENE = preload(Global.SCENE_UIDS.CHARACTER_BUTTON)
 const WIN_BUTTON_STYLE = preload(Global.THEME_UIDS.WIN_BUTTON)
 const WIN_HOVER_STYLE = preload(Global.THEME_UIDS.WIN_HOVER)
@@ -31,32 +33,30 @@ func _ready() -> void:
 		button.icon = unit.piece_texture
 		button.mouse_entered.connect(_on_button_mouse_entered.bind(button, unit))
 		button.pressed.connect(_on_button_pressed.bind(button, unit))
-		if Global.character_wins.has(unit.name):
+		if SaveSystem.character_wins.has(unit.name):
 			button.add_theme_stylebox_override("normal", WIN_BUTTON_STYLE)
 			button.add_theme_stylebox_override("hover", WIN_HOVER_STYLE)
 			if unit.name == "Rat":
-				wins_2.text = "wins: " + str(Global.character_wins[unit.name])
+				wins_2.text = "wins: " + str(SaveSystem.character_wins[unit.name])
 		_characters_container.add_child(button)
 
-func _on_button_mouse_entered(_button: Button, unit: UnitData) -> void:
-	show_unit(unit)
-
 func _on_button_pressed(_button: Button, unit: UnitData) -> void:
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	if selection_locked:
 		return
 	selection_locked = true
 	for child: Button in _characters_container.get_children():
 		child.disabled = true
-	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
-	Global.selected_unit = unit
-	AudioManager.fade_out_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.MENU_MUSIC, 0.8)
-	await Global.game_controller.change_scene(Global.SCENE_UIDS.MAIN_UI, Global.SCENE_UIDS.MAIN_GAME, TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
+	character_selected.emit(unit)
 
 func _on_back_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	hide()
 
-func show_unit(unit: UnitData) -> void:
+func _on_button_mouse_entered(_button: Button, unit: UnitData) -> void:
+	_show_unit(unit)
+
+func _show_unit(unit: UnitData) -> void:
 	if selection_locked:
 		return
 
@@ -81,8 +81,8 @@ func show_unit(unit: UnitData) -> void:
 	# Prepare back card (new incoming card)
 	back_card.texture = unit.portrait_texture
 	var wins := 0
-	if Global.character_wins.has(unit.name):
-		wins = Global.character_wins[unit.name]
+	if SaveSystem.character_wins.has(unit.name):
+		wins = SaveSystem.character_wins[unit.name]
 
 	wins_1.text = "wins: " + str(wins)
 	back_card.position = front_card.position

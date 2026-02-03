@@ -1,22 +1,25 @@
 class_name StartMenu
 extends Control
 
-signal start_game
+signal new_game
+signal continue_game
 signal open_options
 signal open_how_to_play
 
 @onready var _continue_button: Button = %ContinueButton
 
 func _ready() -> void:
-	if Global.game_state != null:
-		_continue_button.text = "CONTINUE"
-	else:
-		_continue_button.text = "NEW GAME"
+	_continue_button.visible = SaveSystem.has_saved_game()
+
+func _on_new_game_button_pressed() -> void:
+	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
+	hide()
+	new_game.emit()
 
 func _on_continue_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
 	hide()
-	start_game.emit()
+	continue_game.emit()
 
 func _on_options_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)

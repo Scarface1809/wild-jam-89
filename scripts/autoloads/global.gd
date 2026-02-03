@@ -58,10 +58,6 @@ enum GroupType {
 	ENEMY
 }
 
-# Save
-const SAVE_LOCATION: String = "user://save_game.json"
-const ENCRYPTION_PASSWORD: String = "WildJam89"
-
 # Game Signals
 @warning_ignore("unused_signal")
 signal tile_selected(cell_pos: Vector2, suit: Suit)
@@ -82,22 +78,9 @@ signal turn_ended(group: GroupState, unit: UnitState)
 var game_controller: GameController
 var debug_panel: DebugPanel
 
-# Game Settings
-var music_step: int = 9
-var sound_step: int = 9
-
 # Game Variables
-var selected_unit: UnitData # The unit selected by the player in the character selector
+var session: GameSession = null
 var game_state: GameState = null
-var character_wins: Dictionary[String, int] = {} # The number of wins for each character
-
-# Load Game
-func _ready() -> void:
-	game_state_changed.connect(
-		func(_g: GameState, _a: Action):
-			save_game()
-	)
-	load_game()
 
 # Input
 func _input(event: InputEvent) -> void:
@@ -107,37 +90,3 @@ func _input(event: InputEvent) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-
-# Save Game
-func save_game() -> void:
-	var file: FileAccess = FileAccess.open_encrypted_with_pass(SAVE_LOCATION, FileAccess.WRITE, ENCRYPTION_PASSWORD)
-	if file:
-		if game_state == null:
-			game_state = GameState.new()
-		var save_data: Dictionary = {
-			"settings": {
-				"music_step": music_step,
-				"sound_step": sound_step,
-			},
-			"character_wins": character_wins,
-			"game_state": game_state.to_dict()
-		}
-		file.store_var(save_data)
-		file.close()
-
-# Load Game
-func load_game() -> void:
-	if FileAccess.file_exists(SAVE_LOCATION):
-		var file: FileAccess = FileAccess.open_encrypted_with_pass(SAVE_LOCATION, FileAccess.READ, ENCRYPTION_PASSWORD)
-		if file:
-			var data = file.get_var()
-			print(JSON.stringify(data, "  "))
-			if typeof(data) == TYPE_DICTIONARY:
-				music_step = data.get("settings", {}).get("music_step", music_step)
-				sound_step = data.get("settings", {}).get("sound_step", sound_step)
-				character_wins = data.get("character_wins", character_wins)
-				var game_state_data = data.get("game_state", {})
-				if game_state_data:
-					game_state = GameState.new()
-					game_state.from_dict(game_state_data)
-			file.close()

@@ -28,6 +28,7 @@ buses/default_bus_layout="uid://dd861fsnjvt51"
 
 AudioManager="*res://scenes/audio_manager/audio_manager.tscn"
 Global="*res://scripts/autoloads/global.gd"
+SaveSystem="*res://scripts/autoloads/save_system.gd"
 
 [display]
 

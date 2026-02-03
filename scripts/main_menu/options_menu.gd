@@ -13,12 +13,12 @@ func _ready() -> void:
 # Private functions
 
 func _apply_music_volume() -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), volume_steps[Global.music_step])
-	music_volume_bar.value = float(Global.music_step) / float(volume_steps.size() - 1)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), volume_steps[SaveSystem.music_step])
+	music_volume_bar.value = float(SaveSystem.music_step) / float(volume_steps.size() - 1)
 
 func _apply_sound_volume() -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), volume_steps[Global.sound_step])
-	sound_volume_bar.value = float(Global.sound_step) / float(volume_steps.size() - 1)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), volume_steps[SaveSystem.sound_step])
+	sound_volume_bar.value = float(SaveSystem.sound_step) / float(volume_steps.size() - 1)
 
 # Signal callbacks
 
@@ -37,20 +37,20 @@ func _on_full_screen_button_pressed() -> void:
 
 func _on_minus_music_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
-	Global.music_step = max(0, Global.music_step - 1)
+	SaveSystem.music_step = max(0, SaveSystem.music_step - 1)
 	_apply_music_volume()
 
 func _on_plus_music_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
-	Global.music_step = min(volume_steps.size() - 1, Global.music_step + 1)
+	SaveSystem.music_step = min(volume_steps.size() - 1, SaveSystem.music_step + 1)
 	_apply_music_volume()
 
 func _on_minus_sound_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
-	Global.sound_step = max(0, Global.sound_step - 1)
+	SaveSystem.sound_step = max(0, SaveSystem.sound_step - 1)
 	_apply_sound_volume()
 
 func _on_plus_sound_button_pressed() -> void:
 	AudioManager.create_audio(SoundEffectSettings.SOUND_EFFECT_TYPE.BUTTON_CLICK)
-	Global.sound_step = min(volume_steps.size() - 1, Global.sound_step + 1)
+	SaveSystem.sound_step = min(volume_steps.size() - 1, SaveSystem.sound_step + 1)
 	_apply_sound_volume()

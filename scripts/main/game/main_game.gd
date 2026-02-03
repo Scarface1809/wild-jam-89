@@ -13,7 +13,7 @@ const BOARD_SIZE = 5
 
 func _ready() -> void:
 	# Setup
-	assert(Global.selected_unit != null, "A character unit must be selected")
+	assert(Global.session != null, "Game session must be initialized before starting MainGame scene")
 	assert(levels_data.size() > 0, "At least one level is required")
 
 	# Signals
@@ -23,27 +23,37 @@ func _ready() -> void:
 	# Randomize
 	randomize()
 
-	_load_current_level()
+	if Global.session.mode == GameSession.Mode.NEW_GAME:
+		_create_new_game(Global.session.selected_unit)
+	else:
+		assert(Global.session.loaded_state != null, "Loaded game state must be initialized before starting MainGame scene")
+		Global.game_state = Global.session.loaded_state
+
+	Global.session = null
+	_start_level()
 
 # Private Methods
-func _load_current_level() -> void:
-	var state := Global.game_state
+func _start_level() -> void:
+	SaveSystem.save_game_state(Global.game_state)
+	Global.game_state_changed.emit(Global.game_state, null)
+	_turn_engine.start_battle(Global.game_state)
 
-	if state == null:
-		var level := levels_data[0]
-		state = _initialize_game_state(level)
-		Global.game_state = state
-	else:
-		assert(state.current_round < levels_data.size())
+func _create_new_game(unit: UnitData) -> void:
+	Global.game_state = GameState.new()
+	Global.game_state.board_size = Vector2i(BOARD_SIZE, BOARD_SIZE)
 
-	Global.game_state_changed.emit(state, null)
-	_start_game(state)
+	var spawner := UnitSpawner.new()
+	var player_group := GroupData.new()
+	player_group.init("Player", Global.GroupType.PLAYER, [unit])
+	spawner.spawn_player_group(Global.game_state, player_group)
 
-func _start_game(state: GameState) -> void:
-	_turn_engine.start_battle(state)
+	_build_level(Global.game_state, 0)
 
-func _reset_for_next_level(state: GameState) -> void:
-	state.groups.clear()
+func _build_level(state: GameState, level_index: int) -> void:
+	state.current_round = level_index
+
+	# Clear transient state
+	state.get_groups_by_type(Global.GroupType.ENEMY).clear()
 	state.tiles.clear()
 	state.hazards.clear()
 	state.deck.clear()
@@ -53,23 +63,9 @@ func _reset_for_next_level(state: GameState) -> void:
 	state.active_unit_index = 0
 
 	_generate_board(state)
-	_setup_units(state, levels_data[state.current_round])
+	_setup_units(state, levels_data[level_index])
 	_setup_deck(state)
 	_validate_state(state)
-
-func _initialize_game_state(level: LevelData) -> GameState:
-	var state: GameState = GameState.new()
-	state.current_round = 0
-	state.board_size = Vector2i(BOARD_SIZE, BOARD_SIZE)
-	state.groups = []
-	state.tiles = {}
-
-	_generate_board(state)
-	_setup_units(state, level)
-	_setup_deck(state)
-	_validate_state(state)
-
-	return state
 
 func _generate_board(state: GameState) -> void:
 	# Generate Board (balanced suits)
@@ -97,12 +93,6 @@ func _generate_board(state: GameState) -> void:
 
 func _setup_units(state: GameState, level: LevelData) -> void:
 	var spawner: UnitSpawner = UnitSpawner.new()
-	
-	var selected_character: UnitData = Global.selected_unit
-	var player_group: GroupData = GroupData.new()
-	player_group.init("Player", Global.GroupType.PLAYER, [selected_character])
-
-	spawner.spawn_player_group(state, player_group)
 
 	for group_data: GroupData in level.groups:
 		spawner.spawn_enemy_group(state, group_data)
@@ -111,8 +101,12 @@ func _setup_units(state: GameState, level: LevelData) -> void:
 	state.active_unit_index = 0
 
 func _setup_deck(state: GameState) -> void:
+	var player_group: GroupState = state.get_groups_by_type(Global.GroupType.PLAYER)[0]
+	assert(player_group.get_unit_count() == 1)
+	var unit: UnitState = player_group.units[0]
+	assert(unit != null)
 	var actions: Array[Action] = []
-	for a: Action in Global.selected_unit.actions:
+	for a: Action in unit.actions:
 		if not a is MoveAction:
 			actions.append(a)
 	var current_deck: Array[CardData] = deck.duplicate()
@@ -135,26 +129,29 @@ func _validate_state(state: GameState) -> void:
 
 #region Signal Handlers
 func _on_battle_won() -> void:
-	var state: GameState = Global.game_state
+	Global.game_state.current_round += 1
+	print("Level ", Global.game_state.current_round, " won!")
 
-	state.current_round += 1
-	print("Level ", state.current_round, " won!")
-
-	if state.current_round >= levels_data.size():
+	if Global.game_state.current_round >= levels_data.size():
 		print("All levels completed! You win the game!")
-		var _name := Global.selected_unit.name
-		if not Global.character_wins.has(_name):
-			Global.character_wins[_name] = 0
-		Global.character_wins[_name] += 1
-		Global.save_game()
+		var player_group: GroupState = Global.game_state.get_groups_by_type(Global.GroupType.PLAYER)[0]
+		assert(player_group.get_unit_count() == 1)
+		var unit: UnitState = player_group.units[0]
+		assert(unit != null)
+		var _name: StringName = unit.data.name
+		if not SaveSystem.character_wins.has(_name):
+			SaveSystem.character_wins[_name] = 0
+		SaveSystem.character_wins[_name] += 1
+		SaveSystem.save_game_state(Global.game_state)
 		await Global.game_controller.change_scene(Global.SCENE_UIDS.WIN_SCREEN, "", TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 	else:
 		print("Loading next level...")
-		_reset_for_next_level(state)
-		_load_current_level()
+		_build_level(Global.game_state, Global.game_state.current_round + 1)
+		_start_level()
 
 func _on_battle_lost() -> void:
 	print("Player defeated. Returning to main menu.")
+	SaveSystem.save_game_state(Global.game_state)
 	await Global.game_controller.change_scene(Global.SCENE_UIDS.LOSE_SCREEN, "", TransitionSettings.TRANSITION_TYPE.FADE_TO_FADE)
 #endregion
 
@@ -173,13 +170,7 @@ func _input(event: InputEvent) -> void:
 
 func _jump_to_level(level_index: int) -> void:
 	assert(level_index >= 0 && level_index < levels_data.size())
-
-	var state := Global.game_state
-	if state == null:
-		state = GameState.new()
-		Global.game_state = state
-
-	state.current_round = level_index
-	_reset_for_next_level(state)
-	_load_current_level()
+	Global.game_state.current_round = level_index
+	_build_level(Global.game_state, level_index)
+	_start_level()
 #endregion
